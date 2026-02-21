@@ -734,35 +734,21 @@ export default function OnboardingFlow({
             </p>
           </div>
 
-          {/* Timeline layout */}
-          <div className="relative ml-8 md:ml-12 mb-10">
-            {/* Vertical line */}
-            <div className="absolute left-0 top-6 bottom-6 w-px bg-gradient-to-b from-brand-orange/40 via-brand-orange/20 to-transparent" />
-
+          <div className="flex flex-col gap-6 mb-10">
             {steps.map((step, i) => (
-              <div
-                key={i}
-                className="relative pl-12 pb-8 last:pb-0"
-                style={{
-                  animationDelay: `${i * 0.15}s`,
-                  animation: "fade-up 0.5s ease-out forwards",
-                  opacity: 0,
-                }}
-              >
-                {/* Number badge */}
-                <div className="absolute left-0 -translate-x-1/2 w-12 h-12 rounded-xl bg-brand-orange flex items-center justify-center text-white font-extrabold text-base shadow-lg shadow-brand-orange/30 z-10">
+              <div key={i} className="relative flex items-start gap-5">
+                <div className="w-12 h-12 rounded-xl bg-brand-orange flex items-center justify-center text-white font-extrabold text-base shrink-0"
+                  style={{ boxShadow: "0 8px 24px rgba(250, 70, 22, 0.3)" }}>
                   {step.icon}
                 </div>
-
-                {/* Card */}
-                <div className="bg-[#161616] border border-[#262626] rounded-xl p-6 hover:border-brand-orange/30 transition-all duration-200">
+                <div className="flex-1 bg-[#161616] border border-[#262626] rounded-xl p-6">
                   <h3 className="text-white font-extrabold text-lg mb-2">
                     {step.title}
                   </h3>
                   <p className="text-[#737373] text-sm leading-relaxed mb-4">
                     {step.description}
                   </p>
-                  <button className="bg-transparent border border-[#363636] text-[#e5e5e5] text-sm font-medium px-5 py-2.5 rounded-lg hover:border-brand-orange/50 hover:text-white transition-all duration-200">
+                  <button className="border border-[#363636] text-[#e5e5e5] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent">
                     {step.cta}
                   </button>
                 </div>
