@@ -154,8 +154,8 @@ body {
   position: absolute;
   top: -6px;
   bottom: -6px;
-  left: -6px;
-  right: -6px;
+  left: -4px;
+  right: -4px;
   border-radius: inherit;
   z-index: -1;
   background: rgba(250, 70, 22, 0.35);
@@ -183,7 +183,7 @@ body {
     opacity: 0;
   }
   100% {
-    transform: scaleX(1.02) scaleY(1.28);
+    transform: scaleX(1.06) scaleY(1.12);
     opacity: 0;
   }
 }
