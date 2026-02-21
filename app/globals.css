@@ -1,4 +1,36 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+@font-face {
+  font-family: "Acid Grotesk";
+  src: url("/fonts/FFF-AcidGrotesk-Regular%20copy.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Acid Grotesk";
+  src: url("/fonts/FFF-AcidGrotesk-Medium%20copy.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Acid Grotesk";
+  src: url("/fonts/FFF-AcidGrotesk-Bold%20copy.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Acid Grotesk";
+  src: url("/fonts/FFF-AcidGrotesk-ExtraBold%20copy.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
@@ -25,10 +57,14 @@ html,
 body {
   background-color: var(--whop-bg);
   color: var(--whop-text);
-  font-family: "Plus Jakarta Sans", sans-serif;
+font-family: "Inter", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Acid Grotesk", "Inter", system-ui, sans-serif;
 }
 
 /* Scrollbar styling to match Whop's dark theme */
@@ -183,7 +219,7 @@ body {
     opacity: 0;
   }
   100% {
-    transform: scaleX(1.06) scaleY(1.12);
+    transform: scaleX(1.09) scaleY(1.14);
     opacity: 0;
   }
 }
