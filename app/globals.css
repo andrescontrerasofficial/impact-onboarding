@@ -113,16 +113,15 @@ body {
 }
 
 /* CTA Button */
+/* CTA Button */
 .cta-button {
-  background: var(--brand-orange);
-  transition: all 0.2s ease;
+  background: linear-gradient(to bottom, #ff845f, #FA4616);
+  transition: all 0.25s ease;
   position: relative;
-  overflow: hidden;
 }
 .cta-button:hover {
-  background: #e03d10;
+  background: linear-gradient(to bottom, #ff6a3a, #e53e10);
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(250, 70, 22, 0.3);
 }
 .cta-button:active {
   transform: translateY(0);
@@ -131,7 +130,6 @@ body {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
 }
 
 /* Next step card in final page */

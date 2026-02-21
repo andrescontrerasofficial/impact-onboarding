@@ -399,7 +399,7 @@ export default function OnboardingFlow({
         <div className="text-center mb-14">
           <button
             onClick={() => goToPage(3)}
-            className="btn-pulse cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl animate-pulse-glow"
+            className="btn-pulse cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl"
           >
             i am committed to my success →
           </button>
