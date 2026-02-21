@@ -734,21 +734,32 @@ export default function OnboardingFlow({
             </p>
           </div>
 
-          <div className="flex flex-col gap-6 mb-10">
+          <div className="relative flex flex-col gap-6 mb-10">
+            {/* gradient timeline line */}
+            <div
+              className="absolute left-6 top-6 bottom-6 w-[2px]"
+              style={{
+                background:
+                  "linear-gradient(to bottom, #FA4616 0%, #FA461640 50%, #FA461610 100%)",
+              }}
+            />
+
             {steps.map((step, i) => (
               <div key={i} className="relative flex items-start gap-5">
-                <div className="w-12 h-12 rounded-xl bg-brand-orange flex items-center justify-center text-white font-extrabold text-base shrink-0"
-                  style={{ boxShadow: "0 8px 24px rgba(250, 70, 22, 0.3)" }}>
+                <div
+                  className="relative z-10 w-12 h-12 rounded-xl bg-brand-orange flex items-center justify-center text-white font-extrabold text-base shrink-0"
+                  style={{ boxShadow: "0 8px 24px rgba(250, 70, 22, 0.3)" }}
+                >
                   {step.icon}
                 </div>
-                <div className="flex-1 bg-[#161616] border border-[#262626] rounded-xl p-6">
+                <div className="flex-1 bg-[#161616] border border-[#262626] rounded-xl p-6 hover:border-[#363636] transition-colors">
                   <h3 className="text-white font-extrabold text-lg mb-2">
                     {step.title}
                   </h3>
                   <p className="text-[#737373] text-sm leading-relaxed mb-4">
                     {step.description}
                   </p>
-                  <button className="border border-[#363636] text-[#e5e5e5] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent">
+                  <button className="border border-[#363636] text-[#e5e5e5] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent hover:bg-[#1a1a1a] transition-colors">
                     {step.cta}
                   </button>
                 </div>
