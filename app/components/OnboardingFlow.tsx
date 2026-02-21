@@ -372,12 +372,12 @@ export default function OnboardingFlow({
             {/* TODO: Replace this with your actual VSL video embed */}
             {/* Example: <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" ... /> */}
             <iframe
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-              className="w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title="Impact Team VSL"
-            />
+  src="https://fast.wistia.net/embed/iframe/n0p5vzv7ir"
+  className="w-full h-full"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  title="Impact Team VSL"
+/>
           </div>
         </div>
 
