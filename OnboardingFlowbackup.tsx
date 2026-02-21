@@ -105,100 +105,86 @@ const features = [
 
 // ─── Next Steps Data (conditional on bucket) ────────────────────────
 // TODO: Replace these with your actual next steps for each bucket
-// ─── REPLACEMENT #1: Replace the entire nextStepsMap (around line 100) with this ───
-
 const nextStepsMap: Record<
   string,
-  { title: string; description: string; cta: string; icon: string }[]
+  { title: string; description: string; link?: string; icon: string }[]
 > = {
   new_to_workforce: [
     {
-      title: "[Join the Community]",
+      title: 'Watch the "Sales 101" Module',
       description:
-        "Your first step: get inside the group, introduce yourself, and connect with people on the same path.",
-      cta: "Join Now →",
-      icon: "01",
+        "Start with the fundamentals — learn what sales actually is, why it's the highest-paid skill you can learn, and how the game works.",
+      icon: "1",
     },
     {
-      title: "[Watch Sales 101]",
+      title: "Join the #introductions Channel",
       description:
-        "Start with the fundamentals — learn what sales actually is, why it pays more than almost anything else, and how the game works.",
-      cta: "Watch Now →",
-      icon: "02",
+        "Introduce yourself to the community. Tell everyone who you are and what you're trying to build. You'd be surprised how many people want to help.",
+      icon: "2",
     },
     {
-      title: "[Complete the Cold Call Starter Kit]",
+      title: "Complete the Cold Call Starter Kit",
       description:
         "This 30-minute module gives you your first script, teaches you tonality basics, and gets you ready to make your first 10 calls.",
-      cta: "Start Module →",
-      icon: "03",
+      icon: "3",
     },
     {
-      title: "[Attend a Live Coaching Call]",
+      title: "Attend This Week's Live Coaching Call",
       description:
-        "Nothing accelerates learning faster than watching real reps get coached in real time. Jump on this week's session and absorb everything.",
-      cta: "See Schedule →",
-      icon: "04",
+        "Nothing accelerates learning faster than watching real reps get coached in real time. Jump on and absorb everything.",
+      icon: "4",
     },
   ],
   career_switcher: [
     {
-      title: "[Join the Community]",
+      title: 'Watch the "Career Transition" Roadmap',
       description:
-        "Your first step: get inside the group, introduce yourself, and let people know what industry you're coming from.",
-      cta: "Join Now →",
-      icon: "01",
+        "This module is built specifically for people coming from other industries. It maps your existing skills to sales and shows you the fastest path to getting hired.",
+      icon: "1",
     },
     {
-      title: "[Watch the Career Transition Roadmap]",
-      description:
-        "This module is built specifically for people switching industries. It maps your existing skills to sales and shows you the fastest path to getting hired.",
-      cta: "Watch Now →",
-      icon: "02",
-    },
-    {
-      title: "[Browse the Job Board]",
+      title: "Browse the Job Board",
       description:
         "We have exclusive SDR and AE listings from companies that specifically hire career switchers. Some of these never get posted publicly.",
-      cta: "View Jobs →",
-      icon: "03",
+      icon: "2",
     },
     {
-      title: "[Book a Strategy Session]",
+      title: "Join the #career-switchers Channel",
+      description:
+        "This is your tribe — people who made the exact same leap you're about to make. Get advice, ask questions, and find accountability partners.",
+      icon: "3",
+    },
+    {
+      title: "Book a Strategy Session",
       description:
         "Our team will help you build a personalized 90-day plan to break into sales based on your background, location, and goals.",
-      cta: "Book Now →",
-      icon: "04",
+      icon: "4",
     },
   ],
   already_in_sales: [
     {
-      title: "[Join the Community]",
+      title: "Jump Into the Advanced Closing Module",
       description:
-        "Get inside the group and connect with other top performers who are grinding just as hard as you.",
-      cta: "Join Now →",
-      icon: "01",
+        "Skip the basics — you already know them. This module covers multi-threading, executive selling, complex deal navigation, and closing techniques that 99% of reps never learn.",
+      icon: "1",
     },
     {
-      title: "[Start the Advanced Closing Module]",
+      title: "Submit a Deal for Review",
       description:
-        "Skip the basics — this covers multi-threading, executive selling, complex deal navigation, and techniques that 99% of reps never learn.",
-      cta: "Watch Now →",
-      icon: "02",
+        "Got a deal you're working? Submit it to the Deal Review board and get tactical feedback from closers who've been in your exact situation.",
+      icon: "2",
     },
     {
-      title: "[Access the Software]",
+      title: "Join the #top-performers Channel",
       description:
-        "Set up your tools, plug in the frameworks, and get your pipeline dialed in with our proven systems.",
-      cta: "Open Software →",
-      icon: "03",
+        "This is where the serious reps hang out. Strategy discussions, win stories, and the kind of knowledge that helps you go from good to elite.",
+      icon: "3",
     },
     {
-      title: "[Submit a Deal for Review]",
+      title: "Attend the Next Masterclass",
       description:
-        "Got a deal you're working? Submit it to the review board and get tactical feedback from closers who've been in your exact situation.",
-      cta: "Submit Deal →",
-      icon: "04",
+        "We bring in guest speakers who have built 7- and 8-figure sales careers. These sessions alone are worth more than most sales courses.",
+      icon: "4",
     },
   ],
 };
@@ -697,8 +683,6 @@ export default function OnboardingFlow({
   );
 
   // ─── PAGE 5: Personalized Next Steps ────────────────────────
-  // ─── REPLACEMENT #2: Replace the entire NextStepsPage component with this ───
-
   const NextStepsPage = () => {
     const steps = nextStepsMap[selectedBucket || "new_to_workforce"];
     const bucketLabels: Record<string, string> = {
@@ -718,7 +702,7 @@ export default function OnboardingFlow({
         >
           <StepIndicator />
 
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <div className="inline-block bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
               plan ready
             </div>
@@ -734,37 +718,29 @@ export default function OnboardingFlow({
             </p>
           </div>
 
-          {/* Timeline layout */}
-          <div className="relative ml-8 md:ml-12 mb-10">
-            {/* Vertical line */}
-            <div className="absolute left-0 top-6 bottom-6 w-px bg-gradient-to-b from-brand-orange/40 via-brand-orange/20 to-transparent" />
-
+          <div className="flex flex-col gap-4 mb-10">
             {steps.map((step, i) => (
               <div
                 key={i}
-                className="relative pl-12 pb-8 last:pb-0"
+                className="next-step-card bg-[#161616] border border-[#262626] rounded-xl p-5"
                 style={{
                   animationDelay: `${i * 0.15}s`,
                   animation: "fade-up 0.5s ease-out forwards",
                   opacity: 0,
                 }}
               >
-                {/* Number badge */}
-                <div className="absolute left-0 -translate-x-1/2 w-12 h-12 rounded-xl bg-brand-orange flex items-center justify-center text-white font-extrabold text-base shadow-lg shadow-brand-orange/30 z-10">
-                  {step.icon}
-                </div>
-
-                {/* Card */}
-                <div className="bg-[#161616] border border-[#262626] rounded-xl p-6 hover:border-brand-orange/30 transition-all duration-200">
-                  <h3 className="text-white font-extrabold text-lg mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-[#737373] text-sm leading-relaxed mb-4">
-                    {step.description}
-                  </p>
-                  <button className="bg-transparent border border-[#363636] text-[#e5e5e5] text-sm font-medium px-5 py-2.5 rounded-lg hover:border-brand-orange/50 hover:text-white transition-all duration-200">
-                    {step.cta}
-                  </button>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange font-bold text-sm shrink-0">
+                    {step.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold text-base mb-1">
+                      {step.title}
+                    </h3>
+                    <p className="text-[#737373] text-sm leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
