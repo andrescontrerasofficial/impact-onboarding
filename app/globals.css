@@ -152,7 +152,10 @@ body {
 .btn-pulse::after {
   content: "";
   position: absolute;
-  inset: -10px;
+  top: -6px;
+  bottom: -6px;
+  left: -4px;
+  right: -4px;
   border-radius: inherit;
   z-index: -1;
   background: rgba(250, 70, 22, 0.35);
@@ -180,7 +183,7 @@ body {
     opacity: 0;
   }
   100% {
-    transform: scaleX(1.04) scaleY(1.18);
+    transform: scaleX(1.02) scaleY(1.28);
     opacity: 0;
   }
 }
