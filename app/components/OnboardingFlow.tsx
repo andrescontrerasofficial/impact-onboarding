@@ -360,7 +360,7 @@ export default function OnboardingFlow({
 
         <button
           onClick={() => goToPage(2)}
-          className="cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
+          className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
         >
           let&apos;s go →
         </button>
@@ -399,7 +399,7 @@ export default function OnboardingFlow({
         <div className="text-center mb-14">
           <button
             onClick={() => goToPage(3)}
-            className="cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl animate-pulse-glow"
+            className="btn-pulse cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl animate-pulse-glow"
           >
             i am committed to my success →
           </button>
@@ -549,7 +549,7 @@ export default function OnboardingFlow({
             <button
               onClick={() => goToPage(4)}
               disabled={!selectedBucket}
-              className="cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl disabled:opacity-30"
+              className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl disabled:opacity-30"
             >
               that&apos;s me — continue →
             </button>
@@ -618,7 +618,7 @@ export default function OnboardingFlow({
         <div className="text-center">
           <button
             onClick={startLoadingTransition}
-            className="cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
+            className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
           >
             show me my personalized plan →
           </button>
@@ -637,7 +637,7 @@ export default function OnboardingFlow({
           >
             <button
               onClick={() => setVideoModal(null)}
-              className="absolute -top-10 right-0 text-white/60 hover:text-white text-sm"
+              className="btn-pulse absolute -top-10 right-0 text-white/60 hover:text-white text-sm"
             >
               ✕ close
             </button>
@@ -759,7 +759,7 @@ export default function OnboardingFlow({
                   <p className="text-[#737373] text-sm leading-relaxed mb-4">
                     {step.description}
                   </p>
-                  <button className="border border-[#363636] text-[#e5e5e5] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent hover:bg-[#1a1a1a] transition-colors">
+                  <button className="btn-pulse border border-[#363636] text-[#e5e5e5] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent hover:bg-[#1a1a1a] transition-colors">
                     {step.cta}
                   </button>
                 </div>
