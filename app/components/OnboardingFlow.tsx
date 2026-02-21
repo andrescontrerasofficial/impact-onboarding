@@ -347,9 +347,9 @@ export default function OnboardingFlow({
         </div>
 
         <h1 className="text-4xl md:text-5xl font-extrabold text-brand-cream tracking-tight mb-4 leading-tight">
-          welcome to
+          Welcome to
           <br />
-          <span className="text-brand-orange">the impact team.</span>
+          <span className="text-brand-orange">The Impact Team.</span>
         </h1>
 
         <p className="text-[#737373] text-lg mb-10 leading-relaxed">
