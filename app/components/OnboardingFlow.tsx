@@ -212,7 +212,6 @@ export default function OnboardingFlow({
 }: OnboardingFlowProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedBucket, setSelectedBucket] = useState<Bucket>(null);
-  const [pulsingCard, setPulsingCard] = useState<Bucket>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [loadingText, setLoadingText] = useState("");
@@ -512,32 +511,20 @@ export default function OnboardingFlow({
 
           <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6">
             {buckets.map((b) => (
-              <div key={b.id} className="relative">
-                {/* One-time click pulse ring — outside overflow-hidden card so it can expand freely */}
-                {pulsingCard === b.id && (
-                  <div
-                    className="absolute inset-0 rounded-3xl border-2 border-brand-orange pointer-events-none z-20"
-                    style={{ animation: "cardPulseOnce 0.7s ease-out forwards" }}
-                  />
-                )}
-
               <div
-                onClick={() => {
-                  handleBucketSelect(b.id);
-                  setPulsingCard(b.id);
-                  setTimeout(() => setPulsingCard(null), 750);
-                }}
-                className={`avatar-card relative border-2 rounded-3xl p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
+                key={b.id}
+                onClick={() => handleBucketSelect(b.id)}
+                className={`avatar-card relative border rounded-3xl p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
                   selectedBucket === b.id
-                    ? "border-brand-orange"
+                    ? "border-[rgba(250,70,22,0.45)]"
                     : "border-[#1f1f1f]"
                 }`}
                 style={{
                   background: selectedBucket === b.id
-                    ? "linear-gradient(160deg, #160c06 0%, #0c0c0c 60%)"
+                    ? "linear-gradient(160deg, #130a04 0%, #0c0c0c 55%)"
                     : "#0c0c0c",
                   boxShadow: selectedBucket === b.id
-                    ? "0 0 0 1px rgba(250, 70, 22, 0.6), 0 0 45px rgba(250, 70, 22, 0.55), 0 0 90px rgba(250, 70, 22, 0.25)"
+                    ? "0 0 18px rgba(250, 70, 22, 0.18), 0 0 50px rgba(250, 70, 22, 0.08)"
                     : "none",
                 }}
               >
@@ -547,7 +534,7 @@ export default function OnboardingFlow({
                     className="absolute -inset-12 rounded-full blur-3xl transition-opacity duration-300"
                     style={{
                       background: "radial-gradient(circle, #FA4616 0%, transparent 65%)",
-                      opacity: selectedBucket === b.id ? 0.55 : 0.22,
+                      opacity: selectedBucket === b.id ? 0.32 : 0.22,
                     }}
                   />
                   <img src={b.image} alt={b.title} className="relative w-36 h-36 object-contain" />
@@ -582,7 +569,6 @@ export default function OnboardingFlow({
                     </svg>
                   </div>
                 )}
-              </div>
               </div>
             ))}
           </div>
