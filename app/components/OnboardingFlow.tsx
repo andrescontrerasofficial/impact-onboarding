@@ -332,7 +332,9 @@ export default function OnboardingFlow({
   );
 
   // ─── PAGE 1: Welcome ────────────────────────────────────────
-  const WelcomePage = () => (
+  const WelcomePage = () => {
+    const firstName = userName?.split(" ")[0] || "hey";
+    return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center">
       <div
         className={`max-w-lg transition-all duration-500 ${
@@ -346,8 +348,8 @@ export default function OnboardingFlow({
           <span className="text-brand-orange text-2xl font-bold">I</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-brand-cream tracking-tight mb-4 leading-tight">
-          Welcome to
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
+          <span className="text-brand-cream">{firstName}, welcome to</span>
           <br />
           <span className="text-brand-orange">The Impact Team.</span>
         </h1>
@@ -367,6 +369,7 @@ export default function OnboardingFlow({
       </div>
     </div>
   );
+  };
 
   // ─── PAGE 2: VSL + Testimonials ─────────────────────────────
   const VSLPage = () => (
