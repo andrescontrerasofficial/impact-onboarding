@@ -529,22 +529,22 @@ export default function OnboardingFlow({
                 {/* Image with soft glow behind it */}
                 <div className="relative mb-6 mt-2">
                   <div
-                    className="absolute inset-0 rounded-full blur-2xl transition-opacity duration-300"
+                    className="absolute -inset-12 rounded-full blur-3xl transition-opacity duration-300"
                     style={{
-                      background: "radial-gradient(circle, #FA4616 0%, transparent 70%)",
-                      opacity: selectedBucket === b.id ? 0.35 : 0.12,
+                      background: "radial-gradient(circle, #FA4616 0%, transparent 65%)",
+                      opacity: selectedBucket === b.id ? 0.55 : 0.22,
                     }}
                   />
                   <img src={b.image} alt={b.title} className="relative w-36 h-36 object-contain" />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-white font-extrabold text-3xl mb-1">
+                <h3 className="text-white font-extrabold text-[1.65rem] mb-1">
                   {b.title}
                 </h3>
 
                 {/* Subtitle */}
-                <p className="text-brand-orange text-base font-semibold mb-3">
+                <p className="text-brand-orange text-[15px] font-semibold mb-3">
                   {b.subtitle}
                 </p>
 
