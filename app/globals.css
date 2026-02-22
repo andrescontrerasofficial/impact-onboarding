@@ -289,10 +289,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─── Theme-aware logo swap ──────────────────────────────────── */
-.logo-dark  { display: block; }
-.logo-light { display: none; }
-[data-theme="light"] .logo-dark  { display: none; }
-[data-theme="light"] .logo-light { display: block; }
+/* Single file, CSS filter inverts it for light mode — same quality both ways */
+.logo-img { filter: none; }
+[data-theme="light"] .logo-img { filter: invert(1); }
 
 /* ─── Page entrance animations ──────────────────────────────── */
 @keyframes fadeSlideUp {
