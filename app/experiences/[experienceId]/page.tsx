@@ -25,9 +25,18 @@ export default async function ExperiencePage({
     }
 
     if (userId) {
-      const user = await whopApi.users.retrieve(userId);
-      userName = user.name || user.username || "";
-      console.log("=== USER DATA ===", JSON.stringify(user));
+      // Use members endpoint which includes email
+      const members = await whopApi.members.list({
+  user_ids: [userId],
+});
+      
+      const member = members.data?.[0];
+      if (member) {
+        userName = member.user?.name || member.user?.username || "";
+        userEmail = member.user?.email || "";
+      }
+      
+      console.log("=== MEMBER DATA ===", JSON.stringify(member));
     }
   } catch (error) {
     console.error("Error fetching user data:", error);
