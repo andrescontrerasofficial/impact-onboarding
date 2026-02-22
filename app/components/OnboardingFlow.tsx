@@ -385,6 +385,15 @@ export default function OnboardingFlow({
       >
         <StepIndicator />
 
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-brand-cream mb-3">
+            This isn&apos;t a <span className="text-brand-orange">hobby.</span>
+          </h2>
+          <p className="text-[#737373] text-base">
+            At <span className="text-brand-orange">Impact Team</span>, we follow the Michelin Standard. To stay in this room, you have to <span className="text-brand-orange">execute.</span>
+          </p>
+        </div>
+
         {/* Video Section */}
         <div className="mb-8">
           <div className="aspect-video w-full rounded-xl overflow-hidden bg-[#161616] border border-[#262626] relative">
@@ -406,7 +415,7 @@ export default function OnboardingFlow({
             onClick={() => goToPage(4)}
             className="btn-pulse cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl"
           >
-            i am committed to my success →
+            I am committed to my success →
           </button>
         </div>
 
@@ -416,10 +425,10 @@ export default function OnboardingFlow({
             Don&apos;t just take our word for it
           </h2>
           <p className="text-center text-brand-cream text-xl md:text-2xl font-bold mb-8">
-            some results from people who were once on this exact page
+            Thousands have been on this exact page before you.
             <br />
             <span className="text-brand-orange">
-              and decided to treat sales like more than just a hobby.
+              Here are results from some that treated it like more than a hobby.
             </span>
           </p>
 
