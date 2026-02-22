@@ -513,12 +513,12 @@ export default function OnboardingFlow({
                 <img src={b.image} alt={b.title} className="w-32 h-32 mb-6 mt-2 object-contain" />
 
                 {/* Title */}
-                <h3 className="text-white font-extrabold text-xl mb-1">
+                <h3 className="text-white font-extrabold text-2xl mb-1">
                   {b.title}
                 </h3>
 
                 {/* Subtitle */}
-                <p className="text-brand-orange text-xs font-semibold mb-3">
+                <p className="text-brand-orange text-sm font-semibold mb-3">
                   {b.subtitle}
                 </p>
 
