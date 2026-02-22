@@ -491,26 +491,26 @@ export default function OnboardingFlow({
 
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-extrabold text-brand-cream mb-3">
-              Tailor your experience.
+              Tailor your <span className="text-brand-orange">experience.</span>
             </h2>
             <p className="text-[#737373] text-base">
-              Before we open the gates, tell us who you are so we can tailor the blueprint.
+              Before we open the <span className="text-brand-orange">gates</span>, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             {buckets.map((b) => (
               <div
                 key={b.id}
                 onClick={() => handleBucketSelect(b.id)}
-                className={`avatar-card bg-[#161616] border rounded-2xl p-6 text-center flex flex-col items-center ${
+                className={`avatar-card bg-[#161616] border rounded-2xl p-8 text-center flex flex-col items-center ${
                   selectedBucket === b.id
                     ? "selected border-brand-orange"
                     : "border-[#262626]"
                 }`}
               >
                 {/* Icon */}
-                <img src={b.image} alt={b.title} className="w-24 h-24 mb-5 mt-2 object-contain" />
+                <img src={b.image} alt={b.title} className="w-32 h-32 mb-6 mt-2 object-contain" />
 
                 {/* Title */}
                 <h3 className="text-white font-extrabold text-xl mb-1">
@@ -518,7 +518,7 @@ export default function OnboardingFlow({
                 </h3>
 
                 {/* Subtitle */}
-                <p className="text-brand-orange text-xs font-semibold uppercase tracking-wider mb-3">
+                <p className="text-brand-orange text-xs font-semibold mb-3">
                   {b.subtitle}
                 </p>
 
