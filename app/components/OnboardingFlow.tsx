@@ -23,75 +23,78 @@ const testimonialsByBucket = {
   // ── Shown when avatar = "The Explorer" (no work experience) ──────────
   new_to_workforce: [
     {
-      name: "Aaliyah K.",
-      role: "From $0 to $8k/mo in 4 months",
+      name: "Brayden Decker",
+      role: "25k in Student Loan Debt to 15k/mo Earner",
       quote:
-        "I had zero experience in sales — never even had a real job. This community took me from nothing to making more than both my parents combined.",
-      avatar: "AK",
+        "Was in a frat and heard of Impact and andres from a friend and decided to give it a shot even though I was already 25k in student loan debt but thank God i hit 15k/month consistent in 4ish months.",
+      avatar: "BD",
+      image: "/brayden.svg",
     },
     {
-      // TODO: Replace with real testimonial
-      name: "First Name L.",
-      role: "Result line here",
-      quote: "Testimonial quote here.",
-      avatar: "FL",
+      name: "Mila Sokolskiy",
+      role: "$1k commission days at 17",
+      quote: "First 1k comm day on new years eve and im on track to make Jan my highest month. Thanks to impact🐐",
+      avatar: "MS",
+      image: "/mila.svg",
     },
     {
-      // TODO: Replace with real testimonial
-      name: "First Name L.",
-      role: "Result line here",
-      quote: "Testimonial quote here.",
-      avatar: "FL",
+      name: "Phillip Ek",
+      role: "Removed from our house to 20k/month",
+      quote: "I worked with Andres since he ran an agency years ago. My mom and I got kicked out of our house and struggled around europe for a while. I saw the entire journey of Impact and rose with it. Made 20k last month in commissions selling for AI Acquisitions (they also got me on the offer).",
+      avatar: "PE",
+      image: "/phillip.svg",
     },
   ],
 
   // ── Shown when avatar = "The Builder" (career switcher) ──────────────
   career_switcher: [
     {
-      name: "Daniela R.",
-      role: "Went from retail to tech sales in 90 days",
+      name: "Hunter Claassen",
+      role: "From LA fitness to $108k Commission Month",
       quote:
-        "I was working retail making $15/hr. Joined the Impact Team, followed the roadmap, and landed a $65k base + commission role within 3 months.",
-      avatar: "DR",
+        "I was working at LA fitness super underpaid. Did training with Andres and hit 108k highest month in commissions 5 months later. The breakdown was $416k cash collected that month, 22% commission, 20k in bonus.",
+      avatar: "HC",
+      image: "/hunter.svg",
     },
     {
-      // TODO: Replace with real testimonial
-      name: "First Name L.",
-      role: "Result line here",
-      quote: "Testimonial quote here.",
-      avatar: "FL",
+      name: "Brayden Decker",
+      role: "25k in Student Loan Debt to 15k/mo Earner",
+      quote: "Was in a frat and heard of Impact and andres from a friend and decided to give it a shot even though I was already 25k in student loan debt but thank God i hit 15k/month consistent in 4ish months.",
+      avatar: "BD",
+      image: "/brayden.svg",
     },
     {
-      // TODO: Replace with real testimonial
-      name: "First Name L.",
-      role: "Result line here",
-      quote: "Testimonial quote here.",
-      avatar: "FL",
+      name: "James Wu",
+      role: "Marketing agency to $50k/mo AUD commission rep",
+      quote: "First 50k AUD month last month. Came to Impact Team with no sales experience, I was running an SMMA before but never made more than a couple grand.",
+      avatar: "JW",
+      image: null,
     },
   ],
 
   // ── Shown when avatar = "The Scientist" (already in sales) ───────────
   already_in_sales: [
     {
-      name: "Sophia M.",
-      role: "Promoted to team lead in 8 months",
+      name: "Hunter Claassen",
+      role: "From LA fitness sales to $108k Commission Month",
       quote:
-        "I already had sales experience but was stuck. The advanced modules and the people in here pushed me to another level. Got promoted faster than anyone at my company.",
-      avatar: "SM",
+        "I was selling for LA fitness at the front desk super underpaid. Did training with Andres and hit 108k highest month in commissions 5 months later. The breakdown was $416k cash collected that month, 22% commission, 20k in bonus.",
+      avatar: "HC",
+      image: "/hunter.svg",
     },
     {
-      // TODO: Replace with real testimonial
-      name: "First Name L.",
-      role: "Result line here",
-      quote: "Testimonial quote here.",
-      avatar: "FL",
+      name: "Abel DaSilva",
+      role: "15k to $30k/mo in comms selling a trading algorithm.",
+      quote: "Impact gave me overall a clear structure knowing exactly what answers I needed from every questions and the objection handling sequence. Before HIGHEST month EVER was 15k this month theres 5 days left and im pacing 300k cash and 30k comms.",
+      avatar: "AD",
+      image: "/abel.svg",
     },
     {
-      // TODO: Replace with real testimonial
-      name: "First Name L.",
-      role: "Result line here",
-      quote: "Testimonial quote here.",
-      avatar: "FL",
+      name: "Omid Aboui",
+      role: "$500 in bank to $40k/mo selling a SAAS",
+      quote: "I paid $16k for 7th level IC and it helped a bit with concepts and got me to 3-4k/month. I stayed on the same offer selling a marketing SAAS but in 3 months with Impact hit my first 40k month in income because I was actually able to implement the process.",
+      avatar: "OA",
+      image: "/omid.svg",
     },
   ],
 };
@@ -542,8 +545,14 @@ export default function OnboardingFlow({
                 style={anim("fadeSlideUp", 0.55 + i * 0.08)}
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange text-sm font-bold">
-                    {t.avatar}
+                  <div className="w-10 h-10 rounded-full overflow-hidden border border-brand-orange/20 flex-shrink-0">
+                    {t.image ? (
+                      <img src={t.image} alt={t.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full bg-brand-orange/10 flex items-center justify-center text-brand-orange text-sm font-bold">
+                        {t.avatar}
+                      </div>
+                    )}
                   </div>
                   <div>
                     <p className="text-[var(--c-text)] font-semibold text-sm">
