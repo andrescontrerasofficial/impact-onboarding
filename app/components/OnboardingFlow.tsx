@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { createSdk } from "@whop/iframe";
 
 // ─── Types ──────────────────────────────────────────────────────────
 type Bucket = "new_to_workforce" | "career_switcher" | "already_in_sales" | null;
@@ -215,6 +216,32 @@ export default function OnboardingFlow({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedBucket, setSelectedBucket] = useState<Bucket>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // ─── Whop theme sync ────────────────────────────────────────
+  useEffect(() => {
+    const applyTheme = (appearance: "light" | "dark") => {
+      document.documentElement.setAttribute("data-theme", appearance);
+    };
+
+    const init = async () => {
+      try {
+        const sdk = createSdk({
+          onMessage: {
+            onColorThemeChange: (colorTheme) => {
+              applyTheme(colorTheme.appearance ?? "dark");
+            },
+          },
+        });
+        const colorTheme = await sdk.getColorTheme();
+        applyTheme(colorTheme.appearance ?? "dark");
+      } catch {
+        // Not inside a Whop iframe (e.g. dev) — default to dark
+        applyTheme("dark");
+      }
+    };
+
+    init();
+  }, []);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [loadingText, setLoadingText] = useState("");
   const [videoModal, setVideoModal] = useState<string | null>(null);
@@ -326,7 +353,7 @@ export default function OnboardingFlow({
               ? "active w-6"
               : step < currentPage
               ? "completed"
-              : "bg-[#262626]"
+              : "bg-[var(--c-border)]"
           }`}
         />
       ))}
@@ -351,16 +378,16 @@ export default function OnboardingFlow({
         </div>
 
         {firstName && (
-          <p className="text-[#737373] text-xl mb-3">Hey, {firstName}.</p>
+          <p className="text-[var(--c-muted)] text-xl mb-3">Hey, {firstName}.</p>
         )}
 
-        <h1 className="text-5xl md:text-6xl font-extrabold text-brand-cream tracking-tight mb-4 leading-tight">
+        <h1 className="text-5xl md:text-6xl font-extrabold text-[var(--c-heading)] tracking-tight mb-4 leading-tight">
           Welcome to
           <br />
           <span className="text-brand-orange">The Impact Team.</span>
         </h1>
 
-        <p className="text-[#737373] text-lg mb-10 leading-relaxed">
+        <p className="text-[var(--c-muted)] text-lg mb-10 leading-relaxed">
           Learn how to close high-ticket deals with a simple formula.
         </p>
 
@@ -388,17 +415,17 @@ export default function OnboardingFlow({
         <StepIndicator />
 
         <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-brand-cream mb-3">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
             This is not a <span className="text-brand-orange">hobby.</span>
           </h2>
-          <p className="text-[#737373] text-base">
+          <p className="text-[var(--c-muted)] text-base">
             At <span className="text-brand-orange">Impact Team</span>, we follow the <span className="text-brand-orange">Michelin Standard.</span> To stay in this room, you have to <span className="text-brand-orange">execute.</span>
           </p>
         </div>
 
         {/* Video Section */}
         <div className="mb-8">
-          <div className="aspect-video w-full rounded-xl overflow-hidden bg-[#161616] border border-[#262626] relative">
+          <div className="aspect-video w-full rounded-xl overflow-hidden bg-[var(--c-card)] border border-[var(--c-border)] relative">
             {/* TODO: Replace this with your actual VSL video embed */}
             {/* Example: <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" ... /> */}
             <iframe
@@ -422,8 +449,8 @@ export default function OnboardingFlow({
         </div>
 
         {/* Testimonials Section */}
-        <div className="border-t border-[#262626] pt-10">
-          <h2 className="text-center text-3xl md:text-4xl font-extrabold text-brand-cream mb-8">
+        <div className="border-t border-[var(--c-border)] pt-10">
+          <h2 className="text-center text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-8">
             The kind of <span className="text-brand-orange">results</span> you get when you treat this like more than a <span className="text-brand-orange">hobby</span>
           </h2>
 
@@ -431,7 +458,7 @@ export default function OnboardingFlow({
             {testimonials.map((t, i) => (
               <div
                 key={i}
-                className="testimonial-card bg-[#161616] border border-[#262626] rounded-xl p-5"
+                className="testimonial-card bg-[var(--c-card)] border border-[var(--c-border)] rounded-xl p-5"
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
                 <div className="flex items-center gap-3 mb-3">
@@ -439,13 +466,13 @@ export default function OnboardingFlow({
                     {t.avatar}
                   </div>
                   <div>
-                    <p className="text-white font-semibold text-sm">
+                    <p className="text-[var(--c-text)] font-semibold text-sm">
                       {t.name}
                     </p>
                     <p className="text-brand-orange text-xs">{t.role}</p>
                   </div>
                 </div>
-                <p className="text-[#a3a3a3] text-sm leading-relaxed">
+                <p className="text-[var(--c-muted)] text-sm leading-relaxed">
                   &ldquo;{t.quote}&rdquo;
                 </p>
               </div>
@@ -494,10 +521,10 @@ export default function OnboardingFlow({
           <StepIndicator />
 
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-brand-cream mb-3">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
               Tailor your <span className="text-brand-orange">experience.</span>
             </h2>
-            <p className="text-[#737373] text-base">
+            <p className="text-[var(--c-muted)] text-base">
               Before we open the <span className="text-brand-orange">gates</span>, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
             </p>
           </div>
@@ -521,12 +548,12 @@ export default function OnboardingFlow({
                 className={`avatar-card relative border-2 rounded-3xl p-5 md:p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
                   selectedBucket === b.id
                     ? "is-selected border-brand-orange"
-                    : "border-[#2c2c2c]"
+                    : "border-[var(--c-border)]"
                 }`}
                 style={{
                   background: selectedBucket === b.id
-                    ? "linear-gradient(160deg, #130a04 0%, #0a0a0a 55%)"
-                    : "#0a0a0a",
+                    ? "var(--c-avatar-selected-bg)"
+                    : "var(--c-bg)",
                   boxShadow: selectedBucket === b.id
                     ? "0 0 0 1px rgba(250, 70, 22, 0.35), 0 0 30px rgba(250, 70, 22, 0.28), 0 0 65px rgba(250, 70, 22, 0.12)"
                     : "none",
@@ -538,7 +565,7 @@ export default function OnboardingFlow({
                 </div>
 
                 {/* Title */}
-                <h3 className="text-white font-extrabold text-lg md:text-[1.65rem] mb-1">
+                <h3 className="text-[var(--c-text)] font-extrabold text-lg md:text-[1.65rem] mb-1">
                   {b.title}
                 </h3>
 
@@ -548,7 +575,7 @@ export default function OnboardingFlow({
                 </p>
 
                 {/* Description */}
-                <p className="text-[#737373] text-xs md:text-sm leading-relaxed flex-1">
+                <p className="text-[var(--c-muted)] text-xs md:text-sm leading-relaxed flex-1">
                   {b.description}
                 </p>
 
@@ -598,10 +625,10 @@ export default function OnboardingFlow({
         <StepIndicator />
 
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-brand-cream mb-3">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
             Don&apos;t get <span className="text-brand-orange">lost</span> in the <span className="text-brand-orange">sauce.</span>
           </h2>
-          <p className="text-[#737373] text-base">
+          <p className="text-[var(--c-muted)] text-base">
             Here is where you <span className="text-brand-orange">live</span> now. Click a feature to get a <span className="text-brand-orange">preview.</span>
           </p>
         </div>
@@ -619,14 +646,14 @@ export default function OnboardingFlow({
             <div
               key={i}
               onClick={() => setVideoModal(f.videoUrl)}
-              className="feature-card bg-[#0a0a0a] border border-[#2c2c2c] rounded-xl p-5 cursor-pointer group"
+              className="feature-card bg-[var(--c-bg)] border border-[var(--c-border)] rounded-xl p-5 cursor-pointer group"
             >
               <div className="flex items-start gap-5">
                 <img src={f.image} alt={f.title} className="w-14 h-14 object-contain flex-shrink-0 mt-1" />
                 <div className="flex-1">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <h3 className="text-white font-bold text-lg mb-0.5">
+                      <h3 className="text-[var(--c-text)] font-bold text-lg mb-0.5">
                         {f.title}
                       </h3>
                       <p className="text-brand-orange text-sm font-semibold mb-2">
@@ -634,7 +661,7 @@ export default function OnboardingFlow({
                       </p>
                     </div>
                     <svg
-                      className="w-5 h-5 text-[#737373] group-hover:text-brand-orange transition-colors flex-shrink-0 mt-1"
+                      className="w-5 h-5 text-[var(--c-muted)] group-hover:text-brand-orange transition-colors flex-shrink-0 mt-1"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -645,7 +672,7 @@ export default function OnboardingFlow({
                       />
                     </svg>
                   </div>
-                  <p className="text-[#737373] text-sm leading-relaxed">
+                  <p className="text-[var(--c-muted)] text-sm leading-relaxed">
                     {f.description}
                   </p>
                 </div>
@@ -681,7 +708,7 @@ export default function OnboardingFlow({
             >
               ✕ close
             </button>
-            <div className="aspect-video rounded-xl overflow-hidden bg-[#161616] border border-[#262626]">
+            <div className="aspect-video rounded-xl overflow-hidden bg-[var(--c-card)] border border-[var(--c-border)]">
               <iframe
                 src={videoModal}
                 className="w-full h-full"
@@ -717,7 +744,7 @@ export default function OnboardingFlow({
           </svg>
         </div>
 
-        <h2 className="text-2xl font-bold text-brand-cream mb-2">
+        <h2 className="text-2xl font-bold text-[var(--c-heading)] mb-2">
           generating your personalized plan
         </h2>
         <p className="text-brand-orange text-sm mb-8 h-5">
@@ -725,13 +752,13 @@ export default function OnboardingFlow({
         </p>
 
         {/* Progress bar */}
-        <div className="w-full h-2 rounded-full bg-[#262626] overflow-hidden mb-4">
+        <div className="w-full h-2 rounded-full bg-[var(--c-border)] overflow-hidden mb-4">
           <div
             className="h-full rounded-full loading-bar-fill transition-all duration-100 ease-linear animate-shimmer"
             style={{ width: `${loadingProgress}%` }}
           />
         </div>
-        <p className="text-[#737373] text-xs">{Math.round(loadingProgress)}%</p>
+        <p className="text-[var(--c-muted)] text-xs">{Math.round(loadingProgress)}%</p>
       </div>
     </div>
   );
@@ -762,10 +789,10 @@ export default function OnboardingFlow({
             <div className="inline-block bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
               plan ready
             </div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-brand-cream mb-3">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
               your next moves.
             </h2>
-            <p className="text-[#737373] text-base">
+            <p className="text-[var(--c-muted)] text-base">
               since you&apos;re{" "}
               <span className="text-brand-orange">
                 {bucketLabels[selectedBucket || "new_to_workforce"]}
@@ -792,14 +819,14 @@ export default function OnboardingFlow({
                 >
                   {step.icon}
                 </div>
-                <div className="flex-1 bg-[#161616] border border-[#262626] rounded-xl p-6 hover:border-[#363636] transition-colors">
-                  <h3 className="text-white font-extrabold text-lg mb-2">
+                <div className="flex-1 bg-[var(--c-card)] border border-[var(--c-border)] rounded-xl p-6 hover:border-[var(--c-border-strong)] transition-colors">
+                  <h3 className="text-[var(--c-text)] font-extrabold text-lg mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-[#737373] text-sm leading-relaxed mb-4">
+                  <p className="text-[var(--c-muted)] text-sm leading-relaxed mb-4">
                     {step.description}
                   </p>
-                  <button className="btn-pulse border border-[#363636] text-[#e5e5e5] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent hover:bg-[#1a1a1a] transition-colors">
+                  <button className="btn-pulse border border-[var(--c-border-strong)] text-[var(--c-text)] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent hover:bg-[var(--c-card-hover)] transition-colors">
                     {step.cta}
                   </button>
                 </div>
@@ -808,11 +835,11 @@ export default function OnboardingFlow({
           </div>
 
           <div className="text-center">
-            <div className="bg-[#161616] border border-[#262626] rounded-xl p-6 inline-block">
-              <p className="text-brand-cream font-semibold mb-1">
+            <div className="bg-[var(--c-card)] border border-[var(--c-border)] rounded-xl p-6 inline-block">
+              <p className="text-[var(--c-heading)] font-semibold mb-1">
                 you&apos;re all set. go make an impact.
               </p>
-              <p className="text-[#737373] text-sm">
+              <p className="text-[var(--c-muted)] text-sm">
                 close this page and start working through your plan. we&apos;ll
                 see you inside. 🔥
               </p>
@@ -827,7 +854,7 @@ export default function OnboardingFlow({
   if (isLoading) return <LoadingScreen />;
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-[var(--c-bg)]">
       {currentPage === 1 && <WelcomePage />}
       {currentPage === 2 && <AvatarPage />}
       {currentPage === 3 && <VSLPage />}

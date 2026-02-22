@@ -36,15 +36,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Design tokens ─────────────────────────────────────────────── */
 :root {
+  /* Brand (unchanged across themes) */
   --brand-orange: #fa4616;
   --brand-dark: #141212;
   --brand-cream: #fcf6f5;
+
+  /* Legacy Whop vars (kept for compatibility) */
   --whop-bg: #0a0a0a;
   --whop-card: #161616;
   --whop-border: #262626;
   --whop-text: #e5e5e5;
   --whop-muted: #737373;
+
+  /* ── Dark theme (default) ── */
+  --c-bg: #0a0a0a;
+  --c-card: #111111;
+  --c-border: #2c2c2c;
+  --c-border-strong: #3a3a3a;
+  --c-text: #e5e5e5;
+  --c-heading: #fcf6f5;       /* brand-cream */
+  --c-muted: #737373;
+  --c-card-hover: #1c1c1c;
+  --c-avatar-selected-bg: linear-gradient(160deg, #130a04 0%, #0a0a0a 55%);
+  --c-hover-border: rgba(255, 255, 255, 0.18);
+  --c-hover-shadow: 0 8px 30px rgba(255, 255, 255, 0.08), 0 14px 40px rgba(255, 255, 255, 0.04), 0 20px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Light theme override ── */
+[data-theme="light"] {
+  --c-bg: #ffffff;
+  --c-card: #f4f4f5;
+  --c-border: #e4e4e7;
+  --c-border-strong: #d1d1d6;
+  --c-text: #141212;
+  --c-heading: #141212;       /* brand-dark */
+  --c-muted: #52525b;
+  --c-card-hover: #ececec;
+  --c-avatar-selected-bg: linear-gradient(160deg, #fff3ed 0%, #ffffff 55%);
+  --c-hover-border: rgba(0, 0, 0, 0.14);
+  --c-hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.07), 0 14px 40px rgba(0, 0, 0, 0.04), 0 20px 25px rgba(0, 0, 0, 0.06);
 }
 
 * {
@@ -55,9 +87,9 @@
 
 html,
 body {
-  background-color: var(--whop-bg);
-  color: var(--whop-text);
-font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background-color: var(--c-bg);
+  color: var(--c-text);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -67,19 +99,19 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Acid Grotesk", "Inter", system-ui, sans-serif;
 }
 
-/* Scrollbar styling to match Whop's dark theme */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--whop-bg);
+  background: var(--c-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--whop-border);
+  background: var(--c-border);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--whop-muted);
+  background: var(--c-muted);
 }
 
 /* Video modal backdrop */
@@ -119,9 +151,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .avatar-card:not(.is-selected):hover {
-  border-color: rgba(255, 255, 255, 0.18) !important;
+  border-color: var(--c-hover-border) !important;
   transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.08), 0 14px 40px rgba(255, 255, 255, 0.04), 0 20px 25px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: var(--c-hover-shadow) !important;
 }
 
 /* Sweeping ambient glow behind card grid */
@@ -150,9 +182,9 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 .feature-card:hover {
-  border-color: rgba(255, 255, 255, 0.18) !important;
+  border-color: var(--c-hover-border) !important;
   transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.08), 0 14px 40px rgba(255, 255, 255, 0.04), 0 20px 25px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: var(--c-hover-shadow) !important;
 }
 
 /* Loading bar animation */
@@ -181,7 +213,6 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.5;
 }
 
-/* CTA Button */
 /* CTA Button */
 .cta-button {
   background: linear-gradient(to bottom, #ff845f, #FA4616);
