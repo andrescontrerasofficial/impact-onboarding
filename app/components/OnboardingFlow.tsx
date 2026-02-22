@@ -389,7 +389,7 @@ export default function OnboardingFlow({
 
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-extrabold text-brand-cream mb-3">
-            This isn&apos;t a <span className="text-brand-orange">hobby.</span>
+            This is not a <span className="text-brand-orange">hobby.</span>
           </h2>
           <p className="text-[#737373] text-base">
             At <span className="text-brand-orange">Impact Team</span>, we follow the <span className="text-brand-orange">Michelin Standard.</span> To stay in this room, you have to <span className="text-brand-orange">execute.</span>
@@ -606,7 +606,7 @@ export default function OnboardingFlow({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
           {features.map((f, i) => (
             <div
               key={i}
@@ -618,7 +618,7 @@ export default function OnboardingFlow({
                 <div className="flex-1">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <h3 className="text-white font-bold text-base mb-0.5">
+                      <h3 className="text-white font-bold text-lg mb-0.5">
                         {f.title}
                       </h3>
                       <p className="text-brand-orange text-sm font-semibold mb-2">
