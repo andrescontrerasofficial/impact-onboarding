@@ -512,12 +512,20 @@ export default function OnboardingFlow({
 
           <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6">
             {buckets.map((b) => (
+              <div key={b.id} className="relative">
+                {/* One-time click pulse ring — outside overflow-hidden card so it can expand freely */}
+                {pulsingCard === b.id && (
+                  <div
+                    className="absolute inset-0 rounded-3xl border-2 border-brand-orange pointer-events-none z-20"
+                    style={{ animation: "cardPulseOnce 0.7s ease-out forwards" }}
+                  />
+                )}
+
               <div
-                key={b.id}
                 onClick={() => {
                   handleBucketSelect(b.id);
                   setPulsingCard(b.id);
-                  setTimeout(() => setPulsingCard(null), 700);
+                  setTimeout(() => setPulsingCard(null), 750);
                 }}
                 className={`avatar-card relative border-2 rounded-3xl p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
                   selectedBucket === b.id
@@ -533,14 +541,6 @@ export default function OnboardingFlow({
                     : "none",
                 }}
               >
-                {/* One-time click pulse ring */}
-                {pulsingCard === b.id && (
-                  <div
-                    className="absolute inset-0 rounded-3xl border-2 border-brand-orange pointer-events-none"
-                    style={{ animation: "cardPulseOnce 0.65s ease-out forwards" }}
-                  />
-                )}
-
                 {/* Image with soft glow behind it */}
                 <div className="relative mb-6 mt-2">
                   <div
@@ -582,6 +582,7 @@ export default function OnboardingFlow({
                     </svg>
                   </div>
                 )}
+              </div>
               </div>
             ))}
           </div>
