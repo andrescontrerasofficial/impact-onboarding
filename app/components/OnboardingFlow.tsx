@@ -64,37 +64,37 @@ const features = [
   {
     title: "4-Week Impact Formula Course",
     description: "Master our proven sales script with built-in psychology and influence — engineered to help you close without sounding like a salesperson.",
-    image: "/Whop%20Illo%20-%20Books.svg",
+    image: "/whop-illo-books.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     title: "Weekly Comprehension Checks",
     description: "End-of-week assessments after each module to make sure you're actually absorbing the material — not just watching it.",
-    image: "/Whop%20Illo%20-%20Graduation.svg",
+    image: "/whop-illo-graduation.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     title: "Real Call Breakdown Library",
     description: "Watch us run the Impact Formula on real sales calls so you can see exactly how to apply the script across any industry or objection.",
-    image: "/Whop%20Illo%20-%20Phone%2001.svg",
+    image: "/whop-illo-phone.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     title: "Weekly Live Coaching Sessions",
     description: "Bring your deals, your scripts, your industry. We help you adapt everything to your market and your personality — live, every week.",
-    image: "/Whop%20Illo%20-%20Messaging.svg",
+    image: "/whop-illo-messaging.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     title: "Points & Real Rewards",
     description: "Earn points for showing up, completing modules, and executing. Spend them on real rewards inside the platform.",
-    image: "/Whop%20Illo%20-%20Trophy.svg",
+    image: "/whop-illo-trophy.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     title: "The Community",
     description: "Roleplay scenarios, grow alongside people who get it, and meet people who might become your best friends — and future colleagues.",
-    image: "/Whop%20Illo%20-%20Messaging.svg",
+    image: "/whop-illo-livestream.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
 ];
@@ -605,7 +605,7 @@ export default function OnboardingFlow({
             <div
               key={i}
               onClick={() => setVideoModal(f.videoUrl)}
-              className="feature-card bg-[#161616] border border-[#262626] rounded-xl p-5 cursor-pointer group"
+              className="feature-card bg-[#0a0a0a] border border-[#2c2c2c] rounded-xl p-5 cursor-pointer group"
             >
               <div className="flex items-start gap-4">
                 <img src={f.image} alt={f.title} className="w-10 h-10 object-contain flex-shrink-0" />
