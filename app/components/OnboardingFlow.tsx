@@ -342,6 +342,18 @@ export default function OnboardingFlow({
     [tagLeadInGHL]
   );
 
+  // ─── Back Button ────────────────────────────────────────────
+  const BackButton = ({ to }: { to: number }) => (
+    <div className="text-center pt-8 pb-2">
+      <button
+        onClick={() => goToPage(to)}
+        className="text-[var(--c-muted)] text-sm hover:text-[var(--c-text)] transition-colors"
+      >
+        ← back
+      </button>
+    </div>
+  );
+
   // ─── Step Indicator ─────────────────────────────────────────
   const StepIndicator = () => (
     <div className="flex items-center justify-center gap-2 py-6">
@@ -395,7 +407,7 @@ export default function OnboardingFlow({
           onClick={() => goToPage(2)}
           className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
         >
-          Let&apos;s go →
+          Let&apos;s go. Takes 3 min. →
         </button>
       </div>
     </div>
@@ -499,6 +511,7 @@ export default function OnboardingFlow({
               </div>
             ))}
           </div>
+          <BackButton to={2} />
         </div>
       </div>
     </div>
@@ -628,6 +641,7 @@ export default function OnboardingFlow({
               That&apos;s me - continue →
             </button>
           </div>
+          <BackButton to={1} />
         </div>
       </div>
     );
@@ -650,7 +664,7 @@ export default function OnboardingFlow({
             Don&apos;t get <span className="text-brand-orange">lost</span> in the <span className="text-brand-orange">sauce.</span>
           </h2>
           <p className="text-[var(--c-muted)] text-base">
-            Here is where you <span className="text-brand-orange">live</span> now. Click a feature to get a <span className="text-brand-orange">preview.</span>
+            You <span className="text-brand-orange">live</span> here now. Click a feature to get a <span className="text-brand-orange">preview.</span>
           </p>
         </div>
 
@@ -711,6 +725,7 @@ export default function OnboardingFlow({
             Show me my tailored blueprint →
           </button>
         </div>
+        <BackButton to={3} />
       </div>
 
       {/* Video Modal */}
@@ -799,10 +814,10 @@ export default function OnboardingFlow({
               plan ready
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
-              your next moves.
+              Your next moves.
             </h2>
             <p className="text-[var(--c-muted)] text-base">
-              since you&apos;re{" "}
+              Since you&apos;re{" "}
               <span className="text-brand-orange">
                 {bucketLabels[selectedBucket || "new_to_workforce"]}
               </span>
@@ -854,6 +869,7 @@ export default function OnboardingFlow({
               </p>
             </div>
           </div>
+          <BackButton to={4} />
         </div>
       </div>
     );
