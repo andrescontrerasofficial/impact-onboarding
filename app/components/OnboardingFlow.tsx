@@ -431,7 +431,7 @@ export default function OnboardingFlow({
             This is not a <span className="text-brand-orange">hobby.</span>
           </h2>
           <p className="text-[var(--c-muted)] text-base">
-            At <span className="text-brand-orange">Impact Team</span>, we follow the <span className="text-brand-orange">Michelin Standard.</span> To stay in this room, you have to <span className="text-brand-orange">execute.</span>
+            At <span className="text-brand-orange">Impact</span>, we follow the <span className="text-brand-orange">Michelin Standard.</span> To stay in this room, you have to <span className="text-brand-orange">execute.</span>
           </p>
         </div>
 
@@ -769,7 +769,7 @@ export default function OnboardingFlow({
         </div>
 
         <h2 className="text-2xl font-bold text-[var(--c-heading)] mb-2">
-          generating your personalized plan
+          Generating your tailored blueprint
         </h2>
         <p className="text-brand-orange text-sm mb-8 h-5">
           {loadingText}
