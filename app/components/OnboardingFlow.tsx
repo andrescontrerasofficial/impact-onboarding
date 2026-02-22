@@ -333,7 +333,7 @@ export default function OnboardingFlow({
 
   // ─── PAGE 1: Welcome ────────────────────────────────────────
   const WelcomePage = () => {
-    const firstName = userName?.split(" ")[0] || "hey";
+    const firstName = userName?.split(" ")[0] || null;
     return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center">
       <div
@@ -348,8 +348,12 @@ export default function OnboardingFlow({
           <span className="text-brand-orange text-2xl font-bold">I</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
-          <span className="text-brand-cream">{firstName}, Welcome to</span>
+        {firstName && (
+          <p className="text-[#737373] text-xl mb-3">hey, {firstName}.</p>
+        )}
+
+        <h1 className="text-4xl md:text-5xl font-extrabold text-brand-cream tracking-tight mb-4 leading-tight">
+          Welcome to
           <br />
           <span className="text-brand-orange">The Impact Team.</span>
         </h1>
