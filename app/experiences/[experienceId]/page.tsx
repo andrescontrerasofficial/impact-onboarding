@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import { whopApi } from "@/app/lib/whop-api";
 import OnboardingFlow from "@/app/components/OnboardingFlow";
 
 export default async function ExperiencePage({
@@ -24,39 +25,9 @@ export default async function ExperiencePage({
     }
 
     if (userId) {
-      // Try multiple API approaches
-      let user = null;
-
-      // Approach 1: v5 API with API key
-      const res1 = await fetch(`https://api.whop.com/api/v5/users/${userId}`, {
-        headers: { Authorization: `Bearer ${process.env.WHOP_API_KEY}` },
-      });
-      console.log("v5 API status:", res1.status);
-      if (res1.ok) {
-        user = await res1.json();
-        console.log("v5 user data:", JSON.stringify(user));
-      } else {
-        console.log("v5 error:", await res1.text());
-      }
-
-      // Approach 2: v2 API if v5 failed
-      if (!user) {
-        const res2 = await fetch(`https://api.whop.com/api/v2/me`, {
-          headers: { Authorization: `Bearer ${userToken}` },
-        });
-        console.log("v2 me status:", res2.status);
-        if (res2.ok) {
-          user = await res2.json();
-          console.log("v2 user data:", JSON.stringify(user));
-        } else {
-          console.log("v2 error:", await res2.text());
-        }
-      }
-
-      if (user) {
-        userName = user.name || user.username || user.display_name || "";
-        userEmail = user.email || "";
-      }
+      const user = await whopApi.users.retrieve(userId);
+      userName = user.name || user.username || "";
+      console.log("=== USER DATA ===", JSON.stringify(user));
     }
   } catch (error) {
     console.error("Error fetching user data:", error);
