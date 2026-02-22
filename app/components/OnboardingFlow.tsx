@@ -398,7 +398,7 @@ export default function OnboardingFlow({
         {/* CTA Button */}
         <div className="text-center mb-14">
           <button
-            onClick={() => goToPage(3)}
+            onClick={() => goToPage(4)}
             className="btn-pulse cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl"
           >
             i am committed to my success →
@@ -547,7 +547,7 @@ export default function OnboardingFlow({
 
           <div className="text-center">
             <button
-              onClick={() => goToPage(4)}
+              onClick={() => goToPage(3)}
               disabled={!selectedBucket}
               className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl disabled:opacity-30"
             >
@@ -789,8 +789,8 @@ export default function OnboardingFlow({
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
       {currentPage === 1 && <WelcomePage />}
-      {currentPage === 2 && <VSLPage />}
-      {currentPage === 3 && <AvatarPage />}
+      {currentPage === 2 && <AvatarPage />}
+      {currentPage === 3 && <VSLPage />}
       {currentPage === 4 && <FeaturesPage />}
       {currentPage === 5 && <NextStepsPage />}
     </div>
