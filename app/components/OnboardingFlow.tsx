@@ -63,37 +63,43 @@ const testimonials = [
 const features = [
   {
     title: "4-Week Impact Formula Course",
-    description: "Master our proven sales script with built-in psychology and influence — engineered to help you close without sounding like a salesperson.",
+    subtitle: "Learn a script with psychology built in",
+    description: "Internalize the Impact Script over a 4-week training — human psychology and influence woven in so you close without ever sounding like you're selling.",
     image: "/whop-illo-books.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     title: "Weekly Comprehension Checks",
-    description: "End-of-week assessments after each module to make sure you're actually absorbing the material — not just watching it.",
+    subtitle: "Make sure you actually retain it",
+    description: "End-of-week assessments test your real understanding of the material — not just whether you hit play on the videos.",
     image: "/whop-illo-graduation.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     title: "Real Call Breakdown Library",
-    description: "Watch us run the Impact Formula on real sales calls so you can see exactly how to apply the script across any industry or objection.",
+    subtitle: "See the script used on live calls",
+    description: "Watch us run the Impact Formula in real sales conversations so you can model exactly how to apply it across any industry or objection.",
     image: "/whop-illo-phone.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     title: "Weekly Live Coaching Sessions",
-    description: "Bring your deals, your scripts, your industry. We help you adapt everything to your market and your personality — live, every week.",
+    subtitle: "Adapt everything to your world",
+    description: "Bring your deals, your industry, your personality. We help you customize the material to fit your specific situation — live, every week.",
     image: "/whop-illo-messaging.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     title: "Points & Real Rewards",
-    description: "Earn points for showing up, completing modules, and executing. Spend them on real rewards inside the platform.",
+    subtitle: "Get rewarded for showing up",
+    description: "Earn points for completing modules, attending sessions, and executing. Spend them on real rewards inside the platform.",
     image: "/whop-illo-trophy.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     title: "The Community",
-    description: "Roleplay scenarios, grow alongside people who get it, and meet people who might become your best friends — and future colleagues.",
+    subtitle: "Grow alongside people who get it",
+    description: "Roleplay scenarios, sharpen your craft, and meet the people who might become your best friends — and your future business partners.",
     image: "/whop-illo-livestream.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
@@ -600,22 +606,27 @@ export default function OnboardingFlow({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+        <div className="grid grid-cols-1 gap-4 mb-10">
           {features.map((f, i) => (
             <div
               key={i}
               onClick={() => setVideoModal(f.videoUrl)}
               className="feature-card bg-[#0a0a0a] border border-[#2c2c2c] rounded-xl p-5 cursor-pointer group"
             >
-              <div className="flex items-start gap-4">
-                <img src={f.image} alt={f.title} className="w-10 h-10 object-contain flex-shrink-0" />
+              <div className="flex items-start gap-5">
+                <img src={f.image} alt={f.title} className="w-14 h-14 object-contain flex-shrink-0 mt-1" />
                 <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-white font-bold text-base mb-1">
-                      {f.title}
-                    </h3>
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-white font-bold text-base mb-0.5">
+                        {f.title}
+                      </h3>
+                      <p className="text-brand-orange text-sm font-semibold mb-2">
+                        {f.subtitle}
+                      </p>
+                    </div>
                     <svg
-                      className="w-5 h-5 text-[#737373] group-hover:text-brand-orange transition-colors"
+                      className="w-5 h-5 text-[#737373] group-hover:text-brand-orange transition-colors flex-shrink-0 mt-1"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -640,7 +651,7 @@ export default function OnboardingFlow({
             onClick={startLoadingTransition}
             className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
           >
-            show me my personalized plan →
+            Show me my tailored blueprint →
           </button>
         </div>
       </div>
