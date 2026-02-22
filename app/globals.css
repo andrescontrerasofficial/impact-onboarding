@@ -105,14 +105,27 @@ h1, h2, h3, h4, h5, h6 {
 .avatar-card:hover {
   border-color: rgba(255, 255, 255, 0.18) !important;
   transform: translateY(-3px);
-  box-shadow: 0 0 60px rgba(255, 255, 255, 0.1), 0 0 100px rgba(255, 255, 255, 0.06), 0 24px 50px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 24px 60px rgba(255, 255, 255, 0.11), 0 36px 80px rgba(255, 255, 255, 0.06), 0 50px 40px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Sweeping ambient glow behind card grid */
 @keyframes avatarSweep {
-  0%   { transform: translateX(-50%); opacity: 0.7; }
-  50%  { transform: translateX(50%);  opacity: 1;   }
-  100% { transform: translateX(-50%); opacity: 0.7; }
+  0%   { transform: translateX(-18%); opacity: 0.7; }
+  50%  { transform: translateX(18%);  opacity: 1;   }
+  100% { transform: translateX(-18%); opacity: 0.7; }
+}
+@keyframes avatarSweepVertical {
+  0%   { transform: translateY(-18%); opacity: 0.7; }
+  50%  { transform: translateY(18%);  opacity: 1;   }
+  100% { transform: translateY(-18%); opacity: 0.7; }
+}
+.sweep-glow {
+  animation: avatarSweep 8s ease-in-out infinite;
+}
+@media (max-width: 768px) {
+  .sweep-glow {
+    animation: avatarSweepVertical 8s ease-in-out infinite;
+  }
 }
 
 /* Feature card */

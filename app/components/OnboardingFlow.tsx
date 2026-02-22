@@ -502,11 +502,10 @@ export default function OnboardingFlow({
           <div className="relative mb-10">
             {/* Sweeping orange ambient glow */}
             <div
-              className="absolute pointer-events-none"
+              className="absolute pointer-events-none sweep-glow"
               style={{
                 inset: "-60px",
                 background: "radial-gradient(ellipse 38% 50% at 50% 55%, rgba(250, 70, 22, 0.18) 0%, transparent 65%)",
-                animation: "avatarSweep 8s ease-in-out infinite",
               }}
             />
 
