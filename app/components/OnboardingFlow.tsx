@@ -359,9 +359,7 @@ export default function OnboardingFlow({
         </h1>
 
         <p className="text-[#737373] text-lg mb-10 leading-relaxed">
-          Learn how to close high-ticket deals.
-          <br />
-          With the simplest formula possible.
+          Learn how to close high-ticket deals with a simple formula.
         </p>
 
         <button
