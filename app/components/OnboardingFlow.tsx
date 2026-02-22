@@ -458,7 +458,7 @@ export default function OnboardingFlow({
             };
             const phrase = selectedBucket ? bucketPhrases[selectedBucket] : null;
             return (
-              <h2 className="text-center text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-8">
+              <h2 className="text-center text-xl md:text-2xl font-bold text-[var(--c-heading)] mb-8">
                 {phrase ? (
                   <>
                     Other people who{" "}
@@ -586,12 +586,12 @@ export default function OnboardingFlow({
                 </div>
 
                 {/* Title */}
-                <h3 className="text-[var(--c-text)] font-extrabold text-xl md:text-[1.65rem] mb-1">
+                <h3 className="text-[var(--c-text)] font-extrabold text-xl md:text-[1.65rem] mb-2.5">
                   {b.title}
                 </h3>
 
                 {/* Subtitle */}
-                <p className="text-brand-orange text-[13px] md:text-[15px] font-semibold mb-2 md:mb-3">
+                <p className="text-brand-orange text-[13px] md:text-[15px] font-semibold mb-3 md:mb-4">
                   {b.subtitle}
                 </p>
 
