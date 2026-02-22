@@ -25,18 +25,29 @@ export default async function ExperiencePage({
     }
 
     if (userId) {
-      // Use members endpoint which includes email
-      const members = await whopApi.members.list({
-  user_ids: [userId],
-});
-      
-      const member = members.data?.[0];
-      if (member) {
-        userName = member.user?.name || member.user?.username || "";
-        userEmail = member.user?.email || "";
+      // Try members endpoint first (includes email)
+      try {
+        const members = await whopApi.members.list({
+          user_ids: [userId],
+        });
+        const member = members.data?.[0];
+        if (member) {
+          userName = member.user?.name || member.user?.username || "";
+          userEmail = member.user?.email || "";
+        }
+        console.log("=== MEMBER RESULT ===", JSON.stringify(member));
+      } catch (memberErr) {
+        console.error("=== MEMBER ERROR ===", memberErr);
+        
+        // Fallback to users endpoint (no email but gets name)
+        try {
+          const user = await whopApi.users.retrieve(userId);
+          userName = user.name || user.username || "";
+          console.log("=== USER RESULT ===", JSON.stringify(user));
+        } catch (userErr) {
+          console.error("=== USER ERROR ===", userErr);
+        }
       }
-      
-      console.log("=== MEMBER DATA ===", JSON.stringify(member));
     }
   } catch (error) {
     console.error("Error fetching user data:", error);
