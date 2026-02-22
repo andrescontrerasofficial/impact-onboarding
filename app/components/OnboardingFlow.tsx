@@ -524,7 +524,7 @@ export default function OnboardingFlow({
   );
 
   // ─── PAGE 3: Avatar / Bucket Selection ──────────────────────
-  const AvatarPage = () => {
+  const renderAvatarPage = () => {
     const buckets = [
       {
         id: "new_to_workforce" as Bucket,
@@ -655,7 +655,7 @@ export default function OnboardingFlow({
   };
 
   // ─── PAGE 4: Features Overview ──────────────────────────────
-  const FeaturesPage = () => (
+  const renderFeaturesPage = () => (
     <div className="min-h-screen px-4 md:px-8 py-8">
       <div
         className={`max-w-3xl mx-auto transition-all duration-500 ${
@@ -768,7 +768,7 @@ export default function OnboardingFlow({
   );
 
   // ─── LOADING SCREEN (between page 4 → 5) ───────────────────
-  const LoadingScreen = () => (
+  const renderLoadingScreen = () => (
     <div className="min-h-screen flex flex-col items-center justify-center px-6">
       <div className="w-full max-w-md text-center">
         {/* Pulsing icon */}
@@ -884,14 +884,14 @@ export default function OnboardingFlow({
   };
 
   // ─── Render ─────────────────────────────────────────────────
-  if (isLoading) return <LoadingScreen />;
+  if (isLoading) return renderLoadingScreen();
 
   return (
     <div className="min-h-screen bg-[var(--c-bg)]">
       {currentPage === 1 && <WelcomePage />}
-      {currentPage === 2 && <AvatarPage />}
+      {currentPage === 2 && renderAvatarPage()}
       {currentPage === 3 && <VSLPage />}
-      {currentPage === 4 && <FeaturesPage />}
+      {currentPage === 4 && renderFeaturesPage()}
       {currentPage === 5 && <NextStepsPage />}
     </div>
   );
