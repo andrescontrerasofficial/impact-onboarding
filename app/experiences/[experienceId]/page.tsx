@@ -28,8 +28,9 @@ export default async function ExperiencePage({
       // Try members endpoint first (includes email)
       try {
         const members = await whopApi.members.list({
-          user_ids: [userId],
-        });
+  user_ids: [userId],
+  company_id: "biz_Q5DDkoMFnWe7fu",
+});
         const member = members.data?.[0];
         if (member) {
           userName = member.user?.name || member.user?.username || "";
