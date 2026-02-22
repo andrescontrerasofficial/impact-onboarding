@@ -102,7 +102,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease;
   cursor: pointer;
 }
-.avatar-card:hover {
+.avatar-card:not(.is-selected):hover {
   border-color: rgba(255, 255, 255, 0.18) !important;
   transform: translateY(-3px);
   box-shadow: 0 8px 30px rgba(255, 255, 255, 0.08), 0 14px 40px rgba(255, 255, 255, 0.04), 0 20px 25px rgba(0, 0, 0, 0.3) !important;

@@ -516,15 +516,15 @@ export default function OnboardingFlow({
                 onClick={() => handleBucketSelect(b.id)}
                 className={`avatar-card relative border rounded-3xl p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
                   selectedBucket === b.id
-                    ? "border-[rgba(250,70,22,0.45)]"
-                    : "border-[#1f1f1f]"
+                    ? "is-selected border-[rgba(250,70,22,0.45)]"
+                    : "border-[#262626]"
                 }`}
                 style={{
                   background: selectedBucket === b.id
-                    ? "linear-gradient(160deg, #130a04 0%, #0c0c0c 55%)"
-                    : "#0c0c0c",
+                    ? "linear-gradient(160deg, #130a04 0%, #0a0a0a 55%)"
+                    : "#0a0a0a",
                   boxShadow: selectedBucket === b.id
-                    ? "0 0 18px rgba(250, 70, 22, 0.18), 0 0 50px rgba(250, 70, 22, 0.08)"
+                    ? "0 0 0 1px rgba(250, 70, 22, 0.35), 0 0 30px rgba(250, 70, 22, 0.28), 0 0 65px rgba(250, 70, 22, 0.12)"
                     : "none",
                 }}
               >
