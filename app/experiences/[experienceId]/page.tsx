@@ -14,39 +14,29 @@ export default async function ExperiencePage({
 
   try {
     const headersList = await headers();
-    
-    // Log ALL headers so we can see what Whop actually sends
-    const allHeaders: Record<string, string> = {};
-    headersList.forEach((value, key) => {
-      allHeaders[key] = value;
-    });
-    console.log("=== ALL HEADERS ===", JSON.stringify(allHeaders, null, 2));
+    const userToken = headersList.get("x-whop-user-token") || "";
 
-    // Try multiple possible header names
-    userId = headersList.get("x-whop-user-id") 
-      || headersList.get("x-whop-user") 
-      || headersList.get("x-whop-user-token")
-      || "";
-    
-    console.log("=== RESOLVED USER ID ===", userId);
+    // Decode the JWT to get the user ID from the "sub" claim
+    if (userToken) {
+      const payload = JSON.parse(
+        Buffer.from(userToken.split(".")[1], "base64").toString()
+      );
+      userId = payload.sub || "";
+    }
 
     if (userId) {
-      const apiUrl = `https://api.whop.com/api/v5/users/${userId}`;
-      console.log("=== FETCHING ===", apiUrl);
-      
-      const res = await fetch(apiUrl, {
+      const res = await fetch(`https://api.whop.com/api/v5/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${process.env.WHOP_API_KEY}`,
         },
       });
-      
-      console.log("=== API RESPONSE STATUS ===", res.status);
-      const user = await res.json();
-      console.log("=== API RESPONSE BODY ===", JSON.stringify(user));
-      
+
       if (res.ok) {
+        const user = await res.json();
         userName = user.name || user.username || "";
         userEmail = user.email || "";
+      } else {
+        console.error("Whop API error:", res.status, await res.text());
       }
     }
   } catch (error) {
