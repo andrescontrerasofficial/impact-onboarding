@@ -120,12 +120,18 @@ h1, h2, h3, h4, h5, h6 {
   100% { transform: translateY(-18%); opacity: 0.7; }
 }
 .sweep-glow {
-  animation: avatarSweep 8s ease-in-out infinite;
+  animation: avatarSweep 5s ease-in-out infinite;
 }
 @media (max-width: 768px) {
   .sweep-glow {
-    animation: avatarSweepVertical 8s ease-in-out infinite;
+    animation: avatarSweepVertical 5s ease-in-out infinite;
   }
+}
+
+/* One-time card selection pulse */
+@keyframes cardPulseOnce {
+  0%   { transform: scale(1);    opacity: 0.8; }
+  100% { transform: scale(1.1); opacity: 0;   }
 }
 
 /* Feature card */

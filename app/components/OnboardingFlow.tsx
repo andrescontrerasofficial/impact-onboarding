@@ -212,6 +212,7 @@ export default function OnboardingFlow({
 }: OnboardingFlowProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedBucket, setSelectedBucket] = useState<Bucket>(null);
+  const [pulsingCard, setPulsingCard] = useState<Bucket>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [loadingText, setLoadingText] = useState("");
@@ -504,8 +505,8 @@ export default function OnboardingFlow({
             <div
               className="absolute pointer-events-none sweep-glow"
               style={{
-                inset: "-60px",
-                background: "radial-gradient(ellipse 38% 50% at 50% 55%, rgba(250, 70, 22, 0.18) 0%, transparent 65%)",
+                inset: "-80px",
+                background: "radial-gradient(ellipse 60% 75% at 50% 55%, rgba(250, 70, 22, 0.28) 0%, transparent 65%)",
               }}
             />
 
@@ -513,7 +514,11 @@ export default function OnboardingFlow({
             {buckets.map((b) => (
               <div
                 key={b.id}
-                onClick={() => handleBucketSelect(b.id)}
+                onClick={() => {
+                  handleBucketSelect(b.id);
+                  setPulsingCard(b.id);
+                  setTimeout(() => setPulsingCard(null), 700);
+                }}
                 className={`avatar-card relative border-2 rounded-3xl p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
                   selectedBucket === b.id
                     ? "border-brand-orange"
@@ -528,6 +533,14 @@ export default function OnboardingFlow({
                     : "none",
                 }}
               >
+                {/* One-time click pulse ring */}
+                {pulsingCard === b.id && (
+                  <div
+                    className="absolute inset-0 rounded-3xl border-2 border-brand-orange pointer-events-none"
+                    style={{ animation: "cardPulseOnce 0.65s ease-out forwards" }}
+                  />
+                )}
+
                 {/* Image with soft glow behind it */}
                 <div className="relative mb-6 mt-2">
                   <div
