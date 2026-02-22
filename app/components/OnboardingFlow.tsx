@@ -458,33 +458,30 @@ export default function OnboardingFlow({
       {
         id: "new_to_workforce" as Bucket,
         emoji: "🌱",
-        title: "I'm brand new",
-        subtitle: "never had a job in sales or anything else",
-        description:
-          "you're starting from scratch — no resume, no experience, just ambition. that's more than enough. we'll show you exactly where to start and how to land your first role fast.",
+        title: "The Rookie",
+        subtitle: "No Sales Experience",
+        description: "Zero experience, pure ambition. We'll build you from the ground up.",
       },
       {
         id: "career_switcher" as Bucket,
         emoji: "🔄",
-        title: "I'm switching into sales",
-        subtitle: "have work experience but new to sales",
-        description:
-          "you've been in the workforce but you know sales is where the real money is. we'll help you leverage your existing skills and make the transition seamlessly.",
+        title: "The Switcher",
+        subtitle: "Coming From Another Field",
+        description: "Your background is a weapon. Let's redirect it where the real money is.",
       },
       {
         id: "already_in_sales" as Bucket,
         emoji: "🔥",
-        title: "I'm already in sales",
-        subtitle: "ready to go from good to unstoppable",
-        description:
-          "you're in the game but you want to dominate it. we'll give you the advanced strategies, accountability, and network to hit numbers you didn't think were possible.",
+        title: "The Closer",
+        subtitle: "Already In the Game",
+        description: "You're good. We'll make you dangerous.",
       },
     ];
 
     return (
       <div className="min-h-screen px-4 md:px-8 py-8">
         <div
-          className={`max-w-2xl mx-auto transition-all duration-500 ${
+          className={`max-w-4xl mx-auto transition-all duration-500 ${
             animateIn
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-6"
@@ -501,51 +498,49 @@ export default function OnboardingFlow({
             </p>
           </div>
 
-          <div className="flex flex-col gap-4 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
             {buckets.map((b) => (
               <div
                 key={b.id}
                 onClick={() => handleBucketSelect(b.id)}
-                className={`avatar-card bg-[#161616] border rounded-xl p-6 ${
+                className={`avatar-card bg-[#161616] border rounded-2xl p-6 text-center flex flex-col items-center ${
                   selectedBucket === b.id
                     ? "selected border-brand-orange"
                     : "border-[#262626]"
                 }`}
               >
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl mt-0.5">{b.emoji}</div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-1">
-                      <h3 className="text-white font-bold text-lg">
-                        {b.title}
-                      </h3>
-                      {selectedBucket === b.id && (
-                        <div className="w-5 h-5 rounded-full bg-brand-orange flex items-center justify-center">
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                          >
-                            <path
-                              d="M2 6L5 9L10 3"
-                              stroke="white"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </div>
-                      )}
-                    </div>
-                    <p className="text-brand-orange text-sm mb-2">
-                      {b.subtitle}
-                    </p>
-                    <p className="text-[#737373] text-sm leading-relaxed">
-                      {b.description}
-                    </p>
+                {/* Icon */}
+                <div className="text-6xl mb-5 mt-2">{b.emoji}</div>
+
+                {/* Title */}
+                <h3 className="text-white font-extrabold text-xl mb-1">
+                  {b.title}
+                </h3>
+
+                {/* Subtitle */}
+                <p className="text-brand-orange text-xs font-semibold uppercase tracking-wider mb-3">
+                  {b.subtitle}
+                </p>
+
+                {/* Description */}
+                <p className="text-[#737373] text-sm leading-relaxed flex-1">
+                  {b.description}
+                </p>
+
+                {/* Selected checkmark */}
+                {selectedBucket === b.id && (
+                  <div className="mt-4 w-6 h-6 rounded-full bg-brand-orange flex items-center justify-center">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path
+                        d="M2 6L5 9L10 3"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </div>
-                </div>
+                )}
               </div>
             ))}
           </div>
