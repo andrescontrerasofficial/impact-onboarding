@@ -390,7 +390,7 @@ export default function OnboardingFlow({
             This isn&apos;t a <span className="text-brand-orange">hobby.</span>
           </h2>
           <p className="text-[#737373] text-base">
-            At <span className="text-brand-orange">Impact Team</span>, we follow the Michelin Standard. To stay in this room, you have to <span className="text-brand-orange">execute.</span>
+            At <span className="text-brand-orange">Impact Team</span>, we follow the <span className="text-brand-orange">Michelin Standard.</span> To stay in this room, you have to <span className="text-brand-orange">execute.</span>
           </p>
         </div>
 
@@ -422,7 +422,7 @@ export default function OnboardingFlow({
         {/* Testimonials Section */}
         <div className="border-t border-[#262626] pt-10">
           <h2 className="text-center text-3xl md:text-4xl font-extrabold text-brand-cream mb-8">
-            The kind of results you get when you treat this like more than a <span className="text-brand-orange">hobby</span>
+            The kind of <span className="text-brand-orange">results</span> you get when you treat this like more than a <span className="text-brand-orange">hobby</span>
           </h2>
 
           <div className="grid grid-cols-1 gap-4">
