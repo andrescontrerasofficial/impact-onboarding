@@ -68,7 +68,7 @@ const testimonialsByBucket = {
       role: "Marketing agency to $50k/mo AUD commission rep",
       quote: "First 50k AUD month last month. Came to Impact Team with no sales experience, I was running an SMMA before but never made more than a couple grand.",
       avatar: "JW",
-      image: null,
+      image: "/james.svg",
     },
   ],
 
