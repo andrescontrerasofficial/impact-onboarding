@@ -352,7 +352,7 @@ export default function OnboardingFlow({
           <p className="text-[#737373] text-xl mb-3">Hey, {firstName}.</p>
         )}
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-brand-cream tracking-tight mb-4 leading-tight">
+        <h1 className="text-5xl md:text-6xl font-extrabold text-brand-cream tracking-tight mb-4 leading-tight">
           Welcome to
           <br />
           <span className="text-brand-orange">The Impact Team.</span>
