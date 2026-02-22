@@ -102,6 +102,22 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease;
   cursor: pointer;
 }
+
+/* Avatar image — smooth shrink when deselected, bounce when selected */
+.avatar-img {
+  transition: transform 0.35s ease;
+}
+.avatar-card.is-selected .avatar-img {
+  animation: avatarBounceIn 0.55s ease-out forwards;
+}
+@keyframes avatarBounceIn {
+  0%   { transform: scale(1);    }
+  38%  { transform: scale(1.22); }
+  62%  { transform: scale(0.94); }
+  80%  { transform: scale(1.12); }
+  100% { transform: scale(1.08); }
+}
+
 .avatar-card:not(.is-selected):hover {
   border-color: rgba(255, 255, 255, 0.18) !important;
   transform: translateY(-3px);

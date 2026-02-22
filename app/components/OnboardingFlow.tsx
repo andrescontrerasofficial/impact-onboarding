@@ -514,9 +514,9 @@ export default function OnboardingFlow({
               <div
                 key={b.id}
                 onClick={() => handleBucketSelect(b.id)}
-                className={`avatar-card relative border rounded-3xl p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
+                className={`avatar-card relative border-2 rounded-3xl p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
                   selectedBucket === b.id
-                    ? "is-selected border-[rgba(250,70,22,0.45)]"
+                    ? "is-selected border-brand-orange"
                     : "border-[#262626]"
                 }`}
                 style={{
@@ -537,7 +537,7 @@ export default function OnboardingFlow({
                       opacity: selectedBucket === b.id ? 0.32 : 0.22,
                     }}
                   />
-                  <img src={b.image} alt={b.title} className="relative w-36 h-36 object-contain" />
+                  <img src={b.image} alt={b.title} className="avatar-img relative w-28 h-28 object-contain" />
                 </div>
 
                 {/* Title */}
