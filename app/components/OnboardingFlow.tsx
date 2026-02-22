@@ -498,34 +498,37 @@ export default function OnboardingFlow({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          {/* Card grid with sweeping ambient glow behind it */}
+          <div className="relative mb-10">
+            {/* Sweeping orange ambient glow */}
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                inset: "-60px",
+                background: "radial-gradient(ellipse 38% 50% at 50% 55%, rgba(250, 70, 22, 0.18) 0%, transparent 65%)",
+                animation: "avatarSweep 8s ease-in-out infinite",
+              }}
+            />
+
+          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6">
             {buckets.map((b) => (
               <div
                 key={b.id}
                 onClick={() => handleBucketSelect(b.id)}
-                className={`avatar-card relative border-2 rounded-2xl p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
+                className={`avatar-card relative border-2 rounded-3xl p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
                   selectedBucket === b.id
                     ? "border-brand-orange"
-                    : "border-[#262626]"
+                    : "border-[#1f1f1f]"
                 }`}
                 style={{
                   background: selectedBucket === b.id
-                    ? "linear-gradient(160deg, #1f1410 0%, #161616 55%)"
-                    : "linear-gradient(160deg, #1c1c1c 0%, #141414 100%)",
+                    ? "linear-gradient(160deg, #160c06 0%, #0c0c0c 60%)"
+                    : "#0c0c0c",
                   boxShadow: selectedBucket === b.id
-                    ? "0 0 48px rgba(250, 70, 22, 0.18), 0 0 0 1px rgba(250, 70, 22, 0.15)"
+                    ? "0 0 0 1px rgba(250, 70, 22, 0.6), 0 0 45px rgba(250, 70, 22, 0.55), 0 0 90px rgba(250, 70, 22, 0.25)"
                     : "none",
                 }}
               >
-                {/* Top accent bar — visible when selected */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-[2px] transition-opacity duration-300"
-                  style={{
-                    background: "linear-gradient(90deg, transparent, #FA4616, transparent)",
-                    opacity: selectedBucket === b.id ? 1 : 0,
-                  }}
-                />
-
                 {/* Image with soft glow behind it */}
                 <div className="relative mb-6 mt-2">
                   <div
@@ -570,6 +573,7 @@ export default function OnboardingFlow({
               </div>
             ))}
           </div>
+          </div>{/* end relative mb-10 wrapper */}
 
           <div className="text-center">
             <button
