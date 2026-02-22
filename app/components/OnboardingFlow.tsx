@@ -391,8 +391,13 @@ export default function OnboardingFlow({
       >
         {/* Company logo — swaps between dark / light theme */}
         <div style={anim("fadeSlideDown", 0)} className="mx-auto mb-8 flex items-center justify-center">
-          <img src="/original-logo.svg" alt="The Impact Team" className="logo-dark h-12 w-auto object-contain" />
-          <img src="/inverted-logo.svg" alt="The Impact Team" className="logo-light h-12 w-auto object-contain" />
+          <div
+            className="relative inline-flex items-center justify-center px-7 py-5 rounded-2xl bg-gradient-to-br from-brand-orange/15 to-brand-orange/5 border border-brand-orange/20"
+            style={{ boxShadow: "0 0 40px rgba(250, 70, 22, 0.12), 0 0 0 1px rgba(250, 70, 22, 0.06)" }}
+          >
+            <img src="/original-logo.svg" alt="The Impact Team" className="logo-dark h-10 w-auto object-contain" />
+            <img src="/inverted-logo.svg" alt="The Impact Team" className="logo-light h-10 w-auto object-contain" />
+          </div>
         </div>
 
         {firstName && (
