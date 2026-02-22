@@ -503,22 +503,48 @@ export default function OnboardingFlow({
               <div
                 key={b.id}
                 onClick={() => handleBucketSelect(b.id)}
-                className={`avatar-card bg-[#161616] border rounded-2xl p-8 text-center flex flex-col items-center ${
+                className={`avatar-card relative border-2 rounded-2xl p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
                   selectedBucket === b.id
-                    ? "selected border-brand-orange"
+                    ? "border-brand-orange"
                     : "border-[#262626]"
                 }`}
+                style={{
+                  background: selectedBucket === b.id
+                    ? "linear-gradient(160deg, #1f1410 0%, #161616 55%)"
+                    : "linear-gradient(160deg, #1c1c1c 0%, #141414 100%)",
+                  boxShadow: selectedBucket === b.id
+                    ? "0 0 48px rgba(250, 70, 22, 0.18), 0 0 0 1px rgba(250, 70, 22, 0.15)"
+                    : "none",
+                }}
               >
-                {/* Icon */}
-                <img src={b.image} alt={b.title} className="w-32 h-32 mb-6 mt-2 object-contain" />
+                {/* Top accent bar — visible when selected */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-[2px] transition-opacity duration-300"
+                  style={{
+                    background: "linear-gradient(90deg, transparent, #FA4616, transparent)",
+                    opacity: selectedBucket === b.id ? 1 : 0,
+                  }}
+                />
+
+                {/* Image with soft glow behind it */}
+                <div className="relative mb-6 mt-2">
+                  <div
+                    className="absolute inset-0 rounded-full blur-2xl transition-opacity duration-300"
+                    style={{
+                      background: "radial-gradient(circle, #FA4616 0%, transparent 70%)",
+                      opacity: selectedBucket === b.id ? 0.35 : 0.12,
+                    }}
+                  />
+                  <img src={b.image} alt={b.title} className="relative w-36 h-36 object-contain" />
+                </div>
 
                 {/* Title */}
-                <h3 className="text-white font-extrabold text-2xl mb-1">
+                <h3 className="text-white font-extrabold text-3xl mb-1">
                   {b.title}
                 </h3>
 
                 {/* Subtitle */}
-                <p className="text-brand-orange text-sm font-semibold mb-3">
+                <p className="text-brand-orange text-base font-semibold mb-3">
                   {b.subtitle}
                 </p>
 
@@ -529,8 +555,8 @@ export default function OnboardingFlow({
 
                 {/* Selected checkmark */}
                 {selectedBucket === b.id && (
-                  <div className="mt-4 w-6 h-6 rounded-full bg-brand-orange flex items-center justify-center">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <div className="mt-5 w-7 h-7 rounded-full bg-brand-orange flex items-center justify-center" style={{ boxShadow: "0 0 16px rgba(250, 70, 22, 0.5)" }}>
+                    <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
                       <path
                         d="M2 6L5 9L10 3"
                         stroke="white"
@@ -551,7 +577,7 @@ export default function OnboardingFlow({
               disabled={!selectedBucket}
               className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl disabled:opacity-30"
             >
-              that&apos;s me — continue →
+              That&apos;s me - continue →
             </button>
           </div>
         </div>
