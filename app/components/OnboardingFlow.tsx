@@ -606,7 +606,15 @@ export default function OnboardingFlow({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+        <div className="relative mb-10">
+          <div
+            className="absolute pointer-events-none sweep-glow"
+            style={{
+              inset: "-80px",
+              background: "radial-gradient(ellipse 60% 75% at 50% 55%, rgba(250, 70, 22, 0.28) 0%, transparent 65%)",
+            }}
+          />
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4">
           {features.map((f, i) => (
             <div
               key={i}
@@ -644,6 +652,7 @@ export default function OnboardingFlow({
               </div>
             </div>
           ))}
+        </div>
         </div>
 
         <div className="text-center">
