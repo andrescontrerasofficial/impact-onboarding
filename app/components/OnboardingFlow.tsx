@@ -457,24 +457,24 @@ export default function OnboardingFlow({
     const buckets = [
       {
         id: "new_to_workforce" as Bucket,
-        emoji: "🌱",
-        title: "The Rookie",
-        subtitle: "No Sales Experience",
-        description: "Zero experience, pure ambition. We'll build you from the ground up.",
+        image: "/avatar-explorer.svg",
+        title: "The Explorer",
+        subtitle: "No Work Experience",
+        description: "I've never worked any job full time. I will crush this 1st one.",
       },
       {
         id: "career_switcher" as Bucket,
-        emoji: "🔄",
-        title: "The Switcher",
+        image: "/avatar-scientist.svg",
+        title: "The Scientist",
         subtitle: "Coming From Another Field",
-        description: "Your background is a weapon. Let's redirect it where the real money is.",
+        description: "I have a job. Now I want to go where the $ is - sales.",
       },
       {
         id: "already_in_sales" as Bucket,
-        emoji: "🔥",
-        title: "The Closer",
-        subtitle: "Already In the Game",
-        description: "You're good. We'll make you dangerous.",
+        image: "/avatar-builder.svg",
+        title: "The Builder",
+        subtitle: "Already In Sales",
+        description: "I'm in sales, but I want to learn to be fucking #1.",
       },
     ];
 
@@ -510,7 +510,7 @@ export default function OnboardingFlow({
                 }`}
               >
                 {/* Icon */}
-                <div className="text-6xl mb-5 mt-2">{b.emoji}</div>
+                <img src={b.image} alt={b.title} className="w-24 h-24 mb-5 mt-2 object-contain" />
 
                 {/* Title */}
                 <h3 className="text-white font-extrabold text-xl mb-1">
