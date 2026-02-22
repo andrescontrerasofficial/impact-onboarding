@@ -421,18 +421,11 @@ export default function OnboardingFlow({
 
         {/* Testimonials Section */}
         <div className="border-t border-[#262626] pt-10">
-          <h2 className="text-center text-[#737373] text-sm uppercase tracking-widest mb-2">
-            Don&apos;t just take our word for it
+          <h2 className="text-center text-3xl md:text-4xl font-extrabold text-brand-cream mb-8">
+            The kind of results you get when you treat this like more than a <span className="text-brand-orange">hobby</span>
           </h2>
-          <p className="text-center text-brand-cream text-xl md:text-2xl font-bold mb-8">
-            Thousands have been on this exact page before you.
-            <br />
-            <span className="text-brand-orange">
-              Here are results from some that treated it like more than a hobby.
-            </span>
-          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             {testimonials.map((t, i) => (
               <div
                 key={i}
