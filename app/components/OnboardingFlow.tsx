@@ -354,6 +354,11 @@ export default function OnboardingFlow({
     </div>
   );
 
+  // Animation helper — e.g. style={anim("fadeSlideUp", 0.2)}
+  const anim = (name: string, delay: number, duration = 0.48) => ({
+    animation: `${name} ${duration}s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s both`,
+  });
+
   // ─── Step Indicator ─────────────────────────────────────────
   const StepIndicator = () => (
     <div className="flex items-center justify-center gap-2 py-6">
@@ -385,25 +390,26 @@ export default function OnboardingFlow({
         }`}
       >
         {/* Subtle brand mark */}
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-orange/20 to-brand-orange/5 border border-brand-orange/20 flex items-center justify-center mx-auto mb-8">
+        <div style={anim("fadeSlideDown", 0)} className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-orange/20 to-brand-orange/5 border border-brand-orange/20 flex items-center justify-center mx-auto mb-8">
           <span className="text-brand-orange text-2xl font-bold">I</span>
         </div>
 
         {firstName && (
-          <p className="text-[var(--c-muted)] text-xl mb-3">Hey, {firstName}.</p>
+          <p style={anim("fadeSlideUp", 0.1)} className="text-[var(--c-muted)] text-xl mb-3">Hey, {firstName}.</p>
         )}
 
-        <h1 className="text-5xl md:text-6xl font-extrabold text-[var(--c-heading)] tracking-tight mb-4 leading-tight">
+        <h1 style={anim("fadeSlideUp", 0.18)} className="text-5xl md:text-6xl font-extrabold text-[var(--c-heading)] tracking-tight mb-4 leading-tight">
           Welcome to
           <br />
           <span className="text-brand-orange">The Impact Team.</span>
         </h1>
 
-        <p className="text-[var(--c-muted)] text-lg mb-10 leading-relaxed">
+        <p style={anim("fadeSlideUp", 0.3)} className="text-[var(--c-muted)] text-lg mb-10 leading-relaxed">
           Learn how to close high-ticket deals with a simple formula.
         </p>
 
         <button
+          style={anim("fadeSlideUp", 0.42)}
           onClick={() => goToPage(2)}
           className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
         >
@@ -426,7 +432,7 @@ export default function OnboardingFlow({
       >
         <StepIndicator />
 
-        <div className="text-center mb-8">
+        <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
             This is not a <span className="text-brand-orange">hobby.</span>
           </h2>
@@ -436,7 +442,7 @@ export default function OnboardingFlow({
         </div>
 
         {/* Video Section */}
-        <div className="mb-8">
+        <div style={anim("scaleIn", 0.18, 0.55)} className="mb-8">
           <div className="aspect-video w-full rounded-xl overflow-hidden bg-[var(--c-card)] border border-[var(--c-border)] relative">
             {/* TODO: Replace this with your actual VSL video embed */}
             {/* Example: <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" ... /> */}
@@ -451,7 +457,7 @@ export default function OnboardingFlow({
         </div>
 
         {/* CTA Button */}
-        <div className="text-center mb-14">
+        <div style={anim("fadeSlideUp", 0.32)} className="text-center mb-14">
           <button
             onClick={() => goToPage(4)}
             className="btn-pulse cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl"
@@ -461,7 +467,7 @@ export default function OnboardingFlow({
         </div>
 
         {/* Testimonials Section */}
-        <div className="border-t border-[var(--c-border)] pt-10">
+        <div style={anim("fadeSlideUp", 0.45)} className="border-t border-[var(--c-border)] pt-10">
           {(() => {
             const bucketPhrases: Record<string, string> = {
               new_to_workforce: "wanted to get into sales for the first time",
@@ -492,7 +498,7 @@ export default function OnboardingFlow({
               <div
                 key={i}
                 className="testimonial-card bg-[var(--c-card)] border border-[var(--c-border)] rounded-xl p-5"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                style={anim("fadeSlideUp", 0.55 + i * 0.08)}
               >
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange text-sm font-bold">
@@ -554,7 +560,7 @@ export default function OnboardingFlow({
         >
           <StepIndicator />
 
-          <div className="text-center mb-10">
+          <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
               Tailor your <span className="text-brand-orange">experience.</span>
             </h2>
@@ -575,7 +581,7 @@ export default function OnboardingFlow({
             />
 
           <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6">
-            {buckets.map((b) => (
+            {buckets.map((b, idx) => (
               <div
                 key={b.id}
                 onClick={() => handleBucketSelect(b.id)}
@@ -585,6 +591,7 @@ export default function OnboardingFlow({
                     : "border-[var(--c-border)]"
                 }`}
                 style={{
+                  ...anim("fadeSlideUp", 0.15 + idx * 0.12),
                   background: selectedBucket === b.id
                     ? "var(--c-avatar-selected-bg)"
                     : "var(--c-bg)",
@@ -659,7 +666,7 @@ export default function OnboardingFlow({
       >
         <StepIndicator />
 
-        <div className="text-center mb-10">
+        <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
             Don&apos;t get <span className="text-brand-orange">lost</span> in the <span className="text-brand-orange">sauce.</span>
           </h2>
@@ -682,6 +689,7 @@ export default function OnboardingFlow({
               key={i}
               onClick={() => setVideoModal(f.videoUrl)}
               className="feature-card bg-[var(--c-bg)] border border-[var(--c-border)] rounded-xl p-5 cursor-pointer group"
+              style={anim("fadeSlideUp", 0.14 + i * 0.1)}
             >
               <div className="flex items-start gap-5">
                 <img src={f.image} alt={f.title} className="w-14 h-14 object-contain flex-shrink-0 mt-1" />
@@ -717,7 +725,7 @@ export default function OnboardingFlow({
         </div>
         </div>
 
-        <div className="text-center">
+        <div style={anim("fadeSlideUp", 0.78)} className="text-center">
           <button
             onClick={startLoadingTransition}
             className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
@@ -764,19 +772,19 @@ export default function OnboardingFlow({
     <div className="min-h-screen flex flex-col items-center justify-center px-6">
       <div className="w-full max-w-md text-center">
         {/* Pulsing icon */}
-        <div className="flex items-center justify-center mx-auto mb-8 animate-pulse">
+        <div style={anim("scaleIn", 0, 0.5)} className="flex items-center justify-center mx-auto mb-8 animate-pulse">
           <img src="/Whop-Illo-Construction.svg" alt="Building your plan" className="w-24 h-24 object-contain" />
         </div>
 
-        <h2 className="text-2xl font-bold text-[var(--c-heading)] mb-2">
+        <h2 style={anim("fadeSlideUp", 0.15)} className="text-2xl font-bold text-[var(--c-heading)] mb-2">
           Generating your tailored blueprint
         </h2>
-        <p className="text-brand-orange text-sm mb-8 h-5">
+        <p style={anim("fadeSlideUp", 0.25)} className="text-brand-orange text-sm mb-8 h-5">
           {loadingText}
         </p>
 
         {/* Progress bar */}
-        <div className="w-full h-2 rounded-full bg-[var(--c-border)] overflow-hidden mb-4">
+        <div style={anim("fadeSlideUp", 0.35)} className="w-full h-2 rounded-full bg-[var(--c-border)] overflow-hidden mb-4">
           <div
             className="h-full rounded-full loading-bar-fill transition-all duration-100 ease-linear animate-shimmer"
             style={{ width: `${loadingProgress}%` }}
@@ -809,7 +817,7 @@ export default function OnboardingFlow({
         >
           <StepIndicator />
 
-          <div className="text-center mb-12">
+          <div style={anim("fadeSlideDown", 0.05)} className="text-center mb-12">
             <div className="inline-block bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
               plan ready
             </div>
@@ -836,7 +844,7 @@ export default function OnboardingFlow({
             />
 
             {steps.map((step, i) => (
-              <div key={i} className="relative flex items-start gap-5">
+              <div key={i} style={anim("fadeSlideUp", 0.2 + i * 0.14)} className="relative flex items-start gap-5">
                 <div
                   className="relative z-10 w-12 h-12 rounded-xl bg-brand-orange flex items-center justify-center text-white font-extrabold text-base shrink-0"
                   style={{ boxShadow: "0 8px 24px rgba(250, 70, 22, 0.3)" }}
@@ -858,7 +866,7 @@ export default function OnboardingFlow({
             ))}
           </div>
 
-          <div className="text-center">
+          <div style={anim("fadeSlideUp", 0.88)} className="text-center">
             <div className="bg-[var(--c-card)] border border-[var(--c-border)] rounded-xl p-6 inline-block">
               <p className="text-[var(--c-heading)] font-semibold mb-1">
                 you&apos;re all set. go make an impact.
