@@ -450,9 +450,30 @@ export default function OnboardingFlow({
 
         {/* Testimonials Section */}
         <div className="border-t border-[var(--c-border)] pt-10">
-          <h2 className="text-center text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-8">
-            The kind of <span className="text-brand-orange">results</span> you get when you treat this like more than a <span className="text-brand-orange">hobby</span>
-          </h2>
+          {(() => {
+            const bucketPhrases: Record<string, string> = {
+              new_to_workforce: "wanted to get into sales for the first time",
+              career_switcher: "were switching careers into sales",
+              already_in_sales: "were already in sales and wanted to go further",
+            };
+            const phrase = selectedBucket ? bucketPhrases[selectedBucket] : null;
+            return (
+              <h2 className="text-center text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-8">
+                {phrase ? (
+                  <>
+                    Other people who{" "}
+                    <span className="text-brand-orange">{phrase}</span>, were on
+                    this page, and committed to succeeding.
+                  </>
+                ) : (
+                  <>
+                    The kind of <span className="text-brand-orange">results</span>{" "}
+                    you get when you treat this like more than a hobby.
+                  </>
+                )}
+              </h2>
+            );
+          })()}
 
           <div className="grid grid-cols-1 gap-4">
             {testimonials.map((t, i) => (
@@ -561,11 +582,11 @@ export default function OnboardingFlow({
               >
                 {/* Image */}
                 <div className="relative mb-4 md:mb-6 mt-1 md:mt-2">
-                  <img src={b.image} alt={b.title} className="avatar-img relative w-16 h-16 md:w-28 md:h-28 object-contain" />
+                  <img src={b.image} alt={b.title} className="avatar-img relative w-20 h-20 md:w-28 md:h-28 object-contain" />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-[var(--c-text)] font-extrabold text-lg md:text-[1.65rem] mb-1">
+                <h3 className="text-[var(--c-text)] font-extrabold text-xl md:text-[1.65rem] mb-1">
                   {b.title}
                 </h3>
 
@@ -728,20 +749,8 @@ export default function OnboardingFlow({
     <div className="min-h-screen flex flex-col items-center justify-center px-6">
       <div className="w-full max-w-md text-center">
         {/* Pulsing icon */}
-        <div className="w-16 h-16 rounded-2xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center mx-auto mb-8 animate-pulse">
-          <svg
-            className="w-8 h-8 text-brand-orange"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-            />
-          </svg>
+        <div className="flex items-center justify-center mx-auto mb-8 animate-pulse">
+          <img src="/Whop-Illo-Construction.svg" alt="Building your plan" className="w-24 h-24 object-contain" />
         </div>
 
         <h2 className="text-2xl font-bold text-[var(--c-heading)] mb-2">
