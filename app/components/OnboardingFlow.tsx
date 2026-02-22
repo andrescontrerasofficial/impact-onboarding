@@ -14,51 +14,87 @@ interface OnboardingFlowProps {
 }
 
 // ─── Testimonial Data ───────────────────────────────────────────────
-// TODO: Replace these with your real testimonials
-const testimonials = [
-  {
-    name: "Marcus J.",
-    role: "Now earning $12k/mo in SaaS sales",
-    quote:
-      "I was broke and clueless about sales 6 months ago. This community changed my entire trajectory. The training is real — not some motivational fluff.",
-    avatar: "MJ",
-  },
-  {
-    name: "Daniela R.",
-    role: "Went from retail to tech sales in 90 days",
-    quote:
-      "I was working retail making $15/hr. Joined the Impact Team, followed the roadmap, and landed a $65k base + commission role within 3 months.",
-    avatar: "DR",
-  },
-  {
-    name: "Jaylen T.",
-    role: "Closed $280k in his first year",
-    quote:
-      "The frameworks in here are elite. I went from nervous on cold calls to consistently hitting 150% of quota. This isn't just a community — it's a cheat code.",
-    avatar: "JT",
-  },
-  {
-    name: "Sophia M.",
-    role: "Promoted to team lead in 8 months",
-    quote:
-      "I already had sales experience but was stuck. The advanced modules and the people in here pushed me to another level. Got promoted faster than anyone at my company.",
-    avatar: "SM",
-  },
-  {
-    name: "Chris L.",
-    role: "Built a 6-figure remote sales career",
-    quote:
-      "Quit my 9-to-5, went full remote sales. The playbooks and live coaching calls are worth 100x what I paid. Best decision of my life.",
-    avatar: "CL",
-  },
-  {
-    name: "Aaliyah K.",
-    role: "From $0 to $8k/mo in 4 months",
-    quote:
-      "I had zero experience in sales — never even had a real job. This community took me from nothing to making more than both my parents combined.",
-    avatar: "AK",
-  },
-];
+// Each bucket gets exactly 3 testimonials shown on the VSL page.
+// Replace the placeholder entries below with your real ones.
+// Fields: name (display name), role (result / outcome line), quote (their words), avatar (2-letter initials)
+
+const testimonialsByBucket = {
+
+  // ── Shown when avatar = "The Explorer" (no work experience) ──────────
+  new_to_workforce: [
+    {
+      name: "Aaliyah K.",
+      role: "From $0 to $8k/mo in 4 months",
+      quote:
+        "I had zero experience in sales — never even had a real job. This community took me from nothing to making more than both my parents combined.",
+      avatar: "AK",
+    },
+    {
+      // TODO: Replace with real testimonial
+      name: "First Name L.",
+      role: "Result line here",
+      quote: "Testimonial quote here.",
+      avatar: "FL",
+    },
+    {
+      // TODO: Replace with real testimonial
+      name: "First Name L.",
+      role: "Result line here",
+      quote: "Testimonial quote here.",
+      avatar: "FL",
+    },
+  ],
+
+  // ── Shown when avatar = "The Builder" (career switcher) ──────────────
+  career_switcher: [
+    {
+      name: "Daniela R.",
+      role: "Went from retail to tech sales in 90 days",
+      quote:
+        "I was working retail making $15/hr. Joined the Impact Team, followed the roadmap, and landed a $65k base + commission role within 3 months.",
+      avatar: "DR",
+    },
+    {
+      // TODO: Replace with real testimonial
+      name: "First Name L.",
+      role: "Result line here",
+      quote: "Testimonial quote here.",
+      avatar: "FL",
+    },
+    {
+      // TODO: Replace with real testimonial
+      name: "First Name L.",
+      role: "Result line here",
+      quote: "Testimonial quote here.",
+      avatar: "FL",
+    },
+  ],
+
+  // ── Shown when avatar = "The Scientist" (already in sales) ───────────
+  already_in_sales: [
+    {
+      name: "Sophia M.",
+      role: "Promoted to team lead in 8 months",
+      quote:
+        "I already had sales experience but was stuck. The advanced modules and the people in here pushed me to another level. Got promoted faster than anyone at my company.",
+      avatar: "SM",
+    },
+    {
+      // TODO: Replace with real testimonial
+      name: "First Name L.",
+      role: "Result line here",
+      quote: "Testimonial quote here.",
+      avatar: "FL",
+    },
+    {
+      // TODO: Replace with real testimonial
+      name: "First Name L.",
+      role: "Result line here",
+      quote: "Testimonial quote here.",
+      avatar: "FL",
+    },
+  ],
+};
 
 // ─── Feature Data ───────────────────────────────────────────────────
 const features = [
@@ -475,9 +511,9 @@ export default function OnboardingFlow({
         <div style={anim("fadeSlideUp", 0.45)} className="border-t border-[var(--c-border)] pt-10">
           {(() => {
             const bucketPhrases: Record<string, string> = {
-              new_to_workforce: "wanted to get into sales for the first time",
-              career_switcher: "were switching careers into sales",
-              already_in_sales: "were already in sales and wanted to go further",
+              new_to_workforce: "had no work experience, got into sales",
+              career_switcher: "transitioned careers into sales",
+              already_in_sales: "were in sales but wanted to grow",
             };
             const phrase = selectedBucket ? bucketPhrases[selectedBucket] : null;
             return (
@@ -499,7 +535,7 @@ export default function OnboardingFlow({
           })()}
 
           <div className="grid grid-cols-1 gap-4">
-            {testimonials.map((t, i) => (
+            {(testimonialsByBucket[selectedBucket ?? "new_to_workforce"] ?? testimonialsByBucket.new_to_workforce).map((t, i) => (
               <div
                 key={i}
                 className="testimonial-card bg-[var(--c-card)] border border-[var(--c-border)] rounded-xl p-5"
