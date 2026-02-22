@@ -333,7 +333,7 @@ export default function OnboardingFlow({
 
   // ─── PAGE 1: Welcome ────────────────────────────────────────
   const WelcomePage = () => {
-    const firstName = userName?.split(" ")[0] || null;
+    const firstName = userName || null;
     return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center">
       <div
