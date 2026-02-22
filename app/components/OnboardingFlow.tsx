@@ -60,45 +60,41 @@ const testimonials = [
 ];
 
 // ─── Feature Data ───────────────────────────────────────────────────
-// TODO: Replace these with your actual features and demo video URLs
 const features = [
   {
-    title: "Sales Mastery Course",
-    description: "Complete A-to-Z sales training from prospecting to closing",
-    icon: "📚",
-    // TODO: Replace with your actual demo video URL
+    title: "4-Week Impact Formula Course",
+    description: "Master our proven sales script with built-in psychology and influence — engineered to help you close without sounding like a salesperson.",
+    image: "/Whop%20Illo%20-%20Books.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
-    title: "Live Coaching Calls",
-    description: "Weekly group coaching sessions with real role-play practice",
-    icon: "🎙️",
+    title: "Weekly Comprehension Checks",
+    description: "End-of-week assessments after each module to make sure you're actually absorbing the material — not just watching it.",
+    image: "/Whop%20Illo%20-%20Graduation.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
-    title: "Script Vault",
-    description:
-      "Proven cold call, email, and DM scripts that actually convert",
-    icon: "📝",
+    title: "Real Call Breakdown Library",
+    description: "Watch us run the Impact Formula on real sales calls so you can see exactly how to apply the script across any industry or objection.",
+    image: "/Whop%20Illo%20-%20Phone%2001.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
-    title: "Deal Review Sessions",
-    description:
-      "Submit your live deals and get tactical feedback from top closers",
-    icon: "🎯",
+    title: "Weekly Live Coaching Sessions",
+    description: "Bring your deals, your scripts, your industry. We help you adapt everything to your market and your personality — live, every week.",
+    image: "/Whop%20Illo%20-%20Messaging.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
-    title: "Community & Networking",
-    description: "Connect with thousands of hungry salespeople on the same path",
-    icon: "🤝",
+    title: "Points & Real Rewards",
+    description: "Earn points for showing up, completing modules, and executing. Spend them on real rewards inside the platform.",
+    image: "/Whop%20Illo%20-%20Trophy.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
-    title: "Job Board & Referrals",
-    description: "Exclusive sales job listings and warm intro opportunities",
-    icon: "💼",
+    title: "The Community",
+    description: "Roleplay scenarios, grow alongside people who get it, and meet people who might become your best friends — and future colleagues.",
+    image: "/Whop%20Illo%20-%20Messaging.svg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
 ];
@@ -597,10 +593,10 @@ export default function OnboardingFlow({
 
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-extrabold text-brand-cream mb-3">
-            here&apos;s what you just unlocked.
+            Don&apos;t get <span className="text-brand-orange">lost</span> in the <span className="text-brand-orange">sauce.</span>
           </h2>
           <p className="text-[#737373] text-base">
-            tap any feature to see a quick preview of how it works.
+            Here is where you <span className="text-brand-orange">live</span> now. Click a feature to get a <span className="text-brand-orange">preview.</span>
           </p>
         </div>
 
@@ -612,7 +608,7 @@ export default function OnboardingFlow({
               className="feature-card bg-[#161616] border border-[#262626] rounded-xl p-5 cursor-pointer group"
             >
               <div className="flex items-start gap-4">
-                <div className="text-2xl">{f.icon}</div>
+                <img src={f.image} alt={f.title} className="w-10 h-10 object-contain flex-shrink-0" />
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <h3 className="text-white font-bold text-base mb-1">
