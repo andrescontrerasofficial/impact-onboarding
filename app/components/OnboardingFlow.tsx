@@ -514,10 +514,10 @@ export default function OnboardingFlow({
               <div
                 key={b.id}
                 onClick={() => handleBucketSelect(b.id)}
-                className={`avatar-card relative border-2 rounded-3xl p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
+                className={`avatar-card relative border-2 rounded-3xl p-5 md:p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
                   selectedBucket === b.id
                     ? "is-selected border-brand-orange"
-                    : "border-[#262626]"
+                    : "border-[#2c2c2c]"
                 }`}
                 style={{
                   background: selectedBucket === b.id
@@ -528,36 +528,29 @@ export default function OnboardingFlow({
                     : "none",
                 }}
               >
-                {/* Image with soft glow behind it */}
-                <div className="relative mb-6 mt-2">
-                  <div
-                    className="absolute -inset-12 rounded-full blur-3xl transition-opacity duration-300"
-                    style={{
-                      background: "radial-gradient(circle, #FA4616 0%, transparent 65%)",
-                      opacity: selectedBucket === b.id ? 0.32 : 0.22,
-                    }}
-                  />
-                  <img src={b.image} alt={b.title} className="avatar-img relative w-28 h-28 object-contain" />
+                {/* Image */}
+                <div className="relative mb-4 md:mb-6 mt-1 md:mt-2">
+                  <img src={b.image} alt={b.title} className="avatar-img relative w-16 h-16 md:w-28 md:h-28 object-contain" />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-white font-extrabold text-[1.65rem] mb-1">
+                <h3 className="text-white font-extrabold text-lg md:text-[1.65rem] mb-1">
                   {b.title}
                 </h3>
 
                 {/* Subtitle */}
-                <p className="text-brand-orange text-[15px] font-semibold mb-3">
+                <p className="text-brand-orange text-[13px] md:text-[15px] font-semibold mb-2 md:mb-3">
                   {b.subtitle}
                 </p>
 
                 {/* Description */}
-                <p className="text-[#737373] text-sm leading-relaxed flex-1">
+                <p className="text-[#737373] text-xs md:text-sm leading-relaxed flex-1">
                   {b.description}
                 </p>
 
                 {/* Selected checkmark */}
                 {selectedBucket === b.id && (
-                  <div className="mt-5 w-7 h-7 rounded-full bg-brand-orange flex items-center justify-center" style={{ boxShadow: "0 0 16px rgba(250, 70, 22, 0.5)" }}>
+                  <div className="mt-3 md:mt-5 w-7 h-7 rounded-full bg-brand-orange flex items-center justify-center" style={{ boxShadow: "0 0 16px rgba(250, 70, 22, 0.5)" }}>
                     <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
                       <path
                         d="M2 6L5 9L10 3"

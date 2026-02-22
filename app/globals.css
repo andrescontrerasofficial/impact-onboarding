@@ -112,10 +112,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 @keyframes avatarBounceIn {
   0%   { transform: scale(1);    }
-  38%  { transform: scale(1.22); }
-  62%  { transform: scale(0.94); }
-  80%  { transform: scale(1.12); }
-  100% { transform: scale(1.08); }
+  38%  { transform: scale(1.1);  }
+  62%  { transform: scale(0.97); }
+  80%  { transform: scale(1.05); }
+  100% { transform: scale(1.04); }
 }
 
 .avatar-card:not(.is-selected):hover {
@@ -136,11 +136,11 @@ h1, h2, h3, h4, h5, h6 {
   100% { transform: translateY(-18%); opacity: 0.7; }
 }
 .sweep-glow {
-  animation: avatarSweep 5s ease-in-out infinite;
+  animation: avatarSweep 3.5s ease-in-out infinite;
 }
 @media (max-width: 768px) {
   .sweep-glow {
-    animation: avatarSweepVertical 5s ease-in-out infinite;
+    animation: avatarSweepVertical 3.5s ease-in-out infinite;
   }
 }
 
