@@ -1,5 +1,3 @@
-"use server";
-
 import Whop from "@whop/sdk";
 
 export const whopApi = new Whop({
