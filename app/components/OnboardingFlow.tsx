@@ -366,7 +366,7 @@ export default function OnboardingFlow({
           onClick={() => goToPage(2)}
           className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
         >
-          let&apos;s go →
+          Let&apos;s go →
         </button>
       </div>
     </div>
@@ -494,10 +494,10 @@ export default function OnboardingFlow({
 
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-extrabold text-brand-cream mb-3">
-              where are you right now?
+              Tailor your experience.
             </h2>
             <p className="text-[#737373] text-base">
-              pick the one that fits — we&apos;ll customize everything from here.
+              Before we open the gates, tell us who you are so we can tailor the blueprint.
             </p>
           </div>
 
