@@ -349,7 +349,7 @@ export default function OnboardingFlow({
         </div>
 
         {firstName && (
-          <p className="text-[#737373] text-xl mb-3">hey, {firstName}.</p>
+          <p className="text-[#737373] text-xl mb-3">Hey, {firstName}.</p>
         )}
 
         <h1 className="text-4xl md:text-5xl font-extrabold text-brand-cream tracking-tight mb-4 leading-tight">
