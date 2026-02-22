@@ -389,9 +389,10 @@ export default function OnboardingFlow({
             : "opacity-0 translate-y-6"
         }`}
       >
-        {/* Subtle brand mark */}
-        <div style={anim("fadeSlideDown", 0)} className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-orange/20 to-brand-orange/5 border border-brand-orange/20 flex items-center justify-center mx-auto mb-8">
-          <span className="text-brand-orange text-2xl font-bold">I</span>
+        {/* Company logo — swaps between dark / light theme */}
+        <div style={anim("fadeSlideDown", 0)} className="mx-auto mb-8 flex items-center justify-center">
+          <img src="/original-logo.svg" alt="The Impact Team" className="logo-dark h-12 w-auto object-contain" />
+          <img src="/inverted-logo.svg" alt="The Impact Team" className="logo-light h-12 w-auto object-contain" />
         </div>
 
         {firstName && (

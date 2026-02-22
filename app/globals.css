@@ -288,6 +288,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* ─── Theme-aware logo swap ──────────────────────────────────── */
+.logo-dark  { display: block; }
+.logo-light { display: none; }
+[data-theme="light"] .logo-dark  { display: none; }
+[data-theme="light"] .logo-light { display: block; }
+
 /* ─── Page entrance animations ──────────────────────────────── */
 @keyframes fadeSlideUp {
   from { opacity: 0; transform: translateY(22px); }
