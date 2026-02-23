@@ -443,7 +443,7 @@ export default function OnboardingFlow({
 
   // ─── PAGE 1: Welcome ────────────────────────────────────────
   const WelcomePage = () => {
-    const firstName = userName ? userName.trim().split(/\s+/)[0] : null;
+    const firstName = userName || null;
     return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center">
       <div
@@ -1014,6 +1014,18 @@ export default function OnboardingFlow({
 
   return (
     <div className="min-h-screen bg-[var(--c-bg)]">
+      {/* ── Top progress bar ── */}
+      <div className="fixed top-0 left-0 right-0 z-50 h-[3px] bg-[var(--c-border)]">
+        <div
+          className="h-full transition-all duration-500 ease-out"
+          style={{
+            width: `${(currentPage / totalPages) * 100}%`,
+            background: "linear-gradient(90deg, #fa4616, #ff6b3d)",
+            boxShadow: "0 0 8px rgba(250, 70, 22, 0.7)",
+          }}
+        />
+      </div>
+
       {currentPage === 1 && <WelcomePage />}
       {currentPage === 2 && renderAvatarPage()}
       {currentPage === 3 && <VSLPage />}
