@@ -569,7 +569,7 @@ export default function OnboardingFlow({
           </div>
 
           {/* CTA Button (repeated below testimonials) */}
-          <div className="text-center mt-8 mb-6">
+          <div className="text-center mt-8">
             <button
               onClick={() => goToPage(4)}
               className="btn-pulse cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl"
