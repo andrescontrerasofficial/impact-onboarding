@@ -253,6 +253,28 @@ export default function OnboardingFlow({
     }
   }, []);
 
+  // ─── Persist & restore progress ─────────────────────────────
+  useEffect(() => {
+    const page = localStorage.getItem("impact_page");
+    const bucket = localStorage.getItem("impact_bucket");
+    const steps = localStorage.getItem("impact_steps");
+    if (page) setCurrentPage(parseInt(page));
+    if (bucket) setSelectedBucket(bucket as Bucket);
+    if (steps) setCompletedSteps(new Set(JSON.parse(steps) as number[]));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("impact_page", String(currentPage));
+  }, [currentPage]);
+
+  useEffect(() => {
+    localStorage.setItem("impact_bucket", selectedBucket ?? "");
+  }, [selectedBucket]);
+
+  useEffect(() => {
+    localStorage.setItem("impact_steps", JSON.stringify([...completedSteps]));
+  }, [completedSteps]);
+
   // ─── Whop theme sync ────────────────────────────────────────
   useEffect(() => {
     const applyTheme = (appearance: "light" | "dark") => {
@@ -938,7 +960,8 @@ export default function OnboardingFlow({
               <span className="text-brand-orange">
                 {bucketLabels[selectedBucket || "new_to_workforce"]}
               </span>
-              , do these steps. Complete them all for a reward.
+              , do these steps. Complete them all for a{" "}
+              <span className="text-brand-orange">reward</span>.
             </p>
           </div>
 
