@@ -478,16 +478,18 @@ export default function OnboardingFlow({
           Learn how to close high-ticket deals with a simple formula.
         </p>
 
-        {/* Button + social proof share a container so the image matches button width */}
-        <div style={anim("fadeSlideUp", 0.42)} className="inline-flex flex-col items-stretch gap-5 mx-auto">
-          <button
-            onClick={() => goToPage(2)}
-            className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
-          >
-            Let&apos;s go. Takes 3 min. →
-          </button>
-          <img src="/dark.png"  alt="Social proof" className="social-proof-dark  w-full opacity-90" />
-          <img src="/light.png" alt="Social proof" className="social-proof-light w-full opacity-90" />
+        <button
+          style={anim("fadeSlideUp", 0.42)}
+          onClick={() => goToPage(2)}
+          className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
+        >
+          Let&apos;s go. Takes 3 min. →
+        </button>
+
+        {/* Social proof banner */}
+        <div style={anim("fadeSlideUp", 0.54)} className="mt-8">
+          <img src="/dark.png"  alt="Social proof" className="social-proof-dark  w-full max-w-xs mx-auto opacity-90" />
+          <img src="/light.png" alt="Social proof" className="social-proof-light w-full max-w-xs mx-auto opacity-90" />
         </div>
       </div>
     </div>
