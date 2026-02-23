@@ -157,7 +157,7 @@ const nextStepsMap: Record<
     {
       title: "Join the Community",
       description:
-        "This is where it starts. The community is full of people in your exact spot — no experience, betting on themselves anyway. Introduce yourself, ask questions, and never feel like you're figuring this out alone.",
+        "This is where it starts. The community is full of people in your exact spot — no experience, betting on themselves anyway. The people you surround yourself with decide the person you become.",
       cta: "Join Discord →",
       icon: "01",
       url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
@@ -165,7 +165,7 @@ const nextStepsMap: Record<
     {
       title: "Watch the First Module",
       description:
-        "You don't know what you don't know yet — and that's okay. This module breaks down how high-ticket sales actually works and exactly what separates reps who make $5k/mo from ones making $30k.",
+        "You don't know what you don't know yet - and that's okay. This module breaks down how high-ticket sales actually works and exactly what separates reps who make $5k/mo from ones making $30k.",
       cta: "Start Watching →",
       icon: "02",
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
@@ -173,7 +173,7 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this.",
+        "Information without implemention is just entertainment. If you're someone who wants to treat sales like more than just a hobby, who is committed - with the 8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP/",
@@ -183,7 +183,7 @@ const nextStepsMap: Record<
     {
       title: "Join the Community",
       description:
-        "This is where people who made the same leap you're about to make hang out every day. Introduce yourself, say where you're coming from, and watch how fast this community shows up for you.",
+        "As you look to possibly switch into sales. The key is understanding the people you surround yourself with decide the person you become. Meet your sales people here.",
       cta: "Join Discord →",
       icon: "01",
       url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
@@ -191,7 +191,7 @@ const nextStepsMap: Record<
     {
       title: "Watch the First Module",
       description:
-        "Your background gives you an edge most people don't have. This module shows you how to apply what you already know inside the Impact framework — and where to rewire the habits that won't serve you in high-ticket sales.",
+        "You're lucky getting into sales you don't have the bad habits built up. The reason most sales reps work for years never making real $ - is they never built the foundation. A great script is like a sword for a fighter.",
       cta: "Start Watching →",
       icon: "02",
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
@@ -199,7 +199,7 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "The fastest path from your current career to a $20k+ month in sales is cutting the learning curve in half. VIP gives you 8 live coaching calls a week, full call recordings from real closers, and direct access to people who've already made this transition. 3 days free.",
+        "Information without implemention is just entertainment. If you are someone who wants to treat sales like more than just a hobby as you switch into it, who is committed - with the 8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP/",
@@ -209,7 +209,7 @@ const nextStepsMap: Record<
     {
       title: "Join the Community",
       description:
-        "Your environment is your ceiling. Get inside the community and surround yourself with reps who are building serious numbers. The energy in here is different — and it's contagious.",
+        "Your environment is your ceiling. Get inside the community and find the reps doing the $10k and $100k commission months. The energy in here is different - and it's contagious.",
       cta: "Join Discord →",
       icon: "01",
       url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
@@ -217,7 +217,7 @@ const nextStepsMap: Record<
     {
       title: "Watch the First Module",
       description:
-        "You've sold before. This shows you how the top 1% do it differently. Even if 20% of it is new to you, that 20% is the thing that takes you from good to elite. Don't skip it.",
+        "You've already taken sales calls. Yet the reason most sales reps work for years never making real $ - is they never built the foundation. A great script is like a sword for a fighter.",
       cta: "Start Watching →",
       icon: "02",
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
@@ -225,7 +225,7 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "You already know the difference between being coached once a week and being coached 8 times. VIP gives you 8 calls/week, full call recordings, and direct access to closers doing the numbers you want to hit. Try it free. You'll know by day one.",
+        "Information without implemention is just entertainment. Theres a difference between the people who are 'in' sales and the people that are INNNN sales, who treat it like more than a hobby. If that's you - with the 8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP/",
