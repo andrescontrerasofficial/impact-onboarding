@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { createSdk } from "@whop/iframe";
 
 // ─── Types ──────────────────────────────────────────────────────────
@@ -145,102 +145,116 @@ const features = [
   },
 ];
 
-// ─── Next Steps Data (conditional on bucket) ────────────────────────
-// TODO: Replace these with your actual next steps for each bucket
-// ─── REPLACEMENT #1: Replace the entire nextStepsMap (around line 100) with this ───
+// ─── Next Steps Data ─────────────────────────────────────────────────
+// Steps are the same for every avatar — only the description copy changes.
 
 const nextStepsMap: Record<
   string,
-  { title: string; description: string; cta: string; icon: string }[]
+  { title: string; description: string; cta: string; icon: string; url: string; vip?: boolean }[]
 > = {
   new_to_workforce: [
     {
-      title: "[Join the Community]",
+      title: "Join the Community",
       description:
-        "Your first step: get inside the group, introduce yourself, and connect with people on the same path.",
-      cta: "Join Now →",
+        "This is where it starts. The community is full of people in your exact spot — no experience, betting on themselves anyway. Introduce yourself, ask questions, and never feel like you're figuring this out alone.",
+      cta: "Join Discord →",
       icon: "01",
+      url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
     },
     {
-      title: "[Watch Sales 101]",
+      title: "Watch the First Module",
       description:
-        "Start with the fundamentals — learn what sales actually is, why it pays more than almost anything else, and how the game works.",
-      cta: "Watch Now →",
+        "You don't know what you don't know yet — and that's okay. This module breaks down how high-ticket sales actually works and exactly what separates reps who make $5k/mo from ones making $30k.",
+      cta: "Start Watching →",
       icon: "02",
+      url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
     },
     {
-      title: "[Complete the Cold Call Starter Kit]",
+      title: "Check Your Rewards",
       description:
-        "This 30-minute module gives you your first script, teaches you tonality basics, and gets you ready to make your first 10 calls.",
-      cta: "Start Module →",
+        "You've already unlocked perks just by being here. Go check your rewards dashboard — there's real value in there you can start using today. The point system rewards action, and you've already taken the first one.",
+      cta: "View Rewards →",
       icon: "03",
+      url: "https://whop.com/joined/impact-team-vip/points-and-rewards-xApAnlafd2UHlw/app/",
     },
     {
-      title: "[Attend a Live Coaching Call]",
+      title: "Try VIP Free for 3 Days",
       description:
-        "Nothing accelerates learning faster than watching real reps get coached in real time. Jump on this week's session and absorb everything.",
-      cta: "See Schedule →",
+        "8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this.",
+      cta: "Start Free Trial →",
       icon: "04",
+      url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP/",
+      vip: true,
     },
   ],
   career_switcher: [
     {
-      title: "[Join the Community]",
+      title: "Join the Community",
       description:
-        "Your first step: get inside the group, introduce yourself, and let people know what industry you're coming from.",
-      cta: "Join Now →",
+        "This is where people who made the same leap you're about to make hang out every day. Introduce yourself, say where you're coming from, and watch how fast this community shows up for you.",
+      cta: "Join Discord →",
       icon: "01",
+      url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
     },
     {
-      title: "[Watch the Career Transition Roadmap]",
+      title: "Watch the First Module",
       description:
-        "This module is built specifically for people switching industries. It maps your existing skills to sales and shows you the fastest path to getting hired.",
-      cta: "Watch Now →",
+        "Your background gives you an edge most people don't have. This module shows you how to apply what you already know inside the Impact framework — and where to rewire the habits that won't serve you in high-ticket sales.",
+      cta: "Start Watching →",
       icon: "02",
+      url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
     },
     {
-      title: "[Browse the Job Board]",
+      title: "Check Your Rewards",
       description:
-        "We have exclusive SDR and AE listings from companies that specifically hire career switchers. Some of these never get posted publicly.",
-      cta: "View Jobs →",
+        "Impact isn't just a community — it's a system that rewards the work you put in. See what you have access to, what you can earn, and what the top members are competing for. The perks in here are real.",
+      cta: "View Rewards →",
       icon: "03",
+      url: "https://whop.com/joined/impact-team-vip/points-and-rewards-xApAnlafd2UHlw/app/",
     },
     {
-      title: "[Book a Strategy Session]",
+      title: "Try VIP Free for 3 Days",
       description:
-        "Our team will help you build a personalized 90-day plan to break into sales based on your background, location, and goals.",
-      cta: "Book Now →",
+        "The fastest path from your current career to a $20k+ month in sales is cutting the learning curve in half. VIP gives you 8 live coaching calls a week, full call recordings from real closers, and direct access to people who've already made this transition. 3 days free.",
+      cta: "Start Free Trial →",
       icon: "04",
+      url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP/",
+      vip: true,
     },
   ],
   already_in_sales: [
     {
-      title: "[Join the Community]",
+      title: "Join the Community",
       description:
-        "Get inside the group and connect with other top performers who are grinding just as hard as you.",
-      cta: "Join Now →",
+        "Your environment is your ceiling. Get inside the community and surround yourself with reps who are building serious numbers. The energy in here is different — and it's contagious.",
+      cta: "Join Discord →",
       icon: "01",
+      url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
     },
     {
-      title: "[Start the Advanced Closing Module]",
+      title: "Watch the First Module",
       description:
-        "Skip the basics — this covers multi-threading, executive selling, complex deal navigation, and techniques that 99% of reps never learn.",
-      cta: "Watch Now →",
+        "You've sold before. This shows you how the top 1% do it differently. Even if 20% of it is new to you, that 20% is the thing that takes you from good to elite. Don't skip it.",
+      cta: "Start Watching →",
       icon: "02",
+      url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
     },
     {
-      title: "[Access the Software]",
+      title: "Check Your Rewards",
       description:
-        "Set up your tools, plug in the frameworks, and get your pipeline dialed in with our proven systems.",
-      cta: "Open Software →",
+        "You're not just paying for access — you're building equity in your craft. Check the rewards portal to see what you've already unlocked and what you're working toward. The leaderboard is public. Use that.",
+      cta: "View Rewards →",
       icon: "03",
+      url: "https://whop.com/joined/impact-team-vip/points-and-rewards-xApAnlafd2UHlw/app/",
     },
     {
-      title: "[Submit a Deal for Review]",
+      title: "Try VIP Free for 3 Days",
       description:
-        "Got a deal you're working? Submit it to the review board and get tactical feedback from closers who've been in your exact situation.",
-      cta: "Submit Deal →",
+        "You already know the difference between being coached once a week and being coached 8 times. VIP gives you 8 calls/week, full call recordings, and direct access to closers doing the numbers you want to hit. Try it free. You'll know by day one.",
+      cta: "Start Free Trial →",
       icon: "04",
+      url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP/",
+      vip: true,
     },
   ],
 };
@@ -255,6 +269,15 @@ export default function OnboardingFlow({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedBucket, setSelectedBucket] = useState<Bucket>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const sdkRef = useRef<ReturnType<typeof createSdk> | null>(null);
+
+  const navigate = useCallback((url: string) => {
+    if (sdkRef.current) {
+      sdkRef.current.openExternalUrl({ url, newTab: false });
+    } else {
+      window.open(url, "_blank");
+    }
+  }, []);
 
   // ─── Whop theme sync ────────────────────────────────────────
   useEffect(() => {
@@ -271,6 +294,7 @@ export default function OnboardingFlow({
             },
           },
         });
+        sdkRef.current = sdk;
         const colorTheme = await sdk.getColorTheme();
         applyTheme(colorTheme.appearance ?? "dark");
       } catch {
@@ -864,7 +888,7 @@ export default function OnboardingFlow({
     const bucketLabels: Record<string, string> = {
       new_to_workforce: "brand new to the game",
       career_switcher: "switching into sales",
-      already_in_sales: "already in sales and ready to dominate",
+      already_in_sales: "already in sales looking to dominate",
     };
 
     return (
@@ -919,7 +943,14 @@ export default function OnboardingFlow({
                   <p className="text-[var(--c-muted)] text-sm leading-relaxed mb-4">
                     {step.description}
                   </p>
-                  <button className="btn-pulse border border-[var(--c-border-strong)] text-[var(--c-text)] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent hover:bg-[var(--c-card-hover)] transition-colors">
+                  <button
+                    onClick={() => navigate(step.url)}
+                    className={
+                      step.vip
+                        ? "btn-pulse cta-button text-white text-sm font-semibold px-5 py-2.5 rounded-lg"
+                        : "btn-pulse border border-[var(--c-border-strong)] text-[var(--c-text)] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent hover:bg-[var(--c-card-hover)] transition-colors"
+                    }
+                  >
                     {step.cta}
                   </button>
                 </div>
