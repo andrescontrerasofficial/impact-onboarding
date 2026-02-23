@@ -443,7 +443,7 @@ export default function OnboardingFlow({
 
   // ─── PAGE 1: Welcome ────────────────────────────────────────
   const WelcomePage = () => {
-    const firstName = userName || null;
+    const firstName = userName ? userName.trim().split(/\s+/)[0] : null;
     return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center">
       <div
@@ -484,6 +484,12 @@ export default function OnboardingFlow({
         >
           Let&apos;s go. Takes 3 min. →
         </button>
+
+        {/* Social proof banner */}
+        <div style={anim("fadeSlideUp", 0.54)} className="mt-8">
+          <img src="/dark.svg"  alt="Social proof" className="social-proof-dark  w-full max-w-xs mx-auto opacity-90" />
+          <img src="/light.svg" alt="Social proof" className="social-proof-light w-full max-w-xs mx-auto opacity-90" />
+        </div>
       </div>
     </div>
   );
