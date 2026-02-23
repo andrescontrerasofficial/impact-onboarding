@@ -246,8 +246,12 @@ export default function OnboardingFlow({
   const sdkRef = useRef<ReturnType<typeof createSdk> | null>(null);
 
   const navigate = useCallback((url: string) => {
+    // Detect Whop mobile app (React Native WebView or WKWebView)
+    const isMobile =
+      "ReactNativeWebView" in window ||
+      !!(window as { webkit?: { messageHandlers?: unknown } }).webkit?.messageHandlers;
     if (sdkRef.current) {
-      sdkRef.current.openExternalUrl({ url, newTab: false });
+      sdkRef.current.openExternalUrl({ url, newTab: !isMobile });
     } else {
       window.open(url, "_blank");
     }
@@ -894,52 +898,6 @@ export default function OnboardingFlow({
 
     return (
       <div className="min-h-screen px-4 md:px-8 py-8">
-        {/* ── Celebration overlay ── */}
-        {allDone && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center px-4"
-            style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(6px)" }}
-          >
-            <div
-              style={{
-                animation: "scaleIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both",
-                boxShadow: "0 0 80px rgba(250,70,22,0.25), 0 0 0 1px rgba(250,70,22,0.15)",
-              }}
-              className="max-w-md w-full bg-[var(--c-card)] border border-brand-orange/25 rounded-2xl p-8 text-center"
-            >
-              <div className="text-5xl mb-4">🔥</div>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-[var(--c-heading)] mb-2">
-                You&apos;re locked in.
-              </h2>
-              <p className="text-[var(--c-muted)] text-sm mb-6 leading-relaxed">
-                You just finished your onboarding — and you already have the mindset most people never build.
-              </p>
-
-              <div
-                className="bg-brand-orange/10 border border-brand-orange/25 rounded-xl p-5 mb-6"
-                style={{ boxShadow: "inset 0 0 30px rgba(250,70,22,0.05)" }}
-              >
-                <p className="text-brand-orange font-extrabold text-4xl mb-1">+20 Points</p>
-                <p className="text-[var(--c-muted)] text-sm">just dropped into your account.</p>
-              </div>
-
-              <p className="text-[var(--c-text)] text-sm leading-relaxed mb-7">
-                Every action you take inside Impact earns you points — modules watched, calls attended, deals submitted.
-                Points climb the{" "}
-                <span className="text-brand-orange font-semibold">leaderboard</span>, and you spend them on{" "}
-                <span className="text-brand-orange font-semibold">real rewards</span> inside the Impact portal.
-                The best reps in this community aren&apos;t just earning commissions — they&apos;re earning everything else too.
-              </p>
-
-              <button
-                onClick={() => navigate("https://whop.com/joined/impact-team-vip/points-and-rewards-xApAnlafd2UHlw/app/")}
-                className="btn-pulse cta-button text-white font-semibold text-base px-6 py-3.5 rounded-xl w-full"
-              >
-                See Your Rewards →
-              </button>
-            </div>
-          </div>
-        )}
 
         <div
           className={`max-w-2xl mx-auto transition-all duration-500 ${
@@ -1025,6 +983,24 @@ export default function OnboardingFlow({
               );
             })}
           </div>
+
+          {allDone && (
+            <div
+              className="mt-2 bg-[var(--c-card)] border border-brand-orange/25 rounded-2xl p-8 text-center"
+              style={{
+                animation: "fadeSlideUp 0.55s cubic-bezier(0.34,1.56,0.64,1) both",
+                boxShadow: "0 0 50px rgba(250,70,22,0.1)",
+              }}
+            >
+              <div className="text-4xl mb-4">🔥</div>
+              <h3 className="text-2xl font-extrabold text-[var(--c-heading)] mb-2">
+                You&apos;re all set.
+              </h3>
+              <p className="text-[var(--c-muted)] text-sm leading-relaxed">
+                Welcome to Impact. You&apos;ve got everything you need — now go enjoy the journey and make it happen.
+              </p>
+            </div>
+          )}
 
           <BackButton to={4} />
         </div>
