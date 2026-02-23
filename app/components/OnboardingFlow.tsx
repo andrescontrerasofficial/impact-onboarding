@@ -146,11 +146,11 @@ const features = [
 ];
 
 // ─── Next Steps Data ─────────────────────────────────────────────────
-// Steps are the same for every avatar — only the description copy changes.
+// 3 steps, same for every avatar — only the description copy changes.
 
 const nextStepsMap: Record<
   string,
-  { title: string; description: string; cta: string; icon: string; url: string; vip?: boolean }[]
+  { title: string; description: string; cta: string; icon: string; url: string }[]
 > = {
   new_to_workforce: [
     {
@@ -170,21 +170,12 @@ const nextStepsMap: Record<
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
     },
     {
-      title: "Check Your Rewards",
-      description:
-        "You've already unlocked perks just by being here. Go check your rewards dashboard — there's real value in there you can start using today. The point system rewards action, and you've already taken the first one.",
-      cta: "View Rewards →",
-      icon: "03",
-      url: "https://whop.com/joined/impact-team-vip/points-and-rewards-xApAnlafd2UHlw/app/",
-    },
-    {
       title: "Try VIP Free for 3 Days",
       description:
         "8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this.",
       cta: "Start Free Trial →",
-      icon: "04",
+      icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP/",
-      vip: true,
     },
   ],
   career_switcher: [
@@ -205,21 +196,12 @@ const nextStepsMap: Record<
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
     },
     {
-      title: "Check Your Rewards",
-      description:
-        "Impact isn't just a community — it's a system that rewards the work you put in. See what you have access to, what you can earn, and what the top members are competing for. The perks in here are real.",
-      cta: "View Rewards →",
-      icon: "03",
-      url: "https://whop.com/joined/impact-team-vip/points-and-rewards-xApAnlafd2UHlw/app/",
-    },
-    {
       title: "Try VIP Free for 3 Days",
       description:
         "The fastest path from your current career to a $20k+ month in sales is cutting the learning curve in half. VIP gives you 8 live coaching calls a week, full call recordings from real closers, and direct access to people who've already made this transition. 3 days free.",
       cta: "Start Free Trial →",
-      icon: "04",
+      icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP/",
-      vip: true,
     },
   ],
   already_in_sales: [
@@ -240,21 +222,12 @@ const nextStepsMap: Record<
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
     },
     {
-      title: "Check Your Rewards",
-      description:
-        "You're not just paying for access — you're building equity in your craft. Check the rewards portal to see what you've already unlocked and what you're working toward. The leaderboard is public. Use that.",
-      cta: "View Rewards →",
-      icon: "03",
-      url: "https://whop.com/joined/impact-team-vip/points-and-rewards-xApAnlafd2UHlw/app/",
-    },
-    {
       title: "Try VIP Free for 3 Days",
       description:
         "You already know the difference between being coached once a week and being coached 8 times. VIP gives you 8 calls/week, full call recordings, and direct access to closers doing the numbers you want to hit. Try it free. You'll know by day one.",
       cta: "Start Free Trial →",
-      icon: "04",
+      icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP/",
-      vip: true,
     },
   ],
 };
@@ -269,6 +242,7 @@ export default function OnboardingFlow({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedBucket, setSelectedBucket] = useState<Bucket>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
   const sdkRef = useRef<ReturnType<typeof createSdk> | null>(null);
 
   const navigate = useCallback((url: string) => {
@@ -881,23 +855,73 @@ export default function OnboardingFlow({
   );
 
   // ─── PAGE 5: Personalized Next Steps ────────────────────────
-  // ─── REPLACEMENT #2: Replace the entire NextStepsPage component with this ───
 
   const NextStepsPage = () => {
     const steps = nextStepsMap[selectedBucket || "new_to_workforce"];
+    const allDone = completedSteps.size >= steps.length;
     const bucketLabels: Record<string, string> = {
       new_to_workforce: "brand new to the game",
       career_switcher: "switching into sales",
       already_in_sales: "already in sales looking to dominate",
     };
 
+    const handleStepClick = (i: number, url: string) => {
+      navigate(url);
+      setCompletedSteps((prev) => new Set([...prev, i]));
+    };
+
     return (
       <div className="min-h-screen px-4 md:px-8 py-8">
+        {/* ── Celebration overlay ── */}
+        {allDone && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center px-4"
+            style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(6px)" }}
+          >
+            <div
+              style={{
+                animation: "scaleIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both",
+                boxShadow: "0 0 80px rgba(250,70,22,0.25), 0 0 0 1px rgba(250,70,22,0.15)",
+              }}
+              className="max-w-md w-full bg-[var(--c-card)] border border-brand-orange/25 rounded-2xl p-8 text-center"
+            >
+              <div className="text-5xl mb-4">🔥</div>
+              <h2 className="text-2xl md:text-3xl font-extrabold text-[var(--c-heading)] mb-2">
+                You&apos;re locked in.
+              </h2>
+              <p className="text-[var(--c-muted)] text-sm mb-6 leading-relaxed">
+                You just finished your onboarding — and you already have the mindset most people never build.
+              </p>
+
+              <div
+                className="bg-brand-orange/10 border border-brand-orange/25 rounded-xl p-5 mb-6"
+                style={{ boxShadow: "inset 0 0 30px rgba(250,70,22,0.05)" }}
+              >
+                <p className="text-brand-orange font-extrabold text-4xl mb-1">+20 Points</p>
+                <p className="text-[var(--c-muted)] text-sm">just dropped into your account.</p>
+              </div>
+
+              <p className="text-[var(--c-text)] text-sm leading-relaxed mb-7">
+                Every action you take inside Impact earns you points — modules watched, calls attended, deals submitted.
+                Points climb the{" "}
+                <span className="text-brand-orange font-semibold">leaderboard</span>, and you spend them on{" "}
+                <span className="text-brand-orange font-semibold">real rewards</span> inside the Impact portal.
+                The best reps in this community aren&apos;t just earning commissions — they&apos;re earning everything else too.
+              </p>
+
+              <button
+                onClick={() => navigate("https://whop.com/joined/impact-team-vip/points-and-rewards-xApAnlafd2UHlw/app/")}
+                className="btn-pulse cta-button text-white font-semibold text-base px-6 py-3.5 rounded-xl w-full"
+              >
+                See Your Rewards →
+              </button>
+            </div>
+          </div>
+        )}
+
         <div
           className={`max-w-2xl mx-auto transition-all duration-500 ${
-            animateIn
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-6"
+            animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
           <StepIndicator />
@@ -914,7 +938,7 @@ export default function OnboardingFlow({
               <span className="text-brand-orange">
                 {bucketLabels[selectedBucket || "new_to_workforce"]}
               </span>
-              , here&apos;s exactly where to start.
+              , do these steps. Complete them all for a reward.
             </p>
           </div>
 
@@ -928,47 +952,63 @@ export default function OnboardingFlow({
               }}
             />
 
-            {steps.map((step, i) => (
-              <div key={i} style={anim("fadeSlideUp", 0.2 + i * 0.14)} className="relative flex items-start gap-5">
-                <div
-                  className="relative z-10 w-12 h-12 rounded-xl bg-brand-orange flex items-center justify-center text-white font-extrabold text-base shrink-0"
-                  style={{ boxShadow: "0 8px 24px rgba(250, 70, 22, 0.3)" }}
-                >
-                  {step.icon}
-                </div>
-                <div className="flex-1 bg-[var(--c-card)] border border-[var(--c-border)] rounded-xl p-6 hover:border-[var(--c-border-strong)] transition-colors">
-                  <h3 className="text-[var(--c-text)] font-extrabold text-lg mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-[var(--c-muted)] text-sm leading-relaxed mb-4">
-                    {step.description}
-                  </p>
-                  <button
-                    onClick={() => navigate(step.url)}
-                    className={
-                      step.vip
-                        ? "btn-pulse cta-button text-white text-sm font-semibold px-5 py-2.5 rounded-lg"
-                        : "btn-pulse border border-[var(--c-border-strong)] text-[var(--c-text)] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent hover:bg-[var(--c-card-hover)] transition-colors"
-                    }
+            {steps.map((step, i) => {
+              const isCompleted = completedSteps.has(i);
+              const isActive = i === completedSteps.size;
+
+              return (
+                <div key={i} style={anim("fadeSlideUp", 0.2 + i * 0.14)} className="relative flex items-start gap-5">
+                  {/* Step number / checkmark */}
+                  <div
+                    className={`relative z-10 w-12 h-12 rounded-xl flex items-center justify-center text-white font-extrabold text-base shrink-0 transition-all duration-300 ${
+                      isCompleted ? "bg-emerald-500" : "bg-brand-orange"
+                    }`}
+                    style={{
+                      boxShadow: isCompleted
+                        ? "0 8px 24px rgba(16,185,129,0.35)"
+                        : "0 8px 24px rgba(250,70,22,0.3)",
+                    }}
                   >
-                    {step.cta}
-                  </button>
+                    {isCompleted ? "✓" : step.icon}
+                  </div>
+
+                  {/* Card */}
+                  <div
+                    className={`flex-1 bg-[var(--c-card)] border rounded-xl p-6 transition-colors duration-300 ${
+                      isCompleted
+                        ? "border-emerald-500/30"
+                        : "border-[var(--c-border)] hover:border-[var(--c-border-strong)]"
+                    }`}
+                  >
+                    <h3 className="text-[var(--c-text)] font-extrabold text-lg mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="text-[var(--c-muted)] text-sm leading-relaxed mb-4">
+                      {step.description}
+                    </p>
+
+                    {isCompleted ? (
+                      <span className="inline-flex items-center gap-1.5 text-emerald-400 text-sm font-medium">
+                        ✓ Completed
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => handleStepClick(i, step.url)}
+                        className={
+                          isActive
+                            ? "btn-pulse cta-button text-white text-sm font-semibold px-5 py-2.5 rounded-lg"
+                            : "border border-[var(--c-border-strong)] text-[var(--c-muted)] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent"
+                        }
+                      >
+                        {step.cta}
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
-          <div style={anim("fadeSlideUp", 0.88)} className="text-center">
-            <div className="bg-[var(--c-card)] border border-[var(--c-border)] rounded-xl p-6 inline-block">
-              <p className="text-[var(--c-heading)] font-semibold mb-1">
-                you&apos;re all set. go make an impact.
-              </p>
-              <p className="text-[var(--c-muted)] text-sm">
-                close this page and start working through your plan. we&apos;ll
-                see you inside. 🔥
-              </p>
-            </div>
-          </div>
           <BackButton to={4} />
         </div>
       </div>
