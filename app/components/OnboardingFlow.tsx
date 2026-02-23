@@ -423,23 +423,6 @@ export default function OnboardingFlow({
     animation: `${name} ${duration}s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s both`,
   });
 
-  // ─── Step Indicator ─────────────────────────────────────────
-  const StepIndicator = () => (
-    <div className="flex items-center justify-center gap-2 py-6">
-      {Array.from({ length: totalPages }, (_, i) => i + 1).map((step) => (
-        <div
-          key={step}
-          className={`step-dot w-2 h-2 rounded-full transition-all duration-300 ${
-            step === currentPage
-              ? "active w-6"
-              : step < currentPage
-              ? "completed"
-              : "bg-[var(--c-border)]"
-          }`}
-        />
-      ))}
-    </div>
-  );
 
   // ─── PAGE 1: Welcome ────────────────────────────────────────
   const WelcomePage = () => {
@@ -487,8 +470,7 @@ export default function OnboardingFlow({
 
         {/* Social proof banner */}
         <div style={anim("fadeSlideUp", 0.54)} className="mt-8">
-          <img src="/dark.svg"  alt="Social proof" className="social-proof-dark  w-full max-w-xs mx-auto opacity-90" />
-          <img src="/light.svg" alt="Social proof" className="social-proof-light w-full max-w-xs mx-auto opacity-90" />
+          <img src="/dark.svg" alt="Social proof" className="social-proof-img w-full max-w-xs mx-auto opacity-90" />
         </div>
       </div>
     </div>
@@ -505,7 +487,7 @@ export default function OnboardingFlow({
             : "opacity-0 translate-y-6"
         }`}
       >
-        <StepIndicator />
+
 
         <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
@@ -650,7 +632,7 @@ export default function OnboardingFlow({
               : "opacity-0 translate-y-6"
           }`}
         >
-          <StepIndicator />
+  
 
           <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
@@ -756,7 +738,7 @@ export default function OnboardingFlow({
             : "opacity-0 translate-y-6"
         }`}
       >
-        <StepIndicator />
+
 
         <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
@@ -922,7 +904,7 @@ export default function OnboardingFlow({
             animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          <StepIndicator />
+  
 
           <div style={anim("fadeSlideDown", 0.05)} className="text-center mb-12">
             <div className="inline-block bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
