@@ -24,7 +24,7 @@ const testimonialsByBucket = {
   new_to_workforce: [
     {
       name: "Brayden Decker",
-      role: "25k in Student Loan Debt to 15k/mo Earner",
+      role: "$25k in Student Loan Debt to $15k/mo Earner",
       quote:
         "Was in a frat and heard of Impact and andres from a friend and decided to give it a shot even though I was already 25k in student loan debt but thank God i hit 15k/month consistent in 4ish months.",
       avatar: "BD",
@@ -39,7 +39,7 @@ const testimonialsByBucket = {
     },
     {
       name: "Phillip Ek",
-      role: "Removed from our house to 20k/month",
+      role: "Removed from our house to $20k/month",
       quote: "I worked with Andres since he ran an agency years ago. My mom and I got kicked out of our house and struggled around europe for a while. I saw the entire journey of Impact and rose with it. Made 20k last month in commissions selling for AI Acquisitions (they also got me on the offer).",
       avatar: "PE",
       image: "/phillip.png",
@@ -58,7 +58,7 @@ const testimonialsByBucket = {
     },
     {
       name: "Brayden Decker",
-      role: "25k in Student Loan Debt to 15k/mo Earner",
+      role: "$25k in Student Loan Debt to $15k/mo Earner",
       quote: "Was in a frat and heard of Impact and andres from a friend and decided to give it a shot even though I was already 25k in student loan debt but thank God i hit 15k/month consistent in 4ish months.",
       avatar: "BD",
       image: "/brayden.png",
@@ -84,7 +84,7 @@ const testimonialsByBucket = {
     },
     {
       name: "Abel DaSilva",
-      role: "15k to $30k/mo in comms selling a trading algorithm.",
+      role: "$15k to $30k/mo in comms selling a trading algorithm",
       quote: "Impact gave me overall a clear structure knowing exactly what answers I needed from every questions and the objection handling sequence. Before HIGHEST month EVER was 15k this month theres 5 days left and im pacing 300k cash and 30k comms.",
       avatar: "AD",
       image: "/abel.png",
@@ -567,6 +567,17 @@ export default function OnboardingFlow({
               </div>
             ))}
           </div>
+
+          {/* CTA Button (repeated below testimonials) */}
+          <div className="text-center mt-8 mb-6">
+            <button
+              onClick={() => goToPage(4)}
+              className="btn-pulse cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl"
+            >
+              I am committed to my success →
+            </button>
+          </div>
+
           <BackButton to={2} />
         </div>
       </div>
