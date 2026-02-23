@@ -13,11 +13,13 @@
     "@whop-apps/dev-proxy": "latest",
     "@whop/iframe": "latest",
     "@whop/sdk": "^0.0.28",
+    "canvas-confetti": "^1.9.4",
     "next": "16.1.6",
     "react": "^19",
     "react-dom": "^19"
   },
   "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

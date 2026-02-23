@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { createSdk } from "@whop/iframe";
+import confetti from "canvas-confetti";
 
 // ─── Types ──────────────────────────────────────────────────────────
 type Bucket = "new_to_workforce" | "career_switcher" | "already_in_sales" | null;
@@ -891,9 +892,21 @@ export default function OnboardingFlow({
       already_in_sales: "already in sales looking to dominate",
     };
 
+    const fireConfetti = () => {
+      const colors = ["#fa4616", "#ff6b3d", "#fcf6f5", "#ffffff", "#141212"];
+      // Centre burst
+      confetti({ particleCount: 120, spread: 80, origin: { x: 0.5, y: 0.6 }, colors, startVelocity: 45 });
+      // Left burst
+      setTimeout(() => confetti({ particleCount: 70, spread: 55, angle: 60, origin: { x: 0.15, y: 0.65 }, colors }), 180);
+      // Right burst
+      setTimeout(() => confetti({ particleCount: 70, spread: 55, angle: 120, origin: { x: 0.85, y: 0.65 }, colors }), 360);
+    };
+
     const handleStepClick = (i: number, url: string) => {
       navigate(url);
-      setCompletedSteps((prev) => new Set([...prev, i]));
+      const newCompleted = new Set([...completedSteps, i]);
+      setCompletedSteps(newCompleted);
+      if (newCompleted.size >= steps.length) fireConfetti();
     };
 
     return (
@@ -911,7 +924,7 @@ export default function OnboardingFlow({
               plan ready
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
-              Your next moves.
+              Your next 3 missions.
             </h2>
             <p className="text-[var(--c-muted)] text-base">
               Since you&apos;re{" "}
