@@ -885,7 +885,6 @@ export default function OnboardingFlow({
 
   const NextStepsPage = () => {
     const steps = nextStepsMap[selectedBucket || "new_to_workforce"];
-    const allDone = completedSteps.size >= steps.length;
     const bucketLabels: Record<string, string> = {
       new_to_workforce: "brand new to the game",
       career_switcher: "switching into sales",
@@ -997,25 +996,24 @@ export default function OnboardingFlow({
             })}
           </div>
 
-          {allDone && (
-            <div
-              className="mt-2 bg-[var(--c-card)] border border-brand-orange/25 rounded-2xl p-8 text-center"
-              style={{
-                animation: "fadeSlideUp 0.55s cubic-bezier(0.34,1.56,0.64,1) both",
-                boxShadow: "0 0 50px rgba(250,70,22,0.1)",
-              }}
-            >
-              <div className="text-4xl mb-4">🔥</div>
-              <h3 className="text-2xl font-extrabold text-[var(--c-heading)] mb-2">
-                You&apos;re all set.
-              </h3>
-              <p className="text-[var(--c-muted)] text-sm leading-relaxed">
-                Welcome to Impact. You&apos;ve got everything you need — now go enjoy the journey and make it happen.
-              </p>
-            </div>
-          )}
-
           <BackButton to={4} />
+
+          {/* Reset button — for testing the flow */}
+          <div className="text-center mt-2 pb-4">
+            <button
+              onClick={() => {
+                ["impact_page", "impact_bucket", "impact_steps"].forEach((k) =>
+                  localStorage.removeItem(k)
+                );
+                setCurrentPage(1);
+                setSelectedBucket(null);
+                setCompletedSteps(new Set());
+              }}
+              className="text-[var(--c-muted)] text-xs hover:text-[var(--c-text)] transition-colors opacity-40 hover:opacity-100"
+            >
+              ↺ reset progress
+            </button>
+          </div>
         </div>
       </div>
     );
