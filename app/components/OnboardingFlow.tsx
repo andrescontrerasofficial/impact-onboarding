@@ -555,10 +555,10 @@ export default function OnboardingFlow({
                     )}
                   </div>
                   <div>
-                    <p className="text-[var(--c-text)] font-semibold text-sm">
+                    <p className="text-[var(--c-text)] font-semibold text-base">
                       {t.name}
                     </p>
-                    <p className="text-brand-orange text-xs">{t.role}</p>
+                    <p className="text-brand-orange text-sm">{t.role}</p>
                   </div>
                 </div>
                 <p className="text-[var(--c-muted)] text-sm leading-relaxed">
