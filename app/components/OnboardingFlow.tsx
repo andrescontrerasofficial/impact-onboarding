@@ -545,7 +545,7 @@ export default function OnboardingFlow({
                 style={anim("fadeSlideUp", 0.55 + i * 0.08)}
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full overflow-hidden border border-brand-orange/20 flex-shrink-0">
+                  <div className="w-14 h-14 rounded-full overflow-hidden border border-brand-orange/20 flex-shrink-0">
                     {t.image ? (
                       <img src={t.image} alt={t.name} className="w-full h-full object-cover" />
                     ) : (
@@ -555,7 +555,7 @@ export default function OnboardingFlow({
                     )}
                   </div>
                   <div>
-                    <p className="text-[var(--c-text)] font-semibold text-base">
+                    <p className="text-[var(--c-text)] font-semibold text-lg">
                       {t.name}
                     </p>
                     <p className="text-brand-orange text-sm">{t.role}</p>
