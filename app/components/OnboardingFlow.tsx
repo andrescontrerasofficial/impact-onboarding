@@ -983,14 +983,8 @@ export default function OnboardingFlow({
                 <div key={i} style={anim("fadeSlideUp", 0.2 + i * 0.14)} className="relative flex items-start gap-5">
                   {/* Step number / checkmark */}
                   <div
-                    className={`relative z-10 w-12 h-12 rounded-xl flex items-center justify-center text-white font-extrabold text-base shrink-0 transition-all duration-300 ${
-                      isCompleted ? "bg-emerald-500" : "bg-brand-orange"
-                    }`}
-                    style={{
-                      boxShadow: isCompleted
-                        ? "0 8px 24px rgba(16,185,129,0.35)"
-                        : "0 8px 24px rgba(250,70,22,0.3)",
-                    }}
+                    className="relative z-10 w-12 h-12 rounded-xl bg-brand-orange flex items-center justify-center text-white font-extrabold text-base shrink-0"
+                    style={{ boxShadow: "0 8px 24px rgba(250,70,22,0.3)" }}
                   >
                     {isCompleted ? "✓" : step.icon}
                   </div>
