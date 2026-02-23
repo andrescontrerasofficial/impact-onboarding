@@ -294,8 +294,9 @@ h1, h2, h3, h4, h5, h6 {
 [data-theme="light"] .logo-img { filter: invert(1); }
 
 /* ─── Theme-aware social proof banner ───────────────────────── */
-.social-proof-img { filter: none; }
-[data-theme="light"] .social-proof-img { filter: invert(1); }
+.social-proof-light { display: none; }
+[data-theme="light"] .social-proof-dark  { display: none; }
+[data-theme="light"] .social-proof-light { display: block; }
 
 /* ─── Page entrance animations ──────────────────────────────── */
 @keyframes fadeSlideUp {
