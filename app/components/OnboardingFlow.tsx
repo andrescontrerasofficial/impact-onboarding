@@ -923,7 +923,7 @@ export default function OnboardingFlow({
               plan ready
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
-              Your next 3 missions.
+              Your next 3 <span className="text-brand-orange">missions</span>.
             </h2>
             <p className="text-[var(--c-muted)] text-base">
               Since you&apos;re{" "}
@@ -998,22 +998,6 @@ export default function OnboardingFlow({
 
           <BackButton to={4} />
 
-          {/* Reset button — for testing the flow */}
-          <div className="text-center mt-2 pb-4">
-            <button
-              onClick={() => {
-                ["impact_page", "impact_bucket", "impact_steps"].forEach((k) =>
-                  localStorage.removeItem(k)
-                );
-                setCurrentPage(1);
-                setSelectedBucket(null);
-                setCompletedSteps(new Set());
-              }}
-              className="text-[var(--c-muted)] text-xs hover:text-[var(--c-text)] transition-colors opacity-40 hover:opacity-100"
-            >
-              ↺ reset progress
-            </button>
-          </div>
         </div>
       </div>
     );
