@@ -395,15 +395,12 @@ export default function OnboardingFlow({
     [userName, userEmail, userId]
   );
 
-  // Handle bucket selection + GHL tagging
+  // Handle bucket selection (visual only — webhook fires on "continue")
   const handleBucketSelect = useCallback(
-    async (bucket: Bucket) => {
+    (bucket: Bucket) => {
       setSelectedBucket(bucket);
-      if (bucket) {
-        await tagLeadInGHL(bucket);
-      }
     },
-    [tagLeadInGHL]
+    []
   );
 
   // ─── Back Button ────────────────────────────────────────────
@@ -736,7 +733,7 @@ export default function OnboardingFlow({
 
           <div className="text-center">
             <button
-              onClick={() => goToPage(3)}
+              onClick={() => { if (selectedBucket) tagLeadInGHL(selectedBucket); goToPage(3); }}
               disabled={!selectedBucket}
               className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl disabled:opacity-30"
             >
