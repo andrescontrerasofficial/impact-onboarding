@@ -846,7 +846,7 @@ export default function OnboardingFlow({
           >
             <button
               onClick={() => setVideoModal(null)}
-              className="btn-pulse absolute -top-10 right-0 text-white/60 hover:text-white text-sm"
+              className="absolute -top-10 right-0 text-white/60 hover:text-white text-sm"
             >
               ✕ close
             </button>
