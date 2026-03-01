@@ -171,12 +171,12 @@ const nextStepsMap: Record<
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
     },
     {
-      title: "Try VIP Free for 3 Days",
+      title: "Congrats. You made the first 150 slots. Claim 5 days free in VIP",
       description:
-        "Information without implemention is just entertainment. If you're someone who wants to treat sales like more than just a hobby, who is committed - with the 8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
+        "Make sure to make the most of it in your time. After claiming the days below you will have access to 8 weekly coaching calls, all our scripts, an entire psychology in sales course, premium offer placement access, and even a sales call recording library. Click below to claim.",
       cta: "Start Free Trial →",
       icon: "03",
-      url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP/",
+      url: "https://whop.com/checkout/plan_IGJOlnC0BUOJh",
     },
   ],
   career_switcher: [
@@ -197,12 +197,12 @@ const nextStepsMap: Record<
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
     },
     {
-      title: "Try VIP Free for 3 Days",
+      title: "Congrats. You made the first 150 slots. Claim 5 days free in VIP",
       description:
-        "Information without implemention is just entertainment. If you are someone who wants to treat sales like more than just a hobby as you switch into it, who is committed - with the 8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
+        "Make sure to make the most of it in your time. After claiming the days below you will have access to 8 weekly coaching calls, all our scripts, an entire psychology in sales course, premium offer placement access, and even a sales call recording library. Click below to claim.",
       cta: "Start Free Trial →",
       icon: "03",
-      url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP/",
+      url: "https://whop.com/checkout/plan_IGJOlnC0BUOJh",
     },
   ],
   already_in_sales: [
@@ -223,12 +223,12 @@ const nextStepsMap: Record<
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
     },
     {
-      title: "Try VIP Free for 3 Days",
+      title: "Congrats. You made the first 150 slots. Claim 5 days free in VIP",
       description:
-        "Information without implemention is just entertainment. Theres a difference between the people who are 'in' sales and the people that are INNNN sales, who treat it like more than a hobby. If that's you - with the 8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
+        "Make sure to make the most of it in your time. After claiming the days below you will have access to 8 weekly coaching calls, all our scripts, an entire psychology in sales course, premium offer placement access, and even a sales call recording library. Click below to claim.",
       cta: "Start Free Trial →",
       icon: "03",
-      url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP/",
+      url: "https://whop.com/checkout/plan_IGJOlnC0BUOJh",
     },
   ],
 };
