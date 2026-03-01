@@ -107,42 +107,42 @@ const features = [
     subtitle: "Scripting Course Modules",
     description: "Learn the Impact script across a 4 week training program.",
     image: "/whop-illo-books.svg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://fast.wistia.net/embed/iframe/tk0t1ol633",
   },
   {
     title: "The Quiz",
     subtitle: "Weekly Comprehension Checks",
     description: "Assesments after every weeks' content to retain the information.",
     image: "/whop-illo-graduation.svg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "",
   },
   {
     title: "The Game Tape",
     subtitle: "Sales Call Recording Clips",
     description: "See the Impact script implemented on real sales calls.",
     image: "/whop-illo-phone.svg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://fast.wistia.net/embed/iframe/9thd7ct74h",
   },
   {
     title: "The Live Stage",
     subtitle: "Weekly Coaching Sessions",
     description: "Implement Impact to your industry & QNA.",
     image: "/whop-illo-messaging.svg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://fast.wistia.net/embed/iframe/jjoshfkwyu",
   },
   {
     title: "The Shop",
     subtitle: "Point System",
     description: "Earn points, spend on real rewards, compete on leaderboards.",
     image: "/whop-illo-trophy.svg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://fast.wistia.net/embed/iframe/77gbnkr4jx",
   },
   {
     title: "The Community",
     subtitle: "Roleplay & Grow With People",
     description: "Don't try to roleplay and practice in a mirror. Please.",
     image: "/whop-illo-livestream.svg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://fast.wistia.net/embed/iframe/dug1u7b0yc",
   },
 ];
 
@@ -783,8 +783,8 @@ export default function OnboardingFlow({
           {features.map((f, i) => (
             <div
               key={i}
-              onClick={() => setVideoModal(f.videoUrl)}
-              className="feature-card bg-[var(--c-bg)] border border-[var(--c-border)] rounded-xl p-5 cursor-pointer group"
+              onClick={() => f.videoUrl && setVideoModal(f.videoUrl)}
+              className={`feature-card bg-[var(--c-bg)] border border-[var(--c-border)] rounded-xl p-5 group ${f.videoUrl ? "cursor-pointer" : ""}`}
               style={anim("fadeSlideUp", 0.14 + i * 0.1)}
             >
               <div className="flex items-start gap-5">
@@ -799,6 +799,7 @@ export default function OnboardingFlow({
                         {f.subtitle}
                       </p>
                     </div>
+                    {f.videoUrl && (
                     <svg
                       className="w-5 h-5 text-[var(--c-muted)] group-hover:text-brand-orange transition-colors flex-shrink-0 mt-1"
                       fill="currentColor"
@@ -810,6 +811,7 @@ export default function OnboardingFlow({
                         clipRule="evenodd"
                       />
                     </svg>
+                    )}
                   </div>
                   <p className="text-[var(--c-muted)] text-sm leading-relaxed">
                     {f.description}
