@@ -474,8 +474,8 @@ export default function OnboardingFlow({
         </div>
         {/* Mobile: Social proof at top instead of logo */}
         <div style={anim("fadeSlideDown", 0)} className="flex md:hidden mb-6">
-          <img src="/dark.png"  alt="Social proof" className="social-proof-dark  w-full max-w-xs mx-auto opacity-90" />
-          <img src="/light.png" alt="Social proof" className="social-proof-light w-full max-w-xs mx-auto opacity-90" />
+          <img src="/mobiledark.png"  alt="Social proof" className="social-proof-dark  w-full max-w-[200px] mx-auto opacity-90" />
+          <img src="/mobilelight.png" alt="Social proof" className="social-proof-light w-full max-w-[200px] mx-auto opacity-90" />
         </div>
 
         {firstName && (
