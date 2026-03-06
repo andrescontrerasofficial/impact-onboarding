@@ -151,13 +151,15 @@ const features = [
 
 const nextStepsMap: Record<
   string,
-  { title: string; description: string; cta: string; icon: string; url: string }[]
+  { title: string; description: string; mobileDescription?: string; cta: string; icon: string; url: string }[]
 > = {
   new_to_workforce: [
     {
       title: "Join the Community",
       description:
         "This is where it starts. The community is full of people in your exact spot — no experience, betting on themselves anyway. The people you surround yourself with decide the person you become.",
+      mobileDescription:
+        "You're brand new to the game. Practice is the key to success. Join in on people practicing and learning together",
       cta: "Join Discord →",
       icon: "01",
       url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
@@ -166,6 +168,8 @@ const nextStepsMap: Record<
       title: "Watch the First Module",
       description:
         "You don't know what you don't know yet - and that's okay. This module breaks down how high-ticket sales actually works and exactly what separates reps who make $5k/mo from ones making $30k.",
+      mobileDescription:
+        "Go through your first module. In these trainings you will be mastering the sales script & questions. A great script is like a sword for a fighter.",
       cta: "Start Watching →",
       icon: "02",
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
@@ -173,7 +177,7 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "If you are someone who treats sales like more than just a hobby. Access:\n\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nThere is no better use of 3 days than going all in on this. 0 risk, cancel anytime, dont spend $1.",
+        "If you are someone who treats sales like more than just a hobby. Access:\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\nThere is no better use of 3 days than going all in on this. 0 risk, cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
@@ -184,6 +188,8 @@ const nextStepsMap: Record<
       title: "Join the Community",
       description:
         "As you look to possibly switch into sales. The key is understanding the people you surround yourself with decide the person you become. Meet your sales people here.",
+      mobileDescription:
+        "As you look to possibly switch into sales. Practice is the key to success. Join in on people practicing and learning together",
       cta: "Join Discord →",
       icon: "01",
       url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
@@ -192,6 +198,8 @@ const nextStepsMap: Record<
       title: "Watch the First Module",
       description:
         "You're lucky getting into sales you don't have the bad habits built up. The reason most sales reps work for years never making real $ - is they never built the foundation. A great script is like a sword for a fighter.",
+      mobileDescription:
+        "Go through your first module. In these trainings you will be mastering the sales script & questions. A great script is like a sword for a fighter.",
       cta: "Start Watching →",
       icon: "02",
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
@@ -199,7 +207,7 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "If you are someone who treats sales like more than just a hobby. Access:\n\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nThere is no better use of 3 days than going all in on this. 0 risk, cancel anytime, dont spend $1.",
+        "If you are someone who treats sales like more than just a hobby. Access:\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\nThere is no better use of 3 days than going all in on this. 0 risk, cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
@@ -210,6 +218,8 @@ const nextStepsMap: Record<
       title: "Join the Community",
       description:
         "Your environment is your ceiling. Get inside the community and find the reps doing the $10k and $100k commission months. The energy in here is different - and it's contagious.",
+      mobileDescription:
+        "You're already in sales. Practice is the key to success. Join in on people practicing and learning together",
       cta: "Join Discord →",
       icon: "01",
       url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
@@ -218,6 +228,8 @@ const nextStepsMap: Record<
       title: "Watch the First Module",
       description:
         "You've already taken sales calls. Yet the reason most sales reps work for years never making real $ - is they never built the foundation. A great script is like a sword for a fighter.",
+      mobileDescription:
+        "Go through your first module. In these trainings you will be mastering the sales script & questions. A great script is like a sword for a fighter.",
       cta: "Start Watching →",
       icon: "02",
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
@@ -225,7 +237,7 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "If you are someone who treats sales like more than just a hobby. Access:\n\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nThere is no better use of 3 days than going all in on this. 0 risk, cancel anytime, dont spend $1.",
+        "If you are someone who treats sales like more than just a hobby. Access:\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\nThere is no better use of 3 days than going all in on this. 0 risk, cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
@@ -979,9 +991,20 @@ export default function OnboardingFlow({
                     <h3 className="text-[var(--c-text)] font-extrabold text-lg mb-2">
                       {step.title}
                     </h3>
-                    <p className="text-[var(--c-muted)] text-sm leading-relaxed mb-4 whitespace-pre-line">
-                      {step.description}
-                    </p>
+                    {step.mobileDescription ? (
+                      <>
+                        <p className="hidden md:block text-[var(--c-muted)] text-sm leading-relaxed mb-4 whitespace-pre-line">
+                          {step.description}
+                        </p>
+                        <p className="block md:hidden text-[var(--c-muted)] text-sm leading-relaxed mb-4 whitespace-pre-line">
+                          {step.mobileDescription}
+                        </p>
+                      </>
+                    ) : (
+                      <p className="text-[var(--c-muted)] text-sm leading-relaxed mb-4 whitespace-pre-line">
+                        {step.description}
+                      </p>
+                    )}
 
                     {isCompleted ? (
                       <span className="inline-flex items-center gap-1.5 text-emerald-400 text-sm font-medium">
