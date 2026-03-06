@@ -1009,9 +1009,10 @@ export default function OnboardingFlow({
           <div className="block md:hidden text-center mt-8">
             <button
               onClick={() => navigate("https://whop.com/joined/impact-team-vip/")}
-              className="border border-[var(--c-border-strong)] text-[var(--c-text)] font-semibold text-base px-8 py-3 rounded-xl bg-transparent"
+              className="text-white font-semibold text-base px-8 py-3 rounded-xl"
+              style={{ backgroundColor: "#1854d8" }}
             >
-              Back to Homepage
+              Take me to my homepage
             </button>
             <p className="text-[var(--c-muted)] text-xs mt-2">access all the materials</p>
           </div>
