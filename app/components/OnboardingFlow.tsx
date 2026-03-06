@@ -947,7 +947,7 @@ export default function OnboardingFlow({
           <div className="relative flex flex-col gap-6 mb-10">
             {/* gradient timeline line */}
             <div
-              className="absolute left-6 top-6 bottom-6 w-[2px]"
+              className="absolute left-[18px] md:left-6 top-6 bottom-6 w-[2px]"
               style={{
                 background:
                   "linear-gradient(to bottom, #FA4616 0%, #FA461640 50%, #FA461610 100%)",
@@ -959,10 +959,10 @@ export default function OnboardingFlow({
               const isActive = i === completedSteps.size;
 
               return (
-                <div key={i} style={anim("fadeSlideUp", 0.2 + i * 0.14)} className="relative flex items-start gap-5">
+                <div key={i} style={anim("fadeSlideUp", 0.2 + i * 0.14)} className="relative flex items-start gap-3 md:gap-5">
                   {/* Step number / checkmark */}
                   <div
-                    className="relative z-10 w-12 h-12 rounded-xl bg-brand-orange flex items-center justify-center text-white font-extrabold text-base shrink-0"
+                    className="relative z-10 w-9 h-9 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-brand-orange flex items-center justify-center text-white font-extrabold text-sm md:text-base shrink-0"
                     style={{ boxShadow: "0 8px 24px rgba(250,70,22,0.3)" }}
                   >
                     {isCompleted ? "✓" : step.icon}
