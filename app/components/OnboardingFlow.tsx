@@ -171,12 +171,12 @@ const nextStepsMap: Record<
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
     },
     {
-      title: "Congrats. You made the first 150 slots. Claim 5 days free in VIP",
+      title: "Try VIP Free for 3 Days",
       description:
-        "Make sure to make the most of it in your time. After claiming the days below you will have access to 8 weekly coaching calls, all our scripts, an entire psychology in sales course, premium offer placement access, and even a sales call recording library. Click below to claim.",
+        "Information without implemention is just entertainment. If you are someone who wants to treat sales like more than just a hobby as you switch into it, who is committed - with the 8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
-      url: "https://whop.com/checkout/plan_IGJOlnC0BUOJh",
+      url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
     },
   ],
   career_switcher: [
@@ -197,12 +197,12 @@ const nextStepsMap: Record<
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
     },
     {
-      title: "Congrats. You made the first 150 slots. Claim 5 days free in VIP",
+      title: "Try VIP Free for 3 Days",
       description:
-        "Make sure to make the most of it in your time. After claiming the days below you will have access to 8 weekly coaching calls, all our scripts, an entire psychology in sales course, premium offer placement access, and even a sales call recording library. Click below to claim.",
+        "Information without implemention is just entertainment. If you are someone who wants to treat sales like more than just a hobby as you switch into it, who is committed - with the 8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
-      url: "https://whop.com/checkout/plan_IGJOlnC0BUOJh",
+      url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
     },
   ],
   already_in_sales: [
@@ -223,12 +223,12 @@ const nextStepsMap: Record<
       url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
     },
     {
-      title: "Congrats. You made the first 150 slots. Claim 5 days free in VIP",
+      title: "Try VIP Free for 3 Days",
       description:
-        "Make sure to make the most of it in your time. After claiming the days below you will have access to 8 weekly coaching calls, all our scripts, an entire psychology in sales course, premium offer placement access, and even a sales call recording library. Click below to claim.",
+        "Information without implemention is just entertainment. If you are someone who wants to treat sales like more than just a hobby as you switch into it, who is committed - with the 8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
-      url: "https://whop.com/checkout/plan_IGJOlnC0BUOJh",
+      url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
     },
   ],
 };
@@ -1003,6 +1003,17 @@ export default function OnboardingFlow({
                 </div>
               );
             })}
+          </div>
+
+          {/* Mobile-only: Back to Homepage */}
+          <div className="block md:hidden text-center mt-8">
+            <button
+              onClick={() => navigate("https://whop.com/joined/impact-team-vip/")}
+              className="border border-[var(--c-border-strong)] text-[var(--c-text)] font-semibold text-base px-8 py-3 rounded-xl bg-transparent"
+            >
+              Back to Homepage
+            </button>
+            <p className="text-[var(--c-muted)] text-xs mt-2">access all the materials</p>
           </div>
 
           <BackButton to={4} />
