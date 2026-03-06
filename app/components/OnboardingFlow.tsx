@@ -455,7 +455,7 @@ export default function OnboardingFlow({
   const WelcomePage = () => {
     const firstName = userName || null;
     return (
-    <div className="welcome-container min-h-[100dvh] flex flex-col items-center justify-center px-6 pt-16 md:pt-0 text-center">
+    <div className="welcome-container min-h-[100dvh] flex flex-col items-center justify-center px-6 pt-12 md:pt-0 text-center">
       <div
         className={`max-w-lg transition-all duration-500 ${
           animateIn
