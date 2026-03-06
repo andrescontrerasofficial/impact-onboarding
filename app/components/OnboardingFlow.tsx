@@ -463,14 +463,19 @@ export default function OnboardingFlow({
             : "opacity-0 translate-y-6"
         }`}
       >
-        {/* Company logo — swaps between dark / light theme */}
-        <div style={anim("fadeSlideDown", 0)} className="mx-auto mb-6 flex items-center justify-center">
+        {/* Desktop: Company logo */}
+        <div style={anim("fadeSlideDown", 0)} className="hidden md:flex mx-auto mb-6 items-center justify-center">
           <div
             className="relative inline-flex items-center justify-center p-3 rounded-xl bg-gradient-to-br from-brand-orange/15 to-brand-orange/5 border border-brand-orange/20"
             style={{ boxShadow: "0 0 40px rgba(250, 70, 22, 0.12), 0 0 0 1px rgba(250, 70, 22, 0.06)" }}
           >
             <img src="/original-logo.svg" alt="The Impact Team" className="logo-img h-8 w-8 object-contain" />
           </div>
+        </div>
+        {/* Mobile: Social proof at top instead of logo */}
+        <div style={anim("fadeSlideDown", 0)} className="flex md:hidden mb-6">
+          <img src="/dark.png"  alt="Social proof" className="social-proof-dark  w-full max-w-xs mx-auto opacity-90" />
+          <img src="/light.png" alt="Social proof" className="social-proof-light w-full max-w-xs mx-auto opacity-90" />
         </div>
 
         {firstName && (
@@ -495,8 +500,8 @@ export default function OnboardingFlow({
           Let&apos;s go. Takes 3 min. →
         </button>
 
-        {/* Social proof banner */}
-        <div style={anim("fadeSlideUp", 0.54)} className="mt-8">
+        {/* Social proof banner — desktop only (mobile shows it at top) */}
+        <div style={anim("fadeSlideUp", 0.54)} className="hidden md:block mt-8">
           <img src="/dark.png"  alt="Social proof" className="social-proof-dark  w-full max-w-xs mx-auto opacity-90" />
           <img src="/light.png" alt="Social proof" className="social-proof-light w-full max-w-xs mx-auto opacity-90" />
         </div>
