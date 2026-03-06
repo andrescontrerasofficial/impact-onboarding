@@ -455,7 +455,7 @@ export default function OnboardingFlow({
   const WelcomePage = () => {
     const firstName = userName || null;
     return (
-    <div className="min-h-[100dvh] flex flex-col items-center justify-center px-6 pt-16 md:pt-0 text-center">
+    <div className="welcome-container min-h-[100dvh] flex flex-col items-center justify-center px-6 pt-16 md:pt-0 text-center">
       <div
         className={`max-w-lg transition-all duration-500 ${
           animateIn
@@ -464,7 +464,7 @@ export default function OnboardingFlow({
         }`}
       >
         {/* Company logo — swaps between dark / light theme */}
-        <div style={anim("fadeSlideDown", 0)} className="mx-auto mb-6 flex items-center justify-center">
+        <div style={anim("fadeSlideDown", 0)} className="welcome-logo mx-auto mb-6 flex items-center justify-center">
           <div
             className="relative inline-flex items-center justify-center p-3 rounded-xl bg-gradient-to-br from-brand-orange/15 to-brand-orange/5 border border-brand-orange/20"
             style={{ boxShadow: "0 0 40px rgba(250, 70, 22, 0.12), 0 0 0 1px rgba(250, 70, 22, 0.06)" }}
@@ -474,16 +474,16 @@ export default function OnboardingFlow({
         </div>
 
         {firstName && (
-          <p style={anim("fadeSlideUp", 0.1)} className="text-[var(--c-muted)] text-xl mb-3">Hey, {firstName}.</p>
+          <p style={anim("fadeSlideUp", 0.1)} className="welcome-greeting text-[var(--c-muted)] text-xl mb-3">Hey, {firstName}.</p>
         )}
 
-        <h1 style={anim("fadeSlideUp", 0.18)} className="text-5xl md:text-6xl font-extrabold text-[var(--c-heading)] tracking-tight mb-4 leading-tight">
+        <h1 style={anim("fadeSlideUp", 0.18)} className="welcome-heading text-5xl md:text-6xl font-extrabold text-[var(--c-heading)] tracking-tight mb-4 leading-tight">
           Welcome to
           <br />
           <span className="text-brand-orange">The Impact Team.</span>
         </h1>
 
-        <p style={anim("fadeSlideUp", 0.3)} className="text-[var(--c-muted)] text-lg mb-10 leading-relaxed">
+        <p style={anim("fadeSlideUp", 0.3)} className="welcome-subtitle text-[var(--c-muted)] text-lg mb-10 leading-relaxed">
           Learn how to close high-ticket deals with a simple formula.
         </p>
 
@@ -496,7 +496,7 @@ export default function OnboardingFlow({
         </button>
 
         {/* Social proof banner */}
-        <div style={anim("fadeSlideUp", 0.54)} className="mt-8">
+        <div style={anim("fadeSlideUp", 0.54)} className="welcome-social mt-8">
           <img src="/dark.png"  alt="Social proof" className="social-proof-dark  w-full max-w-xs mx-auto opacity-90" />
           <img src="/light.png" alt="Social proof" className="social-proof-light w-full max-w-xs mx-auto opacity-90" />
         </div>
