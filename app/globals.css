@@ -298,6 +298,16 @@ h1, h2, h3, h4, h5, h6 {
 [data-theme="light"] .social-proof-dark  { display: none; }
 [data-theme="light"] .social-proof-light { display: block; }
 
+/* ─── Compact welcome page when banner shrinks viewport on mobile ─── */
+@media (max-width: 767px) and (max-height: 730px) {
+  .welcome-container { padding-top: 1.5rem; }
+  .welcome-content .welcome-logo { margin-bottom: 0.5rem; }
+  .welcome-content .welcome-greeting { margin-bottom: 0.25rem; font-size: 1.125rem; }
+  .welcome-content .welcome-heading { margin-bottom: 0.25rem; font-size: 2.5rem; }
+  .welcome-content .welcome-subtitle { margin-bottom: 1.5rem; }
+  .welcome-content .welcome-social { margin-top: 1rem; }
+}
+
 /* ─── Page entrance animations ──────────────────────────────── */
 @keyframes fadeSlideUp {
   from { opacity: 0; transform: translateY(22px); }
