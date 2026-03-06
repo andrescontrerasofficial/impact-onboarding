@@ -173,7 +173,7 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "Information without implemention is just entertainment. If you are someone who wants to treat sales like more than just a hobby as you switch into it, who is committed - with the 8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
+        "If you are someone who wants to treat sales like more than just a hobby. Get access to:\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\nThere's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
@@ -199,7 +199,7 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "Information without implemention is just entertainment. If you are someone who wants to treat sales like more than just a hobby as you switch into it, who is committed - with the 8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
+        "If you are someone who wants to treat sales like more than just a hobby. Get access to:\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\nThere's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
@@ -225,7 +225,7 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "Information without implemention is just entertainment. If you are someone who wants to treat sales like more than just a hobby as you switch into it, who is committed - with the 8 coaching calls per week. Full sales call recordings. A private portal built to get you to your first $10k month faster. There's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
+        "If you are someone who wants to treat sales like more than just a hobby. Get access to:\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\nThere's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
@@ -979,7 +979,7 @@ export default function OnboardingFlow({
                     <h3 className="text-[var(--c-text)] font-extrabold text-lg mb-2">
                       {step.title}
                     </h3>
-                    <p className="text-[var(--c-muted)] text-sm leading-relaxed mb-4">
+                    <p className="text-[var(--c-muted)] text-sm leading-relaxed mb-4 whitespace-pre-line">
                       {step.description}
                     </p>
 
