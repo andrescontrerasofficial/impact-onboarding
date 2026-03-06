@@ -173,7 +173,7 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "If you are someone who wants to treat sales like more than just a hobby. Get access to:\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\nThere's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
+        "If you are someone who treats sales like more than just a hobby. Access:\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nThere is no better use of 3 days than going all in on this. 0 risk, cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
@@ -199,7 +199,7 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "If you are someone who wants to treat sales like more than just a hobby. Get access to:\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\nThere's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
+        "If you are someone who treats sales like more than just a hobby. Access:\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nThere is no better use of 3 days than going all in on this. 0 risk, cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
@@ -225,7 +225,7 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "If you are someone who wants to treat sales like more than just a hobby. Get access to:\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\nThere's no better use of 3 free days than going all in on this. 0 risk cancel anytime, dont spend $1.",
+        "If you are someone who treats sales like more than just a hobby. Access:\n➡ 8 coaching calls per week\n➡ FULL psychology & manipulation in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nThere is no better use of 3 days than going all in on this. 0 risk, cancel anytime, dont spend $1.",
       cta: "Start Free Trial →",
       icon: "03",
       url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
