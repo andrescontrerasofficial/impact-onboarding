@@ -1008,7 +1008,7 @@ export default function OnboardingFlow({
           {/* Mobile-only: Back to Homepage */}
           <div className="block md:hidden text-center mt-8">
             <button
-              onClick={() => navigate("https://whop.com/joined/impact-team-vip/")}
+              onClick={() => { window.location.href = "https://whop.com/joined/impact-team-vip/"; }}
               className="text-white font-semibold text-base px-8 py-3 rounded-xl"
               style={{ backgroundColor: "#1854d8" }}
             >
