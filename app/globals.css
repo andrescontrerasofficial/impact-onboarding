@@ -58,6 +58,7 @@
   --c-text: #e5e5e5;
   --c-heading: #fcf6f5;       /* brand-cream */
   --c-muted: #737373;
+  --c-subheader: #9a9a9a;
   --c-card-hover: #1c1c1c;
   --c-avatar-selected-bg: linear-gradient(160deg, #130a04 0%, #0a0a0a 55%);
   --c-hover-border: rgba(255, 255, 255, 0.18);
@@ -73,6 +74,7 @@
   --c-text: #141212;
   --c-heading: #141212;       /* brand-dark */
   --c-muted: #52525b;
+  --c-subheader: #78787f;
   --c-card-hover: #ececec;
   --c-avatar-selected-bg: linear-gradient(160deg, #fff3ed 0%, #ffffff 55%);
   --c-hover-border: rgba(0, 0, 0, 0.14);

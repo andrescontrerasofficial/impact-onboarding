@@ -468,7 +468,7 @@ export default function OnboardingFlow({
           <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
             This is not a <span className="text-brand-orange">hobby.</span>
           </h2>
-          <p className="text-[var(--c-muted)] text-base">
+          <p className="text-[var(--c-subheader)] text-base">
             At <span className="text-brand-orange">Impact</span>, we follow the <span className="text-brand-orange">Michelin Standard.</span> To stay in this room, you have to <span className="text-brand-orange">execute.</span>
           </p>
         </div>
@@ -612,7 +612,7 @@ export default function OnboardingFlow({
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
               Congratulations, <span className="text-brand-orange">you&apos;re in.</span>
             </h2>
-            <p className="text-[var(--c-muted)] text-base">
+            <p className="text-[var(--c-subheader)] text-base">
               Before we open the <span className="text-brand-orange">gates</span>, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
             </p>
           </div>
@@ -715,7 +715,7 @@ export default function OnboardingFlow({
           <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
             Don&apos;t get <span className="text-brand-orange">lost</span> in the <span className="text-brand-orange">sauce.</span>
           </h2>
-          <p className="text-[var(--c-muted)] text-base">
+          <p className="text-[var(--c-subheader)] text-base">
             You <span className="text-brand-orange">live</span> here now. Click a feature to get a <span className="text-brand-orange">preview.</span>
           </p>
         </div>
@@ -886,7 +886,7 @@ export default function OnboardingFlow({
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
               Your next 3 <span className="text-brand-orange">missions</span>.
             </h2>
-            <p className="text-[var(--c-muted)] text-base">
+            <p className="text-[var(--c-subheader)] text-base">
               Since you&apos;re{" "}
               <span className="text-brand-orange">
                 {bucketLabels[selectedBucket || "new_to_workforce"]}
