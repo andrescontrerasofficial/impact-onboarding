@@ -80,8 +80,15 @@
 }
 
 [data-theme="light"] .avatar-card {
-  border-color: rgba(0, 0, 0, 0.10);
   box-shadow: 0 6px 18px 2px rgba(0, 0, 0, 0.07), 0 10px 24px 4px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .avatar-card:not(.is-selected) {
+  border-color: rgba(0, 0, 0, 0.10);
+}
+
+[data-theme="light"] .avatar-card.is-selected {
+  box-shadow: 0 0 0 1px rgba(250, 70, 22, 0.35), 0 6px 24px 2px rgba(250, 70, 22, 0.15), 0 10px 36px 4px rgba(250, 70, 22, 0.06);
 }
 
 * {
@@ -138,8 +145,15 @@ h1, h2, h3, h4, h5, h6 {
 .avatar-card {
   transition: all 0.3s ease;
   cursor: pointer;
-  border-color: rgba(255, 255, 255, 0.12);
   box-shadow: 0 6px 18px 2px rgba(0, 0, 0, 0.28), 0 10px 24px 4px rgba(0, 0, 0, 0.16);
+}
+
+.avatar-card:not(.is-selected) {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.avatar-card.is-selected {
+  box-shadow: 0 0 0 1px rgba(250, 70, 22, 0.35), 0 6px 24px 2px rgba(250, 70, 22, 0.22), 0 10px 36px 4px rgba(250, 70, 22, 0.10);
 }
 
 /* Press-in effect on click */

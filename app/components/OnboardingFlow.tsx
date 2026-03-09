@@ -643,9 +643,6 @@ export default function OnboardingFlow({
                   background: selectedBucket === b.id
                     ? "var(--c-avatar-selected-bg)"
                     : "var(--c-bg)",
-                  boxShadow: selectedBucket === b.id
-                    ? "0 0 0 1px rgba(250, 70, 22, 0.35), 0 0 30px rgba(250, 70, 22, 0.28), 0 0 65px rgba(250, 70, 22, 0.12)"
-                    : "none",
                 }}
               >
                 {/* Image */}
