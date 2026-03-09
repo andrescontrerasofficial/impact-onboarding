@@ -80,7 +80,7 @@
 }
 
 [data-theme="light"] .avatar-card {
-  box-shadow: 0 6px 18px 2px rgba(0, 0, 0, 0.07), 0 10px 24px 4px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.10), 0 14px 28px -2px rgba(0, 0, 0, 0.06);
 }
 
 [data-theme="light"] .avatar-card:not(.is-selected) {
@@ -143,9 +143,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Avatar selection card */
 .avatar-card {
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  box-shadow: 0 6px 18px 2px rgba(0, 0, 0, 0.28), 0 10px 24px 4px rgba(0, 0, 0, 0.16);
+  /* Default bottom-weighted glow: offset-y pushes shadow down, no top glow */
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.35), 0 14px 28px -2px rgba(0, 0, 0, 0.18);
 }
 
 .avatar-card:not(.is-selected) {
@@ -156,10 +157,10 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 0 1px rgba(250, 70, 22, 0.35), 0 6px 24px 2px rgba(250, 70, 22, 0.22), 0 10px 36px 4px rgba(250, 70, 22, 0.10);
 }
 
-/* Press-in effect on click */
+/* Press-in effect on click — scale the whole card down */
 .avatar-card:active {
-  transform: scale(0.96);
-  transition: transform 0.1s ease;
+  transform: scale(0.96) !important;
+  transition: transform 0.1s ease !important;
 }
 
 /* Avatar image — smooth shrink when deselected, bounce when selected */
