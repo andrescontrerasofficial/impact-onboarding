@@ -599,7 +599,7 @@ export default function OnboardingFlow({
     ];
 
     return (
-      <div className="min-h-screen px-4 md:px-8 py-8">
+      <div className="min-h-screen px-4 md:px-8 py-8 flex flex-col justify-center">
         <div
           className={`max-w-4xl mx-auto transition-all duration-500 ${
             animateIn
@@ -607,11 +607,10 @@ export default function OnboardingFlow({
               : "opacity-0 translate-y-6"
           }`}
         >
-  
 
-          <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-10">
-            <div className="inline-block bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 uppercase tracking-wider">
-              Congratulations — you are now a member of Impact Team
+          <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-8 md:mb-12">
+            <div className="inline-block bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-semibold px-4 py-1.5 rounded-full mb-6 md:mb-8 uppercase tracking-wider">
+              Congratulations on joining Impact
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
               Tailor your <span className="text-brand-orange">experience.</span>
@@ -622,7 +621,7 @@ export default function OnboardingFlow({
           </div>
 
           {/* Card grid with sweeping ambient glow behind it */}
-          <div className="relative mb-10">
+          <div className="relative mb-8 md:mb-10">
             {/* Sweeping orange ambient glow */}
             <div
               className="absolute pointer-events-none sweep-glow"
@@ -691,7 +690,7 @@ export default function OnboardingFlow({
           </div>
           </div>{/* end relative mb-10 wrapper */}
 
-          <div className="text-center">
+          <div className="text-center mt-2 md:mt-4">
             <button
               onClick={() => { if (selectedBucket) tagLeadInGHL(selectedBucket); goToPage(2); }}
               disabled={!selectedBucket}
