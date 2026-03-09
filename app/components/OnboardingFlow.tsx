@@ -601,7 +601,7 @@ export default function OnboardingFlow({
     return (
       <div className="min-h-screen px-4 md:px-8 py-8 flex flex-col justify-center">
         <div
-          className={`max-w-5xl mx-auto transition-all duration-500 ${
+          className={`max-w-4xl mx-auto transition-all duration-500 ${
             animateIn
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-6"
@@ -633,7 +633,7 @@ export default function OnboardingFlow({
               <div
                 key={b.id}
                 onClick={() => handleBucketSelect(b.id)}
-                className={`avatar-card relative border-2 rounded-3xl p-5 md:p-6 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
+                className={`avatar-card relative border-2 rounded-3xl p-5 md:p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
                   selectedBucket === b.id
                     ? "is-selected border-brand-orange"
                     : "border-[var(--c-border)]"
@@ -643,11 +643,14 @@ export default function OnboardingFlow({
                   background: selectedBucket === b.id
                     ? "var(--c-avatar-selected-bg)"
                     : "var(--c-bg)",
+                  boxShadow: selectedBucket === b.id
+                    ? "0 0 0 1px rgba(250, 70, 22, 0.35), 0 0 30px rgba(250, 70, 22, 0.28), 0 0 65px rgba(250, 70, 22, 0.12)"
+                    : "none",
                 }}
               >
                 {/* Image */}
-                <div className="relative mb-4 md:mb-4 mt-1 md:mt-1">
-                  <img src={b.image} alt={b.title} className="avatar-img relative w-20 h-20 md:w-20 md:h-20 object-contain" />
+                <div className="relative mb-4 md:mb-6 mt-1 md:mt-2">
+                  <img src={b.image} alt={b.title} className="avatar-img relative w-20 h-20 md:w-28 md:h-28 object-contain" />
                 </div>
 
                 {/* Title */}
