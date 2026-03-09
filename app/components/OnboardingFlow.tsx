@@ -943,20 +943,23 @@ export default function OnboardingFlow({
                     <h3 className={`font-extrabold text-lg mb-2 ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-text)]"}`}>
                       {step.title}
                     </h3>
-                    {step.mobileDescription ? (
-                      <>
-                        <p className={`hidden md:block text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
-                          {step.description}
-                        </p>
-                        <p className={`block md:hidden text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
-                          {step.mobileDescription}
-                        </p>
-                      </>
-                    ) : (
-                      <p className={`text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
-                        {step.description}
-                      </p>
-                    )}
+                    {(() => {
+                      const cls = `text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`;
+                      const renderText = (text: string) => {
+                        if (text.startsWith("Extremely important.")) {
+                          return <><span className="underline">Extremely important.</span>{text.slice(20)}</>;
+                        }
+                        return text;
+                      };
+                      return step.mobileDescription ? (
+                        <>
+                          <p className={`hidden md:block ${cls}`}>{renderText(step.description)}</p>
+                          <p className={`block md:hidden ${cls}`}>{renderText(step.mobileDescription)}</p>
+                        </>
+                      ) : (
+                        <p className={cls}>{renderText(step.description)}</p>
+                      );
+                    })()}
 
                     {isCompleted ? (
                       <span className="inline-flex items-center gap-1.5 text-emerald-400 text-sm font-medium">
