@@ -580,7 +580,7 @@ export default function OnboardingFlow({
         image: "/avatar-explorer.svg",
         title: "The Explorer",
         subtitle: "No Work Experience",
-        description: "I've never worked any job full time. I will crush this 1st one.",
+        description: "Never had a full-time job. I will crush this 1st one.",
       },
       {
         id: "career_switcher" as Bucket,
