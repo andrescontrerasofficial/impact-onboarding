@@ -922,7 +922,7 @@ export default function OnboardingFlow({
                   <div
                     className={`relative z-10 w-9 h-9 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center font-extrabold text-sm md:text-base shrink-0 ${
                       isLocked
-                        ? "bg-[#1a1a1a] text-[#3a3a3a]"
+                        ? "bg-[var(--c-border)] text-[var(--c-muted)]"
                         : "bg-brand-orange text-white"
                     }`}
                     style={isLocked ? {} : { boxShadow: "0 8px 24px rgba(250,70,22,0.3)" }}
@@ -943,23 +943,20 @@ export default function OnboardingFlow({
                     <h3 className={`font-extrabold text-lg mb-2 ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-text)]"}`}>
                       {step.title}
                     </h3>
-                    {(() => {
-                      const cls = `text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`;
-                      const renderText = (text: string) => {
-                        if (text.startsWith("Extremely important.")) {
-                          return <><span className="underline">Extremely important.</span>{text.slice(20)}</>;
-                        }
-                        return text;
-                      };
-                      return step.mobileDescription ? (
-                        <>
-                          <p className={`hidden md:block ${cls}`}>{renderText(step.description)}</p>
-                          <p className={`block md:hidden ${cls}`}>{renderText(step.mobileDescription)}</p>
-                        </>
-                      ) : (
-                        <p className={cls}>{renderText(step.description)}</p>
-                      );
-                    })()}
+                    {step.mobileDescription ? (
+                      <>
+                        <p className={`hidden md:block text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
+                          {step.description}
+                        </p>
+                        <p className={`block md:hidden text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
+                          {step.mobileDescription}
+                        </p>
+                      </>
+                    ) : (
+                      <p className={`text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
+                        {step.description}
+                      </p>
+                    )}
 
                     {isCompleted ? (
                       <span className="inline-flex items-center gap-1.5 text-emerald-400 text-sm font-medium">
