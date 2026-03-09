@@ -897,26 +897,22 @@ export default function OnboardingFlow({
           </div>
 
           <div className="relative flex flex-col gap-6 mb-10">
-            {/* Timeline line — orange up to active step, gray after, each fading to transparent */}
+            {/* Timeline line — orange up to active step, gray after */}
             {(() => {
-              const activeIdx = completedSteps.size; // index of the currently active step
+              const activeIdx = completedSteps.size;
+              const total = steps.length;
+              // The orange section runs from top through the active step's center
+              // Each step occupies 1/total of the line height
+              const orangeEnd = Math.round(((activeIdx + 0.5) / total) * 100);
+              const grayStart = Math.round(((activeIdx + 0.7) / total) * 100);
+              const gradient = activeIdx >= total - 1
+                ? `linear-gradient(to bottom, #FA4616 0%, #FA461660 100%)`
+                : `linear-gradient(to bottom, #FA4616 0%, #FA4616 ${orangeEnd}%, var(--c-border) ${grayStart}%, transparent 100%)`;
               return (
-                <div className="absolute left-[18px] md:left-6 top-6 bottom-6 w-[2px] flex flex-col">
-                  {steps.map((_, i) => {
-                    if (i === steps.length - 1) return null; // no line after last step
-                    const segmentIsOrange = i < activeIdx;
-                    const segmentIsTransition = i === activeIdx; // from active to first locked
-                    const color = segmentIsOrange || segmentIsTransition ? "#FA4616" : "var(--c-border)";
-                    const endColor = segmentIsTransition ? "var(--c-border)" : segmentIsOrange ? "#FA461660" : "transparent";
-                    return (
-                      <div
-                        key={i}
-                        className="flex-1"
-                        style={{ background: `linear-gradient(to bottom, ${color}, ${endColor})` }}
-                      />
-                    );
-                  })}
-                </div>
+                <div
+                  className="absolute left-[18px] md:left-6 top-6 bottom-6 w-[2px]"
+                  style={{ background: gradient }}
+                />
               );
             })()}
 
