@@ -275,7 +275,7 @@ export default function OnboardingFlow({
     const page = localStorage.getItem("impact_page");
     const bucket = localStorage.getItem("impact_bucket");
     const steps = localStorage.getItem("impact_steps");
-    if (page) setCurrentPage(parseInt(page));
+    if (page) setCurrentPage(Math.min(parseInt(page), 4));
     if (bucket) setSelectedBucket(bucket as Bucket);
     if (steps) setCompletedSteps(new Set(JSON.parse(steps) as number[]));
   }, []);
