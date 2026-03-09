@@ -902,7 +902,7 @@ export default function OnboardingFlow({
               className="absolute left-[18px] md:left-6 top-6 bottom-6 w-[2px]"
               style={{
                 background:
-                  "linear-gradient(to bottom, #FA4616 0%, #FA461640 50%, #FA461610 100%)",
+                  "linear-gradient(to bottom, #FA4616 0%, #FA461660 35%, var(--c-border) 65%, var(--c-border) 100%)",
               }}
             />
 
@@ -936,7 +936,7 @@ export default function OnboardingFlow({
                         : "bg-[var(--c-card)] border-[var(--c-border)] hover:border-[var(--c-border-strong)]"
                     }`}
                   >
-                    <h3 className={`font-extrabold text-lg mb-2 ${isLocked ? "text-[var(--c-muted)]" : "text-[var(--c-text)]"}`}>
+                    <h3 className={`font-extrabold text-lg mb-2 ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-text)]"}`}>
                       {step.title}
                     </h3>
                     {step.mobileDescription ? (
@@ -975,6 +975,16 @@ export default function OnboardingFlow({
                 </div>
               );
             })}
+          </div>
+
+          {/* TEMP: Reset steps for testing */}
+          <div className="text-center mb-4">
+            <button
+              onClick={() => { setCompletedSteps(new Set()); localStorage.removeItem("impact_steps"); }}
+              className="text-xs text-[var(--c-muted)] underline opacity-60 hover:opacity-100"
+            >
+              Reset steps (testing)
+            </button>
           </div>
 
           {/* Mobile-only: Back to Homepage */}
