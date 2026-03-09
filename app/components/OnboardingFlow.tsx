@@ -593,7 +593,7 @@ export default function OnboardingFlow({
     ];
 
     return (
-      <div className="min-h-screen px-4 md:px-8 py-8 flex flex-col justify-center">
+      <div className="min-h-screen px-4 md:px-8 pt-14 pb-8 md:py-8 flex flex-col justify-center">
         <div
           className={`max-w-4xl mx-auto transition-all duration-500 ${
             animateIn
