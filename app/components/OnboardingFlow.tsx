@@ -610,10 +610,10 @@ export default function OnboardingFlow({
 
           <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-8 md:mb-12">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
-              Congratulations, <span className="text-brand-orange">you&apos;re in.</span>
+              Congratulations,<br className="md:hidden" /> <span className="text-brand-orange">you&apos;re in.</span>
             </h2>
             <p className="text-[var(--c-subheader)] text-lg">
-              Before we open the <span className="text-brand-orange">gates</span>, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
+              Before we open the <span className="text-brand-orange">gates</span>, tell us who you are so we can tailor your <span className="text-brand-orange">blueprint</span>.
             </p>
           </div>
 
