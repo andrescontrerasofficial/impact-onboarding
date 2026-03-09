@@ -323,7 +323,7 @@ export default function OnboardingFlow({
   const [videoModal, setVideoModal] = useState<string | null>(null);
   const [animateIn, setAnimateIn] = useState(true);
 
-  const totalPages = 5;
+  const totalPages = 4;
 
   // Page transition handler
   const goToPage = useCallback(
@@ -338,7 +338,7 @@ export default function OnboardingFlow({
     []
   );
 
-  // Loading screen between page 4 → 5
+  // Loading screen between page 3 → 4
   const startLoadingTransition = useCallback(() => {
     setIsLoading(true);
     setLoadingProgress(0);
@@ -373,14 +373,14 @@ export default function OnboardingFlow({
       });
     }, 70);
 
-    // Transition to page 5 after loading completes
+    // Transition to page 4 after loading completes
     setTimeout(() => {
       clearInterval(progressInterval);
       clearInterval(messageInterval);
       setLoadingProgress(100);
       setTimeout(() => {
         setIsLoading(false);
-        goToPage(5);
+        goToPage(4);
       }, 400);
     }, 3800);
   }, [goToPage]);
@@ -451,60 +451,6 @@ export default function OnboardingFlow({
   );
 
 
-  // ─── PAGE 1: Welcome ────────────────────────────────────────
-  const WelcomePage = () => {
-    const firstName = userName || null;
-    return (
-    <div className="welcome-container min-h-[100dvh] flex flex-col items-center justify-center px-6 pt-12 md:pt-0 text-center">
-      <div
-        className={`max-w-lg transition-all duration-500 ${
-          animateIn
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-6"
-        }`}
-      >
-        {/* Company logo — swaps between dark / light theme */}
-        <div style={anim("fadeSlideDown", 0)} className="welcome-logo mx-auto mb-6 flex items-center justify-center">
-          <div
-            className="relative inline-flex items-center justify-center p-3 rounded-xl bg-gradient-to-br from-brand-orange/15 to-brand-orange/5 border border-brand-orange/20"
-            style={{ boxShadow: "0 0 40px rgba(250, 70, 22, 0.12), 0 0 0 1px rgba(250, 70, 22, 0.06)" }}
-          >
-            <img src="/original-logo.svg" alt="The Impact Team" className="logo-img h-8 w-8 object-contain" />
-          </div>
-        </div>
-
-        {firstName && (
-          <p style={anim("fadeSlideUp", 0.1)} className="welcome-greeting text-[var(--c-muted)] text-xl mb-3">Hey, {firstName}.</p>
-        )}
-
-        <h1 style={anim("fadeSlideUp", 0.18)} className="welcome-heading text-5xl md:text-6xl font-extrabold text-[var(--c-heading)] tracking-tight mb-4 leading-tight">
-          Welcome to
-          <br />
-          <span className="text-brand-orange">The Impact Team.</span>
-        </h1>
-
-        <p style={anim("fadeSlideUp", 0.3)} className="welcome-subtitle text-[var(--c-muted)] text-lg mb-10 leading-relaxed">
-          Learn how to close high-ticket deals with a simple formula.
-        </p>
-
-        <button
-          style={anim("fadeSlideUp", 0.42)}
-          onClick={() => goToPage(2)}
-          className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
-        >
-          Let&apos;s go. Takes 3 min. →
-        </button>
-
-        {/* Social proof banner */}
-        <div style={anim("fadeSlideUp", 0.54)} className="welcome-social mt-8">
-          <img src="/dark.png"  alt="Social proof" className="social-proof-dark  w-full max-w-xs mx-auto opacity-90" />
-          <img src="/light.png" alt="Social proof" className="social-proof-light w-full max-w-xs mx-auto opacity-90" />
-        </div>
-      </div>
-    </div>
-  );
-  };
-
   // ─── PAGE 2: VSL + Testimonials ─────────────────────────────
   const VSLPage = () => (
     <div className="min-h-screen px-4 md:px-8 py-8">
@@ -545,7 +491,7 @@ export default function OnboardingFlow({
         {/* CTA Button */}
         <div style={anim("fadeSlideUp", 0.32)} className="text-center mb-14">
           <button
-            onClick={() => goToPage(4)}
+            onClick={() => goToPage(3)}
             className="btn-pulse cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl"
           >
             I am committed to my success →
@@ -613,14 +559,14 @@ export default function OnboardingFlow({
           {/* CTA Button (repeated below testimonials) */}
           <div className="text-center mt-8">
             <button
-              onClick={() => goToPage(4)}
+              onClick={() => goToPage(3)}
               className="btn-pulse cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl"
             >
               I am committed to my success →
             </button>
           </div>
 
-          <BackButton to={2} />
+          <BackButton to={1} />
         </div>
       </div>
     </div>
@@ -663,8 +609,10 @@ export default function OnboardingFlow({
         >
   
 
-          <StepIndicator />
           <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-10">
+            <div className="inline-block bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 uppercase tracking-wider">
+              Congratulations — you are now a member of Impact Team
+            </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
               Tailor your <span className="text-brand-orange">experience.</span>
             </h2>
@@ -745,14 +693,13 @@ export default function OnboardingFlow({
 
           <div className="text-center">
             <button
-              onClick={() => { if (selectedBucket) tagLeadInGHL(selectedBucket); goToPage(3); }}
+              onClick={() => { if (selectedBucket) tagLeadInGHL(selectedBucket); goToPage(2); }}
               disabled={!selectedBucket}
               className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl disabled:opacity-30"
             >
               That&apos;s me - continue →
             </button>
           </div>
-          <BackButton to={1} />
         </div>
       </div>
     );
@@ -840,7 +787,7 @@ export default function OnboardingFlow({
             Show me my tailored blueprint →
           </button>
         </div>
-        <BackButton to={3} />
+        <BackButton to={2} />
       </div>
 
       {/* Video Modal */}
@@ -874,7 +821,7 @@ export default function OnboardingFlow({
     </div>
   );
 
-  // ─── LOADING SCREEN (between page 4 → 5) ───────────────────
+  // ─── LOADING SCREEN (between page 3 → 4) ───────────────────
   const renderLoadingScreen = () => (
     <div className="min-h-screen flex flex-col items-center justify-center px-6">
       <div className="w-full max-w-md text-center">
@@ -1040,7 +987,7 @@ export default function OnboardingFlow({
             <p className="text-[var(--c-muted)] text-xs mt-2">access all the materials</p>
           </div>
 
-          <BackButton to={4} />
+          <BackButton to={3} />
 
         </div>
       </div>
@@ -1064,11 +1011,10 @@ export default function OnboardingFlow({
         />
       </div>
 
-      {currentPage === 1 && <WelcomePage />}
-      {currentPage === 2 && renderAvatarPage()}
-      {currentPage === 3 && <VSLPage />}
-      {currentPage === 4 && renderFeaturesPage()}
-      {currentPage === 5 && <NextStepsPage />}
+      {currentPage === 1 && renderAvatarPage()}
+      {currentPage === 2 && <VSLPage />}
+      {currentPage === 3 && renderFeaturesPage()}
+      {currentPage === 4 && <NextStepsPage />}
     </div>
   );
 }
