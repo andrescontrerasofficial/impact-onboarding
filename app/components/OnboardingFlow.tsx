@@ -624,7 +624,7 @@ export default function OnboardingFlow({
               className="absolute pointer-events-none sweep-glow"
               style={{
                 inset: "-80px",
-                background: "radial-gradient(ellipse 60% 75% at 50% 55%, rgba(250, 70, 22, 0.28) 0%, transparent 65%)",
+                background: "radial-gradient(ellipse 60% 75% at 50% 55%, rgba(196, 0, 6, 0.28) 0%, transparent 65%)",
               }}
             />
 
@@ -725,7 +725,7 @@ export default function OnboardingFlow({
             className="absolute pointer-events-none sweep-glow"
             style={{
               inset: "-80px",
-              background: "radial-gradient(ellipse 60% 75% at 50% 55%, rgba(250, 70, 22, 0.28) 0%, transparent 65%)",
+              background: "radial-gradient(ellipse 60% 75% at 50% 55%, rgba(196, 0, 6, 0.28) 0%, transparent 65%)",
             }}
           />
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4">
