@@ -981,16 +981,6 @@ export default function OnboardingFlow({
             })}
           </div>
 
-          {/* TEMP: Reset steps for testing */}
-          <div className="text-center mb-4">
-            <button
-              onClick={() => { setCompletedSteps(new Set()); localStorage.removeItem("impact_steps"); }}
-              className="text-xs text-[var(--c-muted)] underline opacity-60 hover:opacity-100"
-            >
-              Reset steps (testing)
-            </button>
-          </div>
-
           {/* Mobile-only: Back to Homepage */}
           <div className="block md:hidden text-center mt-8">
             <button
