@@ -937,7 +937,7 @@ export default function OnboardingFlow({
                         ? "bg-[var(--c-card)] border-emerald-500/30"
                         : isLocked
                         ? "bg-[var(--c-bg)] border-[var(--c-border)]"
-                        : "bg-[var(--c-card)] border-[var(--c-border)] hover:border-[var(--c-border-strong)]"
+                        : "bg-[var(--c-card)] border-[var(--c-border-strong)] hover:border-[var(--c-hover-border)]"
                     }`}
                   >
                     <h3 className={`font-extrabold text-lg mb-2 ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-text)]"}`}>
