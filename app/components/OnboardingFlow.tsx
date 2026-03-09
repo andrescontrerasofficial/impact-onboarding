@@ -900,7 +900,7 @@ export default function OnboardingFlow({
               const orangeEnd = Math.round(((activeIdx + 0.5) / total) * 100);
               const grayStart = Math.round(((activeIdx + 0.7) / total) * 100);
               const gradient = activeIdx >= total - 1
-                ? `linear-gradient(to bottom, #FA4616 0%, #FA461660 100%)`
+                ? `linear-gradient(to bottom, #FA4616 0%, transparent 100%)`
                 : `linear-gradient(to bottom, #FA4616 0%, #FA4616 ${orangeEnd}%, var(--c-border) ${grayStart}%, transparent 100%)`;
               return (
                 <div
