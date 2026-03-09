@@ -910,38 +910,46 @@ export default function OnboardingFlow({
               const isCompleted = completedSteps.has(i);
               const isActive = i === completedSteps.size;
 
+              const isLocked = !isCompleted && !isActive;
+
               return (
-                <div key={i} style={anim("fadeSlideUp", 0.2 + i * 0.14)} className="relative flex items-start gap-3 md:gap-5">
+                <div key={i} style={anim("fadeSlideUp", 0.2 + i * 0.14)} className={`relative flex items-start gap-3 md:gap-5 transition-opacity duration-300 ${isLocked ? "opacity-50" : ""}`}>
                   {/* Step number / checkmark */}
                   <div
-                    className="relative z-10 w-9 h-9 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-brand-orange flex items-center justify-center text-white font-extrabold text-sm md:text-base shrink-0"
-                    style={{ boxShadow: "0 8px 24px rgba(250,70,22,0.3)" }}
+                    className={`relative z-10 w-9 h-9 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center font-extrabold text-sm md:text-base shrink-0 ${
+                      isLocked
+                        ? "bg-[var(--c-border)] text-[var(--c-muted)]"
+                        : "bg-brand-orange text-white"
+                    }`}
+                    style={isLocked ? {} : { boxShadow: "0 8px 24px rgba(250,70,22,0.3)" }}
                   >
                     {isCompleted ? "✓" : step.icon}
                   </div>
 
                   {/* Card */}
                   <div
-                    className={`flex-1 bg-[var(--c-card)] border rounded-xl p-6 transition-colors duration-300 ${
+                    className={`flex-1 border rounded-xl p-6 transition-colors duration-300 ${
                       isCompleted
-                        ? "border-emerald-500/30"
-                        : "border-[var(--c-border)] hover:border-[var(--c-border-strong)]"
+                        ? "bg-[var(--c-card)] border-emerald-500/30"
+                        : isLocked
+                        ? "bg-[var(--c-bg)] border-[var(--c-border)]"
+                        : "bg-[var(--c-card)] border-[var(--c-border)] hover:border-[var(--c-border-strong)]"
                     }`}
                   >
-                    <h3 className="text-[var(--c-text)] font-extrabold text-lg mb-2">
+                    <h3 className={`font-extrabold text-lg mb-2 ${isLocked ? "text-[var(--c-muted)]" : "text-[var(--c-text)]"}`}>
                       {step.title}
                     </h3>
                     {step.mobileDescription ? (
                       <>
-                        <p className="hidden md:block text-[var(--c-muted)] text-sm leading-relaxed mb-4 whitespace-pre-line">
+                        <p className={`hidden md:block text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
                           {step.description}
                         </p>
-                        <p className="block md:hidden text-[var(--c-muted)] text-sm leading-relaxed mb-4 whitespace-pre-line">
+                        <p className={`block md:hidden text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
                           {step.mobileDescription}
                         </p>
                       </>
                     ) : (
-                      <p className="text-[var(--c-muted)] text-sm leading-relaxed mb-4 whitespace-pre-line">
+                      <p className={`text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
                         {step.description}
                       </p>
                     )}
@@ -956,8 +964,9 @@ export default function OnboardingFlow({
                         className={
                           isActive
                             ? "btn-pulse cta-button text-white text-sm font-semibold px-5 py-2.5 rounded-lg"
-                            : "border border-[var(--c-border-strong)] text-[var(--c-muted)] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent"
+                            : "border border-[var(--c-border)] text-[var(--c-border-strong)] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent cursor-default"
                         }
+                        disabled={isLocked}
                       >
                         {step.cta}
                       </button>
