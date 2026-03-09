@@ -922,7 +922,7 @@ export default function OnboardingFlow({
                   <div
                     className={`relative z-10 w-9 h-9 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center font-extrabold text-sm md:text-base shrink-0 ${
                       isLocked
-                        ? "bg-[var(--c-border)] text-[var(--c-muted)] opacity-50"
+                        ? "bg-[#1a1a1a] text-[#3a3a3a]"
                         : "bg-brand-orange text-white"
                     }`}
                     style={isLocked ? {} : { boxShadow: "0 8px 24px rgba(250,70,22,0.3)" }}
