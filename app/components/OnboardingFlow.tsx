@@ -157,9 +157,7 @@ const nextStepsMap: Record<
     {
       title: "Join the Community",
       description:
-        "This is where it starts. The community is full of people in your exact spot — no experience, betting on themselves anyway. The people you surround yourself with decide the person you become.",
-      mobileDescription:
-        "You're brand new to the game. Practice is the key to success. Join in on people practicing and learning together",
+        "Extremely important. Perfect practice = perfect results. Here you can find reps doing the $10k and $100k commission months to practice with. Join below.",
       cta: "Join Discord →",
       icon: "01",
       url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
@@ -187,9 +185,7 @@ const nextStepsMap: Record<
     {
       title: "Join the Community",
       description:
-        "As you look to possibly switch into sales. The key is understanding the people you surround yourself with decide the person you become. Meet your sales people here.",
-      mobileDescription:
-        "As you look to possibly switch into sales. Practice is the key to success. Join in on people practicing and learning together",
+        "Extremely important. Perfect practice = perfect results. Here you can find reps doing the $10k and $100k commission months to practice with. Join below.",
       cta: "Join Discord →",
       icon: "01",
       url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
@@ -217,9 +213,7 @@ const nextStepsMap: Record<
     {
       title: "Join the Community",
       description:
-        "Your environment is your ceiling. Get inside the community and find the reps doing the $10k and $100k commission months. The energy in here is different - and it's contagious.",
-      mobileDescription:
-        "You're already in sales. Practice is the key to success. Join in on people practicing and learning together",
+        "Extremely important. Perfect practice = perfect results. Here you can find reps doing the $10k and $100k commission months to practice with. Join below.",
       cta: "Join Discord →",
       icon: "01",
       url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
@@ -928,7 +922,7 @@ export default function OnboardingFlow({
                   <div
                     className={`relative z-10 w-9 h-9 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center font-extrabold text-sm md:text-base shrink-0 ${
                       isLocked
-                        ? "bg-[var(--c-border)] text-[var(--c-muted)]"
+                        ? "bg-[var(--c-border)] text-[var(--c-muted)] opacity-50"
                         : "bg-brand-orange text-white"
                     }`}
                     style={isLocked ? {} : { boxShadow: "0 8px 24px rgba(250,70,22,0.3)" }}
