@@ -497,7 +497,7 @@ export default function OnboardingFlow({
           onClick={() => goToPage(2)}
           className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
         >
-          Let&apos;s go. Takes 3 min. →
+          Let&apos;s go. Takes 90 sec. →
         </button>
 
         <div style={anim("fadeSlideUp", 0.54)} className="welcome-social mt-8">
@@ -657,7 +657,7 @@ export default function OnboardingFlow({
     ];
 
     return (
-      <div className="min-h-screen px-4 md:px-8 pt-14 pb-8 md:py-8 flex flex-col justify-center">
+      <div className="min-h-screen px-4 md:px-8 py-8">
         <div
           className={`max-w-4xl mx-auto transition-all duration-500 ${
             animateIn
@@ -672,7 +672,7 @@ export default function OnboardingFlow({
               Tailor your <span className="text-brand-orange">experience.</span>
             </h2>
             <p className="text-[var(--c-subheader)] text-lg">
-              Tell us who you are so we can tailor your <span className="text-brand-orange">blueprint</span>.
+              Before we open the gates, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
             </p>
           </div>
 
