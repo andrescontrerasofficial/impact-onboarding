@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { createSdk } from "@whop/iframe";
 import confetti from "canvas-confetti";
+import posthog from "posthog-js";
 
 // ─── Types ──────────────────────────────────────────────────────────
 type Bucket = "new_to_workforce" | "career_switcher" | "already_in_sales" | null;
@@ -286,6 +287,25 @@ export default function OnboardingFlow({
     localStorage.setItem("impact_steps", JSON.stringify([...completedSteps]));
   }, [completedSteps]);
 
+  // ─── PostHog: identify user + track page views ────────────────
+  const pageNames = ["", "welcome", "avatar", "vsl", "features", "next_steps"];
+  useEffect(() => {
+    if (userId) {
+      posthog.identify(userId, {
+        name: userName,
+        email: userEmail,
+      });
+    }
+  }, [userId, userName, userEmail]);
+
+  useEffect(() => {
+    posthog.capture("onboarding_page_view", {
+      page: currentPage,
+      page_name: pageNames[currentPage] || "unknown",
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
+
   // ─── Preload images so they're cached before user reaches them ──
   useEffect(() => {
     const urls = [
@@ -417,6 +437,7 @@ export default function OnboardingFlow({
   const handleBucketSelect = useCallback(
     (bucket: Bucket) => {
       setSelectedBucket(bucket);
+      posthog.capture("bucket_selected", { bucket });
     },
     []
   );
@@ -745,7 +766,7 @@ export default function OnboardingFlow({
 
           <div className="text-center mt-2 md:mt-4">
             <button
-              onClick={() => { if (selectedBucket) tagLeadInGHL(selectedBucket); goToPage(3); }}
+              onClick={() => { if (selectedBucket) { tagLeadInGHL(selectedBucket); posthog.capture("bucket_confirmed", { bucket: selectedBucket }); } goToPage(3); }}
               disabled={!selectedBucket}
               className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl disabled:opacity-30"
             >
@@ -927,6 +948,12 @@ export default function OnboardingFlow({
       navigate(url);
       const newCompleted = new Set([...completedSteps, i]);
       setCompletedSteps(newCompleted);
+      posthog.capture("step_completed", {
+        step_index: i,
+        step_title: steps[i].title,
+        bucket: selectedBucket,
+        all_completed: newCompleted.size >= steps.length,
+      });
       if (newCompleted.size >= steps.length) fireConfetti();
     };
 
