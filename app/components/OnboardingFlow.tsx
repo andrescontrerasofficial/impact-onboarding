@@ -251,6 +251,7 @@ export default function OnboardingFlow({
   const [selectedBucket, setSelectedBucket] = useState<Bucket>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
+  const [skipWelcome, setSkipWelcome] = useState(false);
   const sdkRef = useRef<ReturnType<typeof createSdk> | null>(null);
 
   const navigate = useCallback((url: string) => {
@@ -305,6 +306,25 @@ export default function OnboardingFlow({
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
+
+  // ─── PostHog: A/B test — skip welcome page for "test" variant ────
+  useEffect(() => {
+    // Only apply experiment to new users still on page 1
+    const savedPage = localStorage.getItem("impact_page");
+    if (savedPage && parseInt(savedPage) > 1) return;
+
+    posthog.onFeatureFlags(() => {
+      const variant = posthog.getFeatureFlag("welcome-page-skip");
+      posthog.capture("experiment_variant_assigned", {
+        experiment: "welcome-page-skip",
+        variant: variant || "control",
+      });
+      if (variant === "test") {
+        setSkipWelcome(true);
+        setCurrentPage(2);
+      }
+    });
+  }, []);
 
   // ─── Preload images so they're cached before user reaches them ──
   useEffect(() => {
@@ -774,7 +794,7 @@ export default function OnboardingFlow({
             </button>
           </div>
 
-          <BackButton to={1} />
+          {!skipWelcome && <BackButton to={1} />}
         </div>
       </div>
     );
