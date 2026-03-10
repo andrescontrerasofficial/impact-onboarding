@@ -286,6 +286,18 @@ export default function OnboardingFlow({
     localStorage.setItem("impact_steps", JSON.stringify([...completedSteps]));
   }, [completedSteps]);
 
+  // ─── Preload images so they're cached before user reaches them ──
+  useEffect(() => {
+    const urls = [
+      "/avatar-explorer.svg", "/avatar-scientist.svg", "/avatar-builder.svg",
+      "/original-logo.svg", "/dark.png", "/light.png",
+    ];
+    urls.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   // ─── Whop theme sync ────────────────────────────────────────
   useEffect(() => {
     const applyTheme = (appearance: "light" | "dark") => {
@@ -655,11 +667,12 @@ export default function OnboardingFlow({
         >
 
           <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-8 md:mb-12">
+            <StepIndicator />
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
-              <span className="hidden md:inline">Congratulations,</span><span className="md:hidden">Congrats,</span> <span className="text-brand-orange">you&apos;re in.</span>
+              Tailor your <span className="text-brand-orange">experience.</span>
             </h2>
             <p className="text-[var(--c-subheader)] text-lg">
-              Before we open the <span className="text-brand-orange">gates</span>, tell us who you are so we can tailor your <span className="text-brand-orange">blueprint</span>.
+              Tell us who you are so we can tailor your <span className="text-brand-orange">blueprint</span>.
             </p>
           </div>
 
@@ -739,6 +752,8 @@ export default function OnboardingFlow({
               That&apos;s me - continue →
             </button>
           </div>
+
+          <BackButton to={1} />
         </div>
       </div>
     );
