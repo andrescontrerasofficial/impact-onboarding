@@ -314,9 +314,9 @@ export default function OnboardingFlow({
     if (savedPage && parseInt(savedPage) > 1) return;
 
     posthog.onFeatureFlags(() => {
-      const variant = posthog.getFeatureFlag("welcome-page-skip");
+      const variant = posthog.getFeatureFlag("onboarding-variant");
       posthog.capture("experiment_variant_assigned", {
-        experiment: "welcome-page-skip",
+        experiment: "onboarding-variant",
         variant: variant || "control",
       });
       if (variant === "test") {
@@ -708,13 +708,26 @@ export default function OnboardingFlow({
         >
 
           <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-8 md:mb-12">
-            <StepIndicator />
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
-              Tailor your <span className="text-brand-orange">experience.</span>
-            </h2>
-            <p className="text-[var(--c-subheader)] text-lg">
-              Before we open the gates, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
-            </p>
+            {!skipWelcome && <StepIndicator />}
+            {skipWelcome ? (
+              <>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
+                  Welcome to <span className="text-brand-orange">The Impact Team.</span>
+                </h2>
+                <p className="text-[var(--c-subheader)] text-lg">
+                  Tell us who you are so we can tailor your <span className="text-brand-orange">blueprint</span>.
+                </p>
+              </>
+            ) : (
+              <>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
+                  Tailor your <span className="text-brand-orange">experience.</span>
+                </h2>
+                <p className="text-[var(--c-subheader)] text-lg">
+                  Before we open the gates, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
+                </p>
+              </>
+            )}
           </div>
 
           {/* Card grid with sweeping ambient glow behind it */}
