@@ -734,15 +734,16 @@ export default function OnboardingFlow({
           }`}
         >
 
+          {skipWelcome && <div className="pt-6 md:pt-10" />}
           <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-8 md:mb-12">
             {!skipWelcome && <StepIndicator />}
             {skipWelcome ? (
               <>
                 <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
-                  Welcome to <span className="text-brand-orange">The Impact Team.</span>
+                  Welcome to the <span className="text-brand-orange">Impact Team.</span>
                 </h2>
                 <p className="text-[var(--c-subheader)] text-lg">
-                  Tell us who you are so we can tailor your <span className="text-brand-orange">blueprint</span>.
+                  Before we open the gates, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
                 </p>
               </>
             ) : (
