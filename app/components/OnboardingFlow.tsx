@@ -313,6 +313,21 @@ export default function OnboardingFlow({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
+  // ─── PostHog: Always register experiment exposure ──────────────
+  // PostHog tracks exposures via $feature_flag_called events, which are
+  // auto-sent when getFeatureFlag() is called. We must call it on every
+  // page load so the experiment dashboard counts this user as exposed.
+  useEffect(() => {
+    const trackExposure = () => {
+      const variant = posthog.getFeatureFlag("onboarding-variant");
+      if (variant !== undefined) {
+        console.log("[A/B test] exposure tracked, variant:", variant);
+      }
+    };
+    trackExposure();
+    posthog.onFeatureFlags(trackExposure);
+  }, []);
+
   // ─── PostHog: A/B test — skip welcome page for "test" variant ────
   useEffect(() => {
     // Already restored from localStorage — nothing to do
