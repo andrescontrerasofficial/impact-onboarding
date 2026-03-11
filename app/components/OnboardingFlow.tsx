@@ -313,17 +313,33 @@ export default function OnboardingFlow({
     const savedPage = localStorage.getItem("impact_page");
     if (savedPage && parseInt(savedPage) > 1) return;
 
-    posthog.onFeatureFlags(() => {
+    // URL param override for easy preview: ?variant=test or ?variant=control
+    const urlVariant = new URLSearchParams(window.location.search).get("variant");
+    if (urlVariant === "test") {
+      setSkipWelcome(true);
+      setCurrentPage(2);
+      return;
+    }
+    if (urlVariant === "control") return;
+
+    const checkFlag = () => {
       const variant = posthog.getFeatureFlag("onboarding-variant");
-      posthog.capture("experiment_variant_assigned", {
-        experiment: "onboarding-variant",
-        variant: variant || "control",
-      });
-      if (variant === "test") {
-        setSkipWelcome(true);
-        setCurrentPage(2);
+      if (variant !== undefined) {
+        posthog.capture("experiment_variant_assigned", {
+          experiment: "onboarding-variant",
+          variant: variant || "control",
+        });
+        if (variant === "test") {
+          setSkipWelcome(true);
+          setCurrentPage(2);
+        }
       }
-    });
+    };
+
+    // Check immediately in case flags are already loaded
+    checkFlag();
+    // Also register callback for when flags load
+    posthog.onFeatureFlags(checkFlag);
   }, []);
 
   // ─── Preload images so they're cached before user reaches them ──
