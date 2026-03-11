@@ -271,9 +271,11 @@ export default function OnboardingFlow({
     const page = localStorage.getItem("impact_page");
     const bucket = localStorage.getItem("impact_bucket");
     const steps = localStorage.getItem("impact_steps");
+    const skip = localStorage.getItem("impact_skip_welcome");
     if (page) setCurrentPage(Math.min(parseInt(page), 5));
     if (bucket) setSelectedBucket(bucket as Bucket);
     if (steps) setCompletedSteps(new Set(JSON.parse(steps) as number[]));
+    if (skip === "true") setSkipWelcome(true);
   }, []);
 
   useEffect(() => {
@@ -287,6 +289,10 @@ export default function OnboardingFlow({
   useEffect(() => {
     localStorage.setItem("impact_steps", JSON.stringify([...completedSteps]));
   }, [completedSteps]);
+
+  useEffect(() => {
+    if (skipWelcome) localStorage.setItem("impact_skip_welcome", "true");
+  }, [skipWelcome]);
 
   // ─── PostHog: identify user + track page views ────────────────
   const pageNames = ["", "welcome", "avatar", "vsl", "features", "next_steps"];
@@ -309,6 +315,9 @@ export default function OnboardingFlow({
 
   // ─── PostHog: A/B test — skip welcome page for "test" variant ────
   useEffect(() => {
+    // Already restored from localStorage — nothing to do
+    if (localStorage.getItem("impact_skip_welcome") === "true") return;
+
     // Only apply experiment to new users still on page 1
     const savedPage = localStorage.getItem("impact_page");
     if (savedPage && parseInt(savedPage) > 1) return;
@@ -322,17 +331,19 @@ export default function OnboardingFlow({
     }
     if (urlVariant === "control") return;
 
+    let hasFired = false;
     const checkFlag = () => {
+      if (hasFired) return;
       const variant = posthog.getFeatureFlag("onboarding-variant");
-      if (variant !== undefined) {
-        posthog.capture("experiment_variant_assigned", {
-          experiment: "onboarding-variant",
-          variant: variant || "control",
-        });
-        if (variant === "test") {
-          setSkipWelcome(true);
-          setCurrentPage(2);
-        }
+      if (variant === undefined) return;
+      hasFired = true;
+      posthog.capture("experiment_variant_assigned", {
+        experiment: "onboarding-variant",
+        variant: variant || "control",
+      });
+      if (variant === "test") {
+        setSkipWelcome(true);
+        setCurrentPage(2);
       }
     };
 
