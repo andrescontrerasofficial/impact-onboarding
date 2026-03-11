@@ -770,8 +770,8 @@ export default function OnboardingFlow({
             {!skipWelcome && <StepIndicator />}
             {skipWelcome ? (
               <>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
-                  Welcome to the <span className="text-brand-orange">Impact Team.</span>
+                <h2 className="text-4xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
+                  Welcome to the<br className="md:hidden" /> <span className="text-brand-orange">Impact Team.</span>
                 </h2>
                 <p className="text-[var(--c-subheader)] text-lg">
                   Before we open the gates, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
