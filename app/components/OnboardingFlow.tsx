@@ -323,7 +323,11 @@ export default function OnboardingFlow({
     if (savedPage && parseInt(savedPage) > 1) return;
 
     // URL param override for easy preview: ?variant=test or ?variant=control
-    const urlVariant = new URLSearchParams(window.location.search).get("variant");
+    // Check both the iframe URL and try the parent URL (cross-origin safe)
+    let urlVariant = new URLSearchParams(window.location.search).get("variant");
+    if (!urlVariant) {
+      try { urlVariant = new URLSearchParams(window.top?.location.search ?? "").get("variant"); } catch { /* cross-origin */ }
+    }
     if (urlVariant === "test") {
       setSkipWelcome(true);
       setCurrentPage(2);
@@ -335,6 +339,7 @@ export default function OnboardingFlow({
     const checkFlag = () => {
       if (hasFired) return;
       const variant = posthog.getFeatureFlag("onboarding-variant");
+      console.log("[A/B test] onboarding-variant flag value:", variant);
       if (variant === undefined) return;
       hasFired = true;
       posthog.capture("experiment_variant_assigned", {
@@ -351,6 +356,32 @@ export default function OnboardingFlow({
     checkFlag();
     // Also register callback for when flags load
     posthog.onFeatureFlags(checkFlag);
+  }, []);
+
+  // ─── Preview helper: listen for postMessage from parent (Whop) page ──
+  useEffect(() => {
+    const handler = (e: MessageEvent) => {
+      if (e.data?.type !== "force-variant") return;
+      const v = e.data.variant;
+      // Clear all saved state so we behave like a brand-new user
+      localStorage.removeItem("impact_page");
+      localStorage.removeItem("impact_bucket");
+      localStorage.removeItem("impact_steps");
+      localStorage.removeItem("impact_skip_welcome");
+      if (v === "test") {
+        setSkipWelcome(true);
+        setCurrentPage(2);
+        setSelectedBucket(null);
+        setCompletedSteps(new Set());
+      } else {
+        setSkipWelcome(false);
+        setCurrentPage(1);
+        setSelectedBucket(null);
+        setCompletedSteps(new Set());
+      }
+    };
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
   }, []);
 
   // ─── Preload images so they're cached before user reaches them ──
