@@ -704,25 +704,25 @@ export default function OnboardingFlow({
       return (
         <div className="min-h-screen px-4 md:px-8 py-8 flex flex-col">
           <div
-            className={`max-w-xl mx-auto w-full transition-all duration-500 flex-1 flex flex-col ${
+            className={`max-w-2xl mx-auto w-full transition-all duration-500 flex-1 flex flex-col ${
               animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
           >
             <div className="pt-4 md:pt-8" />
             <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-6 md:mb-8">
-              <span className="inline-block bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
+              <span className="inline-block bg-brand-orange text-white text-sm font-bold px-5 py-1.5 rounded-full mb-5 tracking-wide">
                 Welcome to Impact
               </span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-[var(--c-heading)] mb-3 leading-tight">
                 Wait! One more <span className="text-brand-orange">step.</span>
               </h2>
-              <p className="text-[var(--c-subheader)] text-lg">
+              <p className="text-[var(--c-subheader)] text-lg whitespace-nowrap">
                 Before we open the gates, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
               </p>
             </div>
 
             {/* Compact multiple-choice options with ambient glow */}
-            <div className="relative mb-6">
+            <div className="relative mb-6 max-w-xl mx-auto w-full">
               <div
                 className="absolute pointer-events-none sweep-glow"
                 style={{
@@ -758,14 +758,12 @@ export default function OnboardingFlow({
 
                     {/* Text */}
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-baseline gap-2">
-                        <h3 className="text-[var(--c-text)] font-bold text-base md:text-lg">
-                          {b.title}
-                        </h3>
-                        <span className="text-brand-orange text-xs font-semibold">
-                          {b.subtitle}
-                        </span>
-                      </div>
+                      <h3 className="text-[var(--c-text)] font-bold text-base md:text-lg">
+                        {b.title}
+                      </h3>
+                      <span className="text-brand-orange text-xs font-semibold">
+                        {b.subtitle}
+                      </span>
                       <p className="text-[var(--c-muted)] text-xs md:text-sm leading-snug mt-0.5">
                         {b.description}
                       </p>
