@@ -337,8 +337,14 @@ export default function OnboardingFlow({
     posthog.onFeatureFlags(checkFlag);
   }, []);
 
-  // ─── PostHog: Always register experiment exposure ──────────────
+  // ─── PostHog: Register experiment exposure (only for new users) ──
+  // Returning users already have a saved variant — calling getFeatureFlag() again
+  // could send a $feature_flag_called event with a different value, causing PostHog
+  // to flag the user as exposed to $multiple variants.
   useEffect(() => {
+    const saved = safeGetItem("impact_avatar_variant");
+    if (saved === "test" || saved === "control") return; // already assigned, skip
+
     const trackExposure = () => {
       const variant = posthog.getFeatureFlag("avatar-layout-variant");
       if (variant !== undefined) {
