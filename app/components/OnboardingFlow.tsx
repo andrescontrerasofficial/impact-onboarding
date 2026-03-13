@@ -349,6 +349,30 @@ export default function OnboardingFlow({
     posthog.onFeatureFlags(trackExposure);
   }, []);
 
+  // ─── Preview helper: listen for postMessage from parent (Whop) page ──
+  useEffect(() => {
+    const handler = (e: MessageEvent) => {
+      if (e.data?.type !== "force-variant") return;
+      const v = e.data.variant;
+      // Clear saved state so we behave like a brand-new user
+      safeSetItem("impact_page", "1");
+      safeSetItem("impact_bucket", "");
+      safeSetItem("impact_steps", "[]");
+      if (v === "test") {
+        safeSetItem("impact_avatar_variant", "test");
+        setAvatarVariant("test");
+      } else {
+        safeSetItem("impact_avatar_variant", "control");
+        setAvatarVariant("control");
+      }
+      setCurrentPage(1);
+      setSelectedBucket(null);
+      setCompletedSteps(new Set());
+    };
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, []);
+
   // ─── Preload images so they're cached before user reaches them ──
   useEffect(() => {
     const urls = [
