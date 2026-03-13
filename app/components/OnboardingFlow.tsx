@@ -710,7 +710,7 @@ export default function OnboardingFlow({
           >
             <div className="pt-4 md:pt-8" />
             <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-6 md:mb-8">
-              <span className="inline-block bg-brand-orange text-white text-sm md:text-base font-bold px-5 md:px-6 py-1.5 md:py-2 rounded-lg mb-5 tracking-wide">
+              <span className="inline-block bg-brand-orange text-white text-sm md:text-[0.9375rem] font-bold px-5 md:px-[1.375rem] py-1.5 md:py-[0.4375rem] rounded-lg mb-5 tracking-wide">
                 Welcome to Impact
               </span>
               <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3 leading-tight">
