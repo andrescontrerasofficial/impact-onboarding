@@ -12,10 +12,6 @@ function safeGetItem(key: string): string | null {
 function safeSetItem(key: string, value: string): void {
   try { localStorage.setItem(key, value); } catch { /* ignore */ }
 }
-function safeRemoveItem(key: string): void {
-  try { localStorage.removeItem(key); } catch { /* ignore */ }
-}
-
 // ─── Types ──────────────────────────────────────────────────────────
 type Bucket = "new_to_workforce" | "career_switcher" | "already_in_sales" | null;
 
@@ -262,7 +258,6 @@ export default function OnboardingFlow({
   const [selectedBucket, setSelectedBucket] = useState<Bucket>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
-  const [skipWelcome, setSkipWelcome] = useState(false);
   const sdkRef = useRef<ReturnType<typeof createSdk> | null>(null);
 
   const navigate = useCallback((url: string) => {
@@ -282,11 +277,9 @@ export default function OnboardingFlow({
     const page = safeGetItem("impact_page");
     const bucket = safeGetItem("impact_bucket");
     const steps = safeGetItem("impact_steps");
-    const skip = safeGetItem("impact_skip_welcome");
-    if (page) setCurrentPage(Math.min(parseInt(page), 5));
+    if (page) setCurrentPage(Math.min(parseInt(page), 4));
     if (bucket) setSelectedBucket(bucket as Bucket);
     if (steps) setCompletedSteps(new Set(JSON.parse(steps) as number[]));
-    if (skip === "true") setSkipWelcome(true);
   }, []);
 
   useEffect(() => {
@@ -301,12 +294,8 @@ export default function OnboardingFlow({
     safeSetItem("impact_steps", JSON.stringify([...completedSteps]));
   }, [completedSteps]);
 
-  useEffect(() => {
-    if (skipWelcome) safeSetItem("impact_skip_welcome", "true");
-  }, [skipWelcome]);
-
   // ─── PostHog: identify user + track page views ────────────────
-  const pageNames = ["", "welcome", "avatar", "vsl", "features", "next_steps"];
+  const pageNames = ["", "avatar", "vsl", "features", "next_steps"];
   useEffect(() => {
     if (userId) {
       posthog.identify(userId, {
@@ -324,97 +313,10 @@ export default function OnboardingFlow({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
-  // ─── PostHog: Always register experiment exposure ──────────────
-  // PostHog tracks exposures via $feature_flag_called events, which are
-  // auto-sent when getFeatureFlag() is called. We must call it on every
-  // page load so the experiment dashboard counts this user as exposed.
-  useEffect(() => {
-    const trackExposure = () => {
-      const variant = posthog.getFeatureFlag("onboarding-variant");
-      if (variant !== undefined) {
-        console.log("[A/B test] exposure tracked, variant:", variant);
-      }
-    };
-    trackExposure();
-    posthog.onFeatureFlags(trackExposure);
-  }, []);
-
-  // ─── PostHog: A/B test — skip welcome page for "test" variant ────
-  useEffect(() => {
-    // Already restored from localStorage — nothing to do
-    if (safeGetItem("impact_skip_welcome") === "true") return;
-
-    // Only apply experiment to new users still on page 1
-    const savedPage = safeGetItem("impact_page");
-    if (savedPage && parseInt(savedPage) > 1) return;
-
-    // URL param override for easy preview: ?variant=test or ?variant=control
-    // Check both the iframe URL and try the parent URL (cross-origin safe)
-    let urlVariant = new URLSearchParams(window.location.search).get("variant");
-    if (!urlVariant) {
-      try { urlVariant = new URLSearchParams(window.top?.location.search ?? "").get("variant"); } catch { /* cross-origin */ }
-    }
-    if (urlVariant === "test") {
-      setSkipWelcome(true);
-      setCurrentPage(2);
-      return;
-    }
-    if (urlVariant === "control") return;
-
-    let hasFired = false;
-    const checkFlag = () => {
-      if (hasFired) return;
-      const variant = posthog.getFeatureFlag("onboarding-variant");
-      console.log("[A/B test] onboarding-variant flag value:", variant);
-      if (variant === undefined) return;
-      hasFired = true;
-      posthog.capture("experiment_variant_assigned", {
-        experiment: "onboarding-variant",
-        variant: variant || "control",
-      });
-      if (variant === "test") {
-        setSkipWelcome(true);
-        setCurrentPage(2);
-      }
-    };
-
-    // Check immediately in case flags are already loaded
-    checkFlag();
-    // Also register callback for when flags load
-    posthog.onFeatureFlags(checkFlag);
-  }, []);
-
-  // ─── Preview helper: listen for postMessage from parent (Whop) page ──
-  useEffect(() => {
-    const handler = (e: MessageEvent) => {
-      if (e.data?.type !== "force-variant") return;
-      const v = e.data.variant;
-      // Clear all saved state so we behave like a brand-new user
-      safeRemoveItem("impact_page");
-      safeRemoveItem("impact_bucket");
-      safeRemoveItem("impact_steps");
-      safeRemoveItem("impact_skip_welcome");
-      if (v === "test") {
-        setSkipWelcome(true);
-        setCurrentPage(2);
-        setSelectedBucket(null);
-        setCompletedSteps(new Set());
-      } else {
-        setSkipWelcome(false);
-        setCurrentPage(1);
-        setSelectedBucket(null);
-        setCompletedSteps(new Set());
-      }
-    };
-    window.addEventListener("message", handler);
-    return () => window.removeEventListener("message", handler);
-  }, []);
-
   // ─── Preload images so they're cached before user reaches them ──
   useEffect(() => {
     const urls = [
       "/avatar-explorer.svg", "/avatar-scientist.svg", "/avatar-builder.svg",
-      "/original-logo.svg", "/dark.png", "/light.png",
     ];
     urls.forEach((src) => {
       const img = new Image();
@@ -453,7 +355,7 @@ export default function OnboardingFlow({
   const [videoModal, setVideoModal] = useState<string | null>(null);
   const [animateIn, setAnimateIn] = useState(true);
 
-  const totalPages = 5;
+  const totalPages = 4;
 
   // Page transition handler
   const goToPage = useCallback(
@@ -510,7 +412,7 @@ export default function OnboardingFlow({
       setLoadingProgress(100);
       setTimeout(() => {
         setIsLoading(false);
-        goToPage(5);
+        goToPage(4);
       }, 400);
     }, 3800);
   }, [goToPage]);
@@ -582,59 +484,7 @@ export default function OnboardingFlow({
   );
 
 
-  // ─── PAGE 1: Welcome ───────────────────────────────────────
-  const WelcomePage = () => {
-    const firstName = userName || null;
-    return (
-    <div className="welcome-container min-h-[100dvh] flex flex-col items-center justify-center px-6 pt-12 md:pt-0 text-center">
-      <div
-        className={`max-w-lg transition-all duration-500 ${
-          animateIn
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-6"
-        }`}
-      >
-        <div style={anim("fadeSlideDown", 0)} className="welcome-logo mx-auto mb-6 flex items-center justify-center">
-          <div
-            className="relative inline-flex items-center justify-center p-3 rounded-xl bg-gradient-to-br from-brand-orange/15 to-brand-orange/5 border border-brand-orange/20"
-            style={{ boxShadow: "0 0 40px rgba(250, 70, 22, 0.12), 0 0 0 1px rgba(250, 70, 22, 0.06)" }}
-          >
-            <img src="/original-logo.svg" alt="The Impact Team" className="logo-img h-8 w-8 object-contain" />
-          </div>
-        </div>
-
-        {firstName && (
-          <p style={anim("fadeSlideUp", 0.1)} className="welcome-greeting text-[var(--c-muted)] text-xl mb-3">Hey, {firstName}.</p>
-        )}
-
-        <h1 style={anim("fadeSlideUp", 0.18)} className="welcome-heading text-5xl md:text-6xl font-extrabold text-[var(--c-heading)] tracking-tight mb-4 leading-tight">
-          Welcome to
-          <br />
-          <span className="text-brand-orange">The Impact Team.</span>
-        </h1>
-
-        <p style={anim("fadeSlideUp", 0.3)} className="welcome-subtitle text-[var(--c-muted)] text-lg mb-10 leading-relaxed">
-          Learn how to close high-ticket deals with a simple formula.
-        </p>
-
-        <button
-          style={anim("fadeSlideUp", 0.42)}
-          onClick={() => goToPage(2)}
-          className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl"
-        >
-          Let&apos;s go. Takes 90 sec. →
-        </button>
-
-        <div style={anim("fadeSlideUp", 0.54)} className="welcome-social mt-8">
-          <img src="/dark.png"  alt="Social proof" className="social-proof-dark  w-full max-w-xs mx-auto opacity-90" />
-          <img src="/light.png" alt="Social proof" className="social-proof-light w-full max-w-xs mx-auto opacity-90" />
-        </div>
-      </div>
-    </div>
-    );
-  };
-
-  // ─── PAGE 3: VSL + Testimonials ─────────────────────────────
+  // ─── PAGE 2: VSL + Testimonials ─────────────────────────────
   const VSLPage = () => (
     <div className="min-h-screen px-4 md:px-8 py-8">
       <div
@@ -674,7 +524,7 @@ export default function OnboardingFlow({
         {/* CTA Button */}
         <div style={anim("fadeSlideUp", 0.32)} className="text-center mb-14">
           <button
-            onClick={() => goToPage(4)}
+            onClick={() => goToPage(3)}
             className="btn-pulse cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl"
           >
             I am committed to my success →
@@ -742,20 +592,20 @@ export default function OnboardingFlow({
           {/* CTA Button (repeated below testimonials) */}
           <div className="text-center mt-8">
             <button
-              onClick={() => goToPage(4)}
+              onClick={() => goToPage(3)}
               className="btn-pulse cta-button text-white font-semibold text-base md:text-lg px-8 py-4 rounded-xl"
             >
               I am committed to my success →
             </button>
           </div>
 
-          <BackButton to={2} />
+          <BackButton to={1} />
         </div>
       </div>
     </div>
   );
 
-  // ─── PAGE 3: Avatar / Bucket Selection ──────────────────────
+  // ─── PAGE 1: Avatar / Bucket Selection ──────────────────────
   const renderAvatarPage = () => {
     const buckets = [
       {
@@ -791,28 +641,14 @@ export default function OnboardingFlow({
           }`}
         >
 
-          {skipWelcome && <div className="pt-6 md:pt-10" />}
+          <div className="pt-6 md:pt-10" />
           <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-8 md:mb-12">
-            {!skipWelcome && <StepIndicator />}
-            {skipWelcome ? (
-              <>
-                <h2 className="text-4xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
-                  Welcome to the<br className="md:hidden" /> <span className="text-brand-orange">Impact Team.</span>
-                </h2>
-                <p className="text-[var(--c-subheader)] text-lg">
-                  Before we open the gates, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
-                </p>
-              </>
-            ) : (
-              <>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
-                  Tailor your <span className="text-brand-orange">experience.</span>
-                </h2>
-                <p className="text-[var(--c-subheader)] text-lg">
-                  Before we open the gates, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
-                </p>
-              </>
-            )}
+            <h2 className="text-4xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
+              Welcome to the<br className="md:hidden" /> <span className="text-brand-orange">Impact Team.</span>
+            </h2>
+            <p className="text-[var(--c-subheader)] text-lg">
+              Before we open the gates, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
+            </p>
           </div>
 
           {/* Card grid with sweeping ambient glow behind it */}
@@ -884,7 +720,7 @@ export default function OnboardingFlow({
 
           <div className="text-center mt-2 md:mt-4">
             <button
-              onClick={() => { if (selectedBucket) { tagLeadInGHL(selectedBucket); posthog.capture("bucket_confirmed", { bucket: selectedBucket }); } goToPage(3); }}
+              onClick={() => { if (selectedBucket) { tagLeadInGHL(selectedBucket); posthog.capture("bucket_confirmed", { bucket: selectedBucket }); } goToPage(2); }}
               disabled={!selectedBucket}
               className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl disabled:opacity-30"
             >
@@ -892,13 +728,12 @@ export default function OnboardingFlow({
             </button>
           </div>
 
-          {!skipWelcome && <BackButton to={1} />}
         </div>
       </div>
     );
   };
 
-  // ─── PAGE 4: Features Overview ──────────────────────────────
+  // ─── PAGE 3: Features Overview ──────────────────────────────
   const renderFeaturesPage = () => (
     <div className="min-h-screen px-4 md:px-8 py-8">
       <div
@@ -980,7 +815,7 @@ export default function OnboardingFlow({
             Show me my tailored blueprint →
           </button>
         </div>
-        <BackButton to={3} />
+        <BackButton to={2} />
       </div>
 
       {/* Video Modal */}
@@ -1042,7 +877,7 @@ export default function OnboardingFlow({
     </div>
   );
 
-  // ─── PAGE 5: Personalized Next Steps ────────────────────────
+  // ─── PAGE 4: Personalized Next Steps ────────────────────────
 
   const NextStepsPage = () => {
     const steps = nextStepsMap[selectedBucket || "new_to_workforce"];
@@ -1205,7 +1040,7 @@ export default function OnboardingFlow({
             <p className="text-[var(--c-muted)] text-xs mt-2">access all the materials</p>
           </div>
 
-          <BackButton to={4} />
+          <BackButton to={3} />
 
         </div>
       </div>
@@ -1229,11 +1064,10 @@ export default function OnboardingFlow({
         />
       </div>
 
-      {currentPage === 1 && <WelcomePage />}
-      {currentPage === 2 && renderAvatarPage()}
-      {currentPage === 3 && <VSLPage />}
-      {currentPage === 4 && renderFeaturesPage()}
-      {currentPage === 5 && <NextStepsPage />}
+      {currentPage === 1 && renderAvatarPage()}
+      {currentPage === 2 && <VSLPage />}
+      {currentPage === 3 && renderFeaturesPage()}
+      {currentPage === 4 && <NextStepsPage />}
     </div>
   );
 }
