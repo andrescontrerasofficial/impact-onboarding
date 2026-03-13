@@ -713,7 +713,7 @@ export default function OnboardingFlow({
               <span className="inline-block bg-brand-orange text-white text-sm font-bold px-5 py-1.5 rounded-lg mb-5 tracking-wide">
                 Welcome to Impact
               </span>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-[var(--c-heading)] mb-3 leading-tight">
+              <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--c-heading)] mb-3 leading-tight">
                 Wait! One more <span className="text-brand-orange">step.</span>
               </h2>
               <p className="text-[var(--c-subheader)] text-lg md:whitespace-nowrap">
