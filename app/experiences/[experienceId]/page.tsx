@@ -17,7 +17,7 @@ export default async function ExperiencePage({
     const headersList = await headers();
     const userToken = headersList.get("x-whop-user-token") || "";
 
-    if (userToken) {
+    if (userToken && userToken.split(".").length >= 2) {
       const payload = JSON.parse(
         Buffer.from(userToken.split(".")[1], "base64").toString()
       );

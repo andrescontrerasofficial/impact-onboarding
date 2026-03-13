@@ -5,6 +5,17 @@ import { createSdk } from "@whop/iframe";
 import confetti from "canvas-confetti";
 import posthog from "posthog-js";
 
+// ─── Safe localStorage helpers (incognito/private mode can throw) ───
+function safeGetItem(key: string): string | null {
+  try { return safeGetItem(key); } catch { return null; }
+}
+function safeSetItem(key: string, value: string): void {
+  try { safeSetItem(key, value); } catch { /* ignore */ }
+}
+function safeRemoveItem(key: string): void {
+  try { safeRemoveItem(key); } catch { /* ignore */ }
+}
+
 // ─── Types ──────────────────────────────────────────────────────────
 type Bucket = "new_to_workforce" | "career_switcher" | "already_in_sales" | null;
 
@@ -268,10 +279,10 @@ export default function OnboardingFlow({
 
   // ─── Persist & restore progress ─────────────────────────────
   useEffect(() => {
-    const page = localStorage.getItem("impact_page");
-    const bucket = localStorage.getItem("impact_bucket");
-    const steps = localStorage.getItem("impact_steps");
-    const skip = localStorage.getItem("impact_skip_welcome");
+    const page = safeGetItem("impact_page");
+    const bucket = safeGetItem("impact_bucket");
+    const steps = safeGetItem("impact_steps");
+    const skip = safeGetItem("impact_skip_welcome");
     if (page) setCurrentPage(Math.min(parseInt(page), 5));
     if (bucket) setSelectedBucket(bucket as Bucket);
     if (steps) setCompletedSteps(new Set(JSON.parse(steps) as number[]));
@@ -279,19 +290,19 @@ export default function OnboardingFlow({
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("impact_page", String(currentPage));
+    safeSetItem("impact_page", String(currentPage));
   }, [currentPage]);
 
   useEffect(() => {
-    localStorage.setItem("impact_bucket", selectedBucket ?? "");
+    safeSetItem("impact_bucket", selectedBucket ?? "");
   }, [selectedBucket]);
 
   useEffect(() => {
-    localStorage.setItem("impact_steps", JSON.stringify([...completedSteps]));
+    safeSetItem("impact_steps", JSON.stringify([...completedSteps]));
   }, [completedSteps]);
 
   useEffect(() => {
-    if (skipWelcome) localStorage.setItem("impact_skip_welcome", "true");
+    if (skipWelcome) safeSetItem("impact_skip_welcome", "true");
   }, [skipWelcome]);
 
   // ─── PostHog: identify user + track page views ────────────────
@@ -331,10 +342,10 @@ export default function OnboardingFlow({
   // ─── PostHog: A/B test — skip welcome page for "test" variant ────
   useEffect(() => {
     // Already restored from localStorage — nothing to do
-    if (localStorage.getItem("impact_skip_welcome") === "true") return;
+    if (safeGetItem("impact_skip_welcome") === "true") return;
 
     // Only apply experiment to new users still on page 1
-    const savedPage = localStorage.getItem("impact_page");
+    const savedPage = safeGetItem("impact_page");
     if (savedPage && parseInt(savedPage) > 1) return;
 
     // URL param override for easy preview: ?variant=test or ?variant=control
@@ -379,10 +390,10 @@ export default function OnboardingFlow({
       if (e.data?.type !== "force-variant") return;
       const v = e.data.variant;
       // Clear all saved state so we behave like a brand-new user
-      localStorage.removeItem("impact_page");
-      localStorage.removeItem("impact_bucket");
-      localStorage.removeItem("impact_steps");
-      localStorage.removeItem("impact_skip_welcome");
+      safeRemoveItem("impact_page");
+      safeRemoveItem("impact_bucket");
+      safeRemoveItem("impact_steps");
+      safeRemoveItem("impact_skip_welcome");
       if (v === "test") {
         setSkipWelcome(true);
         setCurrentPage(2);
