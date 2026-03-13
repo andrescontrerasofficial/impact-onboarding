@@ -258,6 +258,7 @@ export default function OnboardingFlow({
   const [selectedBucket, setSelectedBucket] = useState<Bucket>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
+  const [avatarVariant, setAvatarVariant] = useState<"control" | "test">("control");
   const sdkRef = useRef<ReturnType<typeof createSdk> | null>(null);
 
   const navigate = useCallback((url: string) => {
@@ -312,6 +313,41 @@ export default function OnboardingFlow({
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
+
+  // ─── PostHog: A/B test — avatar page layout ────────────────
+  useEffect(() => {
+    // Restore from localStorage if already assigned
+    const saved = safeGetItem("impact_avatar_variant");
+    if (saved === "test" || saved === "control") {
+      setAvatarVariant(saved);
+      return;
+    }
+
+    let hasFired = false;
+    const checkFlag = () => {
+      if (hasFired) return;
+      const variant = posthog.getFeatureFlag("avatar-layout-variant");
+      if (variant === undefined) return;
+      hasFired = true;
+      const v = variant === "test" ? "test" : "control";
+      setAvatarVariant(v);
+      safeSetItem("impact_avatar_variant", v);
+    };
+    checkFlag();
+    posthog.onFeatureFlags(checkFlag);
+  }, []);
+
+  // ─── PostHog: Always register experiment exposure ──────────────
+  useEffect(() => {
+    const trackExposure = () => {
+      const variant = posthog.getFeatureFlag("avatar-layout-variant");
+      if (variant !== undefined) {
+        console.log("[A/B test] avatar-layout-variant exposure tracked:", variant);
+      }
+    };
+    trackExposure();
+    posthog.onFeatureFlags(trackExposure);
+  }, []);
 
   // ─── Preload images so they're cached before user reaches them ──
   useEffect(() => {
@@ -631,6 +667,105 @@ export default function OnboardingFlow({
       },
     ];
 
+    const onConfirm = () => {
+      if (selectedBucket) {
+        tagLeadInGHL(selectedBucket);
+        posthog.capture("bucket_confirmed", { bucket: selectedBucket, variant: avatarVariant });
+      }
+      goToPage(2);
+    };
+
+    // ── TEST VARIANT: compact multiple-choice layout ──
+    if (avatarVariant === "test") {
+      return (
+        <div className="min-h-screen px-4 md:px-8 py-8 flex flex-col">
+          <div
+            className={`max-w-xl mx-auto w-full transition-all duration-500 flex-1 flex flex-col ${
+              animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
+            <div className="pt-4 md:pt-8" />
+            <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-6 md:mb-8">
+              <span className="inline-block bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
+                Welcome to Impact
+              </span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
+                Wait! One more <span className="text-brand-orange">step.</span>
+              </h2>
+              <p className="text-[var(--c-subheader)] text-lg">
+                Before we open the gates, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
+              </p>
+            </div>
+
+            {/* Compact multiple-choice options with ambient glow */}
+            <div className="relative mb-6">
+              <div
+                className="absolute pointer-events-none sweep-glow"
+                style={{
+                  inset: "-60px",
+                  background: "radial-gradient(ellipse 70% 80% at 50% 50%, rgba(196, 0, 6, 0.22) 0%, transparent 65%)",
+                }}
+              />
+              <div className="relative flex flex-col gap-3">
+                {buckets.map((b, idx) => (
+                  <div
+                    key={b.id}
+                    onClick={() => handleBucketSelect(b.id)}
+                    className={`relative flex items-center gap-4 px-4 py-3.5 md:px-5 md:py-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
+                      selectedBucket === b.id
+                        ? "border-brand-orange bg-brand-orange/[0.08]"
+                        : "border-[var(--c-border)] bg-[var(--c-bg)] hover:border-[var(--c-border-strong)]"
+                    }`}
+                    style={anim("fadeSlideUp", 0.12 + idx * 0.08)}
+                  >
+                    {/* Radio circle */}
+                    <div className={`w-5 h-5 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-all duration-200 ${
+                      selectedBucket === b.id
+                        ? "border-brand-orange bg-brand-orange"
+                        : "border-[var(--c-border-strong)]"
+                    }`}>
+                      {selectedBucket === b.id && (
+                        <div className="w-2 h-2 rounded-full bg-white" />
+                      )}
+                    </div>
+
+                    {/* Avatar image */}
+                    <img src={b.image} alt={b.title} className="w-10 h-10 md:w-12 md:h-12 object-contain flex-shrink-0" />
+
+                    {/* Text */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-baseline gap-2">
+                        <h3 className="text-[var(--c-text)] font-bold text-base md:text-lg">
+                          {b.title}
+                        </h3>
+                        <span className="text-brand-orange text-xs font-semibold">
+                          {b.subtitle}
+                        </span>
+                      </div>
+                      <p className="text-[var(--c-muted)] text-xs md:text-sm leading-snug mt-0.5">
+                        {b.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={anim("fadeSlideUp", 0.4)} className="text-center mt-2">
+              <button
+                onClick={onConfirm}
+                disabled={!selectedBucket}
+                className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl disabled:opacity-30"
+              >
+                That&apos;s me - continue →
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ── CONTROL VARIANT: original card layout ──
     return (
       <div className="min-h-screen px-4 md:px-8 py-8">
         <div
@@ -720,7 +855,7 @@ export default function OnboardingFlow({
 
           <div className="text-center mt-2 md:mt-4">
             <button
-              onClick={() => { if (selectedBucket) { tagLeadInGHL(selectedBucket); posthog.capture("bucket_confirmed", { bucket: selectedBucket }); } goToPage(2); }}
+              onClick={onConfirm}
               disabled={!selectedBucket}
               className="btn-pulse cta-button text-white font-semibold text-lg px-10 py-4 rounded-xl disabled:opacity-30"
             >
