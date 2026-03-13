@@ -710,10 +710,10 @@ export default function OnboardingFlow({
           >
             <div className="pt-4 md:pt-8" />
             <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-6 md:mb-8">
-              <span className="inline-block bg-brand-orange text-white text-sm font-bold px-5 py-1.5 rounded-lg mb-5 tracking-wide">
+              <span className="inline-block bg-brand-orange text-white text-sm md:text-base font-bold px-5 md:px-6 py-1.5 md:py-2 rounded-lg mb-5 tracking-wide">
                 Welcome to Impact
               </span>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--c-heading)] mb-3 leading-tight">
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3 leading-tight">
                 Wait! One more <span className="text-brand-orange">step.</span>
               </h2>
               <p className="text-[var(--c-subheader)] text-lg md:whitespace-nowrap">
@@ -735,10 +735,10 @@ export default function OnboardingFlow({
                   <div
                     key={b.id}
                     onClick={() => handleBucketSelect(b.id)}
-                    className={`relative flex items-center gap-4 px-4 py-3.5 md:px-5 md:py-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
+                    className={`compact-option relative flex items-center gap-4 px-4 py-3.5 md:px-5 md:py-4 rounded-xl border-2 cursor-pointer ${
                       selectedBucket === b.id
-                        ? "border-brand-orange bg-brand-orange/[0.08]"
-                        : "border-[var(--c-border)] bg-[var(--c-bg)] hover:border-[var(--c-border-strong)]"
+                        ? "is-selected border-brand-orange bg-brand-orange/[0.08]"
+                        : "border-[var(--c-border)] bg-[var(--c-bg)]"
                     }`}
                     style={anim("fadeSlideUp", 0.12 + idx * 0.08)}
                   >
@@ -754,14 +754,14 @@ export default function OnboardingFlow({
                     </div>
 
                     {/* Avatar image */}
-                    <img src={b.image} alt={b.title} className="w-10 h-10 md:w-12 md:h-12 object-contain flex-shrink-0" />
+                    <img src={b.image} alt={b.title} className="compact-option-img w-10 h-10 md:w-12 md:h-12 object-contain flex-shrink-0" />
 
                     {/* Text */}
                     <div className="flex-1 min-w-0">
                       <h3 className="text-[var(--c-text)] font-bold text-base md:text-lg">
                         {b.title}
                       </h3>
-                      <span className="text-brand-orange text-xs font-semibold">
+                      <span className="text-brand-orange text-xs md:text-sm font-semibold">
                         {b.subtitle}
                       </span>
                       <p className="text-[var(--c-muted)] text-xs md:text-sm leading-snug mt-0.5">

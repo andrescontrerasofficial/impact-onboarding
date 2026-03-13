@@ -58,11 +58,10 @@
   --c-text: #e5e5e5;
   --c-heading: #fcf6f5;       /* brand-cream */
   --c-muted: #737373;
-  --c-subheader: #9a9a9a;
   --c-card-hover: #1c1c1c;
   --c-avatar-selected-bg: linear-gradient(160deg, #130a04 0%, #0a0a0a 55%);
   --c-hover-border: rgba(255, 255, 255, 0.18);
-  --c-hover-shadow: 0 10px 20px -2px rgba(255, 255, 255, 0.12), 0 18px 28px -4px rgba(255, 255, 255, 0.06);
+  --c-hover-shadow: 0 8px 30px rgba(255, 255, 255, 0.08), 0 14px 40px rgba(255, 255, 255, 0.04), 0 20px 25px rgba(0, 0, 0, 0.3);
 }
 
 /* ── Light theme override ── */
@@ -74,23 +73,10 @@
   --c-text: #141212;
   --c-heading: #141212;       /* brand-dark */
   --c-muted: #52525b;
-  --c-subheader: #78787f;
   --c-card-hover: #ececec;
   --c-avatar-selected-bg: linear-gradient(160deg, #fff3ed 0%, #ffffff 55%);
   --c-hover-border: rgba(0, 0, 0, 0.14);
-  --c-hover-shadow: 0 10px 20px -2px rgba(0, 0, 0, 0.12), 0 18px 28px -4px rgba(0, 0, 0, 0.07);
-}
-
-[data-theme="light"] .avatar-card {
-  box-shadow: 0 10px 16px -8px rgba(0, 0, 0, 0.10), 0 16px 24px -6px rgba(0, 0, 0, 0.05);
-}
-
-[data-theme="light"] .avatar-card:not(.is-selected) {
-  border-color: rgba(0, 0, 0, 0.10);
-}
-
-[data-theme="light"] .avatar-card.is-selected {
-  box-shadow: 0 0 0 1px rgba(250, 70, 22, 0.35), 0 6px 24px 2px rgba(250, 70, 22, 0.15), 0 10px 36px 4px rgba(250, 70, 22, 0.06);
+  --c-hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.07), 0 14px 40px rgba(0, 0, 0, 0.04), 0 20px 25px rgba(0, 0, 0, 0.06);
 }
 
 * {
@@ -145,24 +131,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Avatar selection card */
 .avatar-card {
-  transition: transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
-  /* Default bottom-weighted glow: high offset-y + clip-path hides top, tight spread shrinks sides */
-  box-shadow: 0 10px 16px -8px rgba(255, 255, 255, 0.05), 0 16px 24px -6px rgba(255, 255, 255, 0.03);
-}
-
-.avatar-card:not(.is-selected) {
-  border-color: rgba(255, 255, 255, 0.16);
-}
-
-.avatar-card.is-selected {
-  box-shadow: 0 0 0 1px rgba(250, 70, 22, 0.35), 0 6px 24px 2px rgba(250, 70, 22, 0.22), 0 10px 36px 4px rgba(250, 70, 22, 0.10);
-}
-
-/* Press-in effect on click */
-.avatar-card:active {
-  transform: scale(0.98) !important;
-  transition: transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) !important;
 }
 
 /* Avatar image — smooth shrink when deselected, bounce when selected */
@@ -184,6 +154,39 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--c-hover-border) !important;
   transform: translateY(-3px);
   box-shadow: var(--c-hover-shadow) !important;
+}
+
+/* ─── Compact option (test variant) ─────────────────────────── */
+.compact-option {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.03), 0 0 2px rgba(255, 255, 255, 0.05);
+}
+.compact-option:not(.is-selected):hover {
+  border-color: var(--c-border-strong) !important;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.08), 0 0 4px rgba(255, 255, 255, 0.06);
+}
+.compact-option.is-selected {
+  box-shadow: 0 0 16px rgba(250, 70, 22, 0.2), 0 0 4px rgba(250, 70, 22, 0.12);
+}
+.compact-option:active {
+  transform: scale(0.985);
+}
+[data-theme="light"] .compact-option {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.03);
+}
+[data-theme="light"] .compact-option:not(.is-selected):hover {
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.08), 0 0 4px rgba(0, 0, 0, 0.05);
+}
+[data-theme="light"] .compact-option.is-selected {
+  box-shadow: 0 0 16px rgba(250, 70, 22, 0.18), 0 0 4px rgba(250, 70, 22, 0.1);
+}
+
+/* Compact option avatar bounce on select */
+.compact-option-img {
+  transition: transform 0.35s ease;
+}
+.compact-option.is-selected .compact-option-img {
+  animation: avatarBounceIn 0.55s ease-out forwards;
 }
 
 /* Sweeping ambient glow behind card grid */
