@@ -710,13 +710,13 @@ export default function OnboardingFlow({
           >
             <div className="pt-4 md:pt-8" />
             <div style={anim("fadeSlideUp", 0.05)} className="text-center mb-6 md:mb-8">
-              <span className="inline-block bg-brand-orange text-white text-sm font-bold px-5 py-1.5 rounded-full mb-5 tracking-wide">
+              <span className="inline-block bg-brand-orange text-white text-sm font-bold px-5 py-1.5 rounded-lg mb-5 tracking-wide">
                 Welcome to Impact
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-[var(--c-heading)] mb-3 leading-tight">
                 Wait! One more <span className="text-brand-orange">step.</span>
               </h2>
-              <p className="text-[var(--c-subheader)] text-lg whitespace-nowrap">
+              <p className="text-[var(--c-subheader)] text-lg md:whitespace-nowrap">
                 Before we open the gates, tell us who you are so we can tailor the <span className="text-brand-orange">blueprint</span>.
               </p>
             </div>
