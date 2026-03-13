@@ -7,13 +7,13 @@ import posthog from "posthog-js";
 
 // ─── Safe localStorage helpers (incognito/private mode can throw) ───
 function safeGetItem(key: string): string | null {
-  try { return safeGetItem(key); } catch { return null; }
+  try { return localStorage.getItem(key); } catch { return null; }
 }
 function safeSetItem(key: string, value: string): void {
-  try { safeSetItem(key, value); } catch { /* ignore */ }
+  try { localStorage.setItem(key, value); } catch { /* ignore */ }
 }
 function safeRemoveItem(key: string): void {
-  try { safeRemoveItem(key); } catch { /* ignore */ }
+  try { localStorage.removeItem(key); } catch { /* ignore */ }
 }
 
 // ─── Types ──────────────────────────────────────────────────────────
