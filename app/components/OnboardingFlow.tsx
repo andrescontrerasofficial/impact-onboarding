@@ -772,7 +772,7 @@ export default function OnboardingFlow({
                       onClick={() => handleBucketSelect(b.id)}
                       onMouseMove={handleCardMouseMove}
                       onMouseLeave={handleCardMouseLeave}
-                      className={`card-3d-tilt-inner avatar-card relative border-2 rounded-3xl p-5 md:p-8 text-center flex flex-col items-center overflow-hidden transition-all duration-300 ${
+                      className={`card-3d-tilt-inner avatar-card avatar-card-3d relative border-2 rounded-3xl p-5 md:p-8 text-center flex flex-col items-center overflow-hidden ${
                         selectedBucket === b.id
                           ? "is-selected border-brand-orange"
                           : "border-[var(--c-border)]"

@@ -341,13 +341,19 @@ h1, h2, h3, h4, h5, h6 {
   .welcome-social { margin-top: 1.25rem; }
 }
 
+/* Disable the default hover translateY for 3D tilt cards */
+.avatar-card-3d:not(.is-selected):hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* ─── 3D Tilt / Shine / Glow card effects (test variant) ───── */
 .card-3d-tilt {
   perspective: 1000px;
 }
 .card-3d-tilt-inner {
   transform: rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg));
-  transition: transform 0.15s ease-out;
+  transition: transform 0.15s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
   transform-style: preserve-3d;
   will-change: transform;
 }
