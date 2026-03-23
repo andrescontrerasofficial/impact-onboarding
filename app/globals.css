@@ -341,6 +341,48 @@ h1, h2, h3, h4, h5, h6 {
   .welcome-social { margin-top: 1.25rem; }
 }
 
+/* ─── 3D Tilt / Shine / Glow card effects (test variant) ───── */
+.card-3d-tilt {
+  perspective: 1000px;
+}
+.card-3d-tilt-inner {
+  transform: rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg));
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.card-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.03) 44%, rgba(255,255,255,0.06) 50%, transparent 56%);
+  transform: translateX(var(--shineX, -100%));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+.card-3d-tilt:hover .card-shine {
+  opacity: 1;
+}
+.card-glow-inner {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(250,70,22,0.2) 0%, transparent 70%);
+  left: var(--glow-x, 50%);
+  top: var(--glow-y, 50%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  filter: blur(30px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+.card-3d-tilt:hover .card-glow-inner {
+  opacity: 1;
+}
+
 /* ─── Page entrance animations ──────────────────────────────── */
 @keyframes fadeSlideUp {
   from { opacity: 0; transform: translateY(22px); }
