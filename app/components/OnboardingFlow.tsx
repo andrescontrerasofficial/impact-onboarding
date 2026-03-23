@@ -716,8 +716,8 @@ export default function OnboardingFlow({
       const y = e.clientY - rect.top;
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      card.style.setProperty("--rotateX", `${((y - centerY) / centerY) * -8}deg`);
-      card.style.setProperty("--rotateY", `${((x - centerX) / centerX) * 8}deg`);
+      card.style.setProperty("--rotateX", `${((y - centerY) / centerY) * -15}deg`);
+      card.style.setProperty("--rotateY", `${((x - centerX) / centerX) * 15}deg`);
       card.style.setProperty("--shineX", `${(x / rect.width) * 200 - 100}%`);
       card.style.setProperty("--glow-x", `${x}px`);
       card.style.setProperty("--glow-y", `${y}px`);
