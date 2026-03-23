@@ -1147,9 +1147,60 @@ export default function OnboardingFlow({
             animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          <StepIndicator />
+          {/* Progress pill with integrated reward tracker */}
+          <div style={anim("fadeSlideDown", 0.05)} className="flex justify-center py-6">
+            <div className={`mission-progress-pill inline-flex items-center gap-3 md:gap-4 px-4 md:px-5 py-2 md:py-2.5 rounded-full border ${
+              completedSteps.size >= steps.length
+                ? "border-brand-orange/40 bg-brand-orange/[0.12]"
+                : "border-brand-orange/15 bg-brand-orange/[0.06]"
+            }`}
+              style={completedSteps.size >= steps.length ? { boxShadow: "0 0 20px rgba(250,70,22,0.15)" } : {}}
+            >
+              {/* Step nodes with connectors */}
+              <div className="flex items-center gap-0">
+                {steps.map((_, i) => {
+                  const done = completedSteps.has(i);
+                  const active = i === completedSteps.size;
+                  return (
+                    <div key={i} className="flex items-center">
+                      {i > 0 && (
+                        <div className={`w-4 md:w-6 h-[2px] ${done || active ? "bg-brand-orange" : "bg-white/15"}`} />
+                      )}
+                      <div className={`w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center text-[10px] md:text-xs font-bold shrink-0 transition-all duration-300 ${
+                        done
+                          ? "bg-brand-orange text-white"
+                          : active
+                          ? "ring-2 ring-brand-orange text-brand-orange mission-node-pulse"
+                          : "border border-white/20 text-white/30"
+                      }`}>
+                        {done ? (
+                          <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                            <path d="M2 6L5 9L10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        ) : (
+                          i + 1
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
 
-          <div style={anim("fadeSlideDown", 0.05)} className="text-center mb-12">
+              {/* Divider */}
+              <div className="w-[1px] h-4 bg-white/10" />
+
+              {/* Reward text */}
+              <span className={`text-[10px] md:text-xs font-semibold uppercase tracking-wider whitespace-nowrap transition-all duration-300 ${
+                completedSteps.size >= steps.length
+                  ? "text-brand-orange mission-reward-shimmer"
+                  : "text-white/40"
+              }`}>
+                {completedSteps.size >= steps.length ? "Reward unlocked!" : "Complete all 3 for a reward"}
+              </span>
+            </div>
+          </div>
+
+          <div style={anim("fadeSlideDown", 0.1)} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
               Your next <span className="text-brand-orange">3 missions...</span>
             </h2>
@@ -1157,9 +1208,7 @@ export default function OnboardingFlow({
               Here are your next missions since you&apos;re{" "}
               <span className="text-brand-orange">
                 {bucketLabels[selectedBucket || "new_to_workforce"]}
-              </span>
-              . Complete them for a{" "}
-              <span className="text-brand-orange">reward</span>.
+              </span>.
             </p>
           </div>
 

@@ -415,6 +415,27 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
 }
 
+/* ─── Mission progress pill ─────────────────────────────────── */
+@keyframes missionNodePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(250, 70, 22, 0.4); }
+  50% { box-shadow: 0 0 0 5px rgba(250, 70, 22, 0); }
+}
+.mission-node-pulse {
+  animation: missionNodePulse 2s ease-in-out infinite;
+}
+@keyframes rewardShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.mission-reward-shimmer {
+  background: linear-gradient(90deg, #FA4616 0%, #ff8a5c 40%, #ffffff 50%, #ff8a5c 60%, #FA4616 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rewardShimmer 3s linear infinite;
+}
+
 /* ─── Page entrance animations ──────────────────────────────── */
 @keyframes fadeSlideUp {
   from { opacity: 0; transform: translateY(22px); }
