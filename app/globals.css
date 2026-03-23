@@ -348,7 +348,6 @@ h1, h2, h3, h4, h5, h6 {
 .card-3d-tilt-inner {
   transform: rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg));
   transition: transform 0.15s ease-out, border-color 0.3s ease, box-shadow 0.3s ease !important;
-  transform-style: preserve-3d;
   will-change: transform;
 }
 .card-shine {
