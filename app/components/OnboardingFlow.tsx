@@ -531,6 +531,45 @@ export default function OnboardingFlow({
     animation: `${name} ${duration}s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s both`,
   });
 
+  // ── 3D tilt handlers (shared by avatar page + next steps page) ──
+  const isTouchDevice = typeof window !== "undefined" && "ontouchstart" in window;
+
+  const handleCardMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isTouchDevice) return;
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    card.style.setProperty("--rotateX", `${((y - centerY) / centerY) * -6}deg`);
+    card.style.setProperty("--rotateY", `${((x - centerX) / centerX) * 6}deg`);
+    card.style.setProperty("--shineX", `${(x / rect.width) * 200 - 100}%`);
+    card.style.setProperty("--glow-x", `${x}px`);
+    card.style.setProperty("--glow-y", `${y}px`);
+  };
+
+  const handleLockedCardMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isTouchDevice) return;
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    card.style.setProperty("--rotateX", `${((y - centerY) / centerY) * -4}deg`);
+    card.style.setProperty("--rotateY", `${((x - centerX) / centerX) * 4}deg`);
+    card.style.setProperty("--shineX", `${(x / rect.width) * 200 - 100}%`);
+    card.style.setProperty("--glow-x", `${x}px`);
+    card.style.setProperty("--glow-y", `${y}px`);
+  };
+
+  const handleCardMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    card.style.setProperty("--rotateX", "0deg");
+    card.style.setProperty("--rotateY", "0deg");
+  };
+
   // ─── Step Indicator ─────────────────────────────────────────
   const StepIndicator = () => (
     <div className="flex items-center justify-center gap-2 py-6">
@@ -703,30 +742,6 @@ export default function OnboardingFlow({
         posthog.capture("bucket_confirmed", { bucket: selectedBucket, variant: avatarVariant });
       }
       goToPage(2);
-    };
-
-    // ── Detect touch device (skip 3D tilt on mobile) ──
-    const isTouchDevice = typeof window !== "undefined" && "ontouchstart" in window;
-
-    const handleCardMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-      if (isTouchDevice) return;
-      const card = e.currentTarget;
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      card.style.setProperty("--rotateX", `${((y - centerY) / centerY) * -6}deg`);
-      card.style.setProperty("--rotateY", `${((x - centerX) / centerX) * 6}deg`);
-      card.style.setProperty("--shineX", `${(x / rect.width) * 200 - 100}%`);
-      card.style.setProperty("--glow-x", `${x}px`);
-      card.style.setProperty("--glow-y", `${y}px`);
-    };
-
-    const handleCardMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-      const card = e.currentTarget;
-      card.style.setProperty("--rotateX", "0deg");
-      card.style.setProperty("--rotateY", "0deg");
     };
 
     // ── TEST VARIANT: compact on mobile, 3D card grid on desktop ──
@@ -1098,7 +1113,7 @@ export default function OnboardingFlow({
     const bucketLabels: Record<string, string> = {
       new_to_workforce: "brand new to the game",
       career_switcher: "switching into sales",
-      already_in_sales: "already in sales looking to dominate",
+      already_in_sales: "already in sales",
     };
 
     const fireConfetti = () => {
@@ -1135,18 +1150,15 @@ export default function OnboardingFlow({
           <StepIndicator />
 
           <div style={anim("fadeSlideDown", 0.05)} className="text-center mb-12">
-            <div className="inline-block bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
-              plan ready
-            </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
-              Your next 3 <span className="text-brand-orange">missions</span>.
+              Your next <span className="text-brand-orange">3 missions...</span>
             </h2>
             <p className="text-[var(--c-subheader)] text-lg">
-              Since you&apos;re{" "}
+              Here are your next missions since you&apos;re{" "}
               <span className="text-brand-orange">
                 {bucketLabels[selectedBucket || "new_to_workforce"]}
               </span>
-              , do these steps. Complete them all for a{" "}
+              . Complete them for a{" "}
               <span className="text-brand-orange">reward</span>.
             </p>
           </div>
@@ -1191,51 +1203,68 @@ export default function OnboardingFlow({
                     {isCompleted ? "✓" : step.icon}
                   </div>
 
-                  {/* Card */}
-                  <div
-                    className={`flex-1 border rounded-xl p-6 transition-colors duration-300 ${
-                      isCompleted
-                        ? "bg-[var(--c-card)] border-emerald-500/30"
-                        : isLocked
-                        ? "bg-[var(--c-bg)] border-[var(--c-border)]"
-                        : "bg-[var(--c-card)] border-[var(--c-border-strong)] hover:border-[var(--c-hover-border)]"
-                    }`}
-                  >
-                    <h3 className={`font-extrabold text-lg mb-2 ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-text)]"}`}>
-                      {step.title}
-                    </h3>
-                    {step.mobileDescription ? (
-                      <>
-                        <p className={`hidden md:block text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
+                  {/* Card with 3D tilt */}
+                  <div className="card-3d-tilt flex-1">
+                    <div
+                      onMouseMove={isLocked ? handleLockedCardMouseMove : handleCardMouseMove}
+                      onMouseLeave={handleCardMouseLeave}
+                      className={`card-3d-tilt-inner relative border rounded-xl p-6 overflow-hidden ${
+                        isCompleted
+                          ? "bg-[var(--c-card)] border-emerald-500/30"
+                          : isLocked
+                          ? "bg-[var(--c-bg)] border-[var(--c-border)]"
+                          : "bg-[var(--c-card)] border-[var(--c-border-strong)] hover:border-[var(--c-hover-border)]"
+                      }`}
+                    >
+                      <div className={isLocked ? "card-shine-locked" : "card-shine"} />
+                      <div className={isLocked ? "card-glow-inner-locked" : "card-glow-inner"} />
+
+                      {/* Lock icon for locked cards */}
+                      {isLocked && (
+                        <div className="absolute top-3 right-3 z-[2] text-[var(--c-border-strong)] opacity-70">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0110 0v4" />
+                          </svg>
+                        </div>
+                      )}
+
+                      <h3 className={`relative z-[1] font-extrabold text-lg mb-2 ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-text)]"}`}>
+                        {step.title}
+                      </h3>
+                      {step.mobileDescription ? (
+                        <>
+                          <p className={`relative z-[1] hidden md:block text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
+                            {step.description}
+                          </p>
+                          <p className={`relative z-[1] block md:hidden text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
+                            {step.mobileDescription}
+                          </p>
+                        </>
+                      ) : (
+                        <p className={`relative z-[1] text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
                           {step.description}
                         </p>
-                        <p className={`block md:hidden text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
-                          {step.mobileDescription}
-                        </p>
-                      </>
-                    ) : (
-                      <p className={`text-sm leading-relaxed mb-4 whitespace-pre-line ${isLocked ? "text-[var(--c-border-strong)]" : "text-[var(--c-muted)]"}`}>
-                        {step.description}
-                      </p>
-                    )}
+                      )}
 
-                    {isCompleted ? (
-                      <span className="inline-flex items-center gap-1.5 text-emerald-400 text-sm font-medium">
-                        ✓ Completed
-                      </span>
-                    ) : (
-                      <button
-                        onClick={() => handleStepClick(i, step.url)}
-                        className={
-                          isActive
-                            ? "btn-pulse cta-button text-white text-sm font-semibold px-5 py-2.5 rounded-lg"
-                            : "border border-[var(--c-border)] text-[var(--c-border-strong)] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent cursor-default"
-                        }
-                        disabled={isLocked}
-                      >
-                        {step.cta}
-                      </button>
-                    )}
+                      {isCompleted ? (
+                        <span className="relative z-[1] inline-flex items-center gap-1.5 text-emerald-400 text-sm font-medium">
+                          ✓ Completed
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleStepClick(i, step.url)}
+                          className={`relative z-[1] ${
+                            isActive
+                              ? "btn-pulse cta-button text-white text-sm font-semibold px-5 py-2.5 rounded-lg"
+                              : "border border-[var(--c-border)] text-[var(--c-border-strong)] text-sm font-medium px-5 py-2.5 rounded-lg bg-transparent cursor-default"
+                          }`}
+                          disabled={isLocked}
+                        >
+                          {step.cta}
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
