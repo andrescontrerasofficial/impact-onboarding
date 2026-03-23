@@ -387,7 +387,7 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.015) 44%, rgba(255,255,255,0.03) 50%, transparent 56%);
+  background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.008) 44%, rgba(255,255,255,0.015) 50%, transparent 56%);
   transform: translateX(var(--shineX, -100%));
   pointer-events: none;
   opacity: 0;

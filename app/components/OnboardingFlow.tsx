@@ -542,8 +542,8 @@ export default function OnboardingFlow({
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    card.style.setProperty("--rotateX", `${((y - centerY) / centerY) * -6}deg`);
-    card.style.setProperty("--rotateY", `${((x - centerX) / centerX) * 6}deg`);
+    card.style.setProperty("--rotateX", `${((y - centerY) / centerY) * -3}deg`);
+    card.style.setProperty("--rotateY", `${((x - centerX) / centerX) * 3}deg`);
     card.style.setProperty("--shineX", `${(x / rect.width) * 200 - 100}%`);
     card.style.setProperty("--glow-x", `${x}px`);
     card.style.setProperty("--glow-y", `${y}px`);
@@ -557,8 +557,8 @@ export default function OnboardingFlow({
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    card.style.setProperty("--rotateX", `${((y - centerY) / centerY) * -4}deg`);
-    card.style.setProperty("--rotateY", `${((x - centerX) / centerX) * 4}deg`);
+    card.style.setProperty("--rotateX", `${((y - centerY) / centerY) * -1.5}deg`);
+    card.style.setProperty("--rotateY", `${((x - centerX) / centerX) * 1.5}deg`);
     card.style.setProperty("--shineX", `${(x / rect.width) * 200 - 100}%`);
     card.style.setProperty("--glow-x", `${x}px`);
     card.style.setProperty("--glow-y", `${y}px`);
@@ -1208,7 +1208,7 @@ export default function OnboardingFlow({
                     <div
                       onMouseMove={isLocked ? handleLockedCardMouseMove : handleCardMouseMove}
                       onMouseLeave={handleCardMouseLeave}
-                      className={`card-3d-tilt-inner relative border rounded-xl p-6 overflow-hidden ${
+                      className={`card-3d-tilt-inner relative border-2 rounded-3xl p-6 overflow-hidden ${
                         isCompleted
                           ? "bg-[var(--c-card)] border-emerald-500/30"
                           : isLocked
