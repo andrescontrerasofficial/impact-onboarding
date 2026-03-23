@@ -716,8 +716,8 @@ export default function OnboardingFlow({
       const y = e.clientY - rect.top;
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      card.style.setProperty("--rotateX", `${((y - centerY) / centerY) * -15}deg`);
-      card.style.setProperty("--rotateY", `${((x - centerX) / centerX) * 15}deg`);
+      card.style.setProperty("--rotateX", `${((y - centerY) / centerY) * -6}deg`);
+      card.style.setProperty("--rotateY", `${((x - centerX) / centerX) * 6}deg`);
       card.style.setProperty("--shineX", `${(x / rect.width) * 200 - 100}%`);
       card.style.setProperty("--glow-x", `${x}px`);
       card.style.setProperty("--glow-y", `${y}px`);
@@ -767,12 +767,12 @@ export default function OnboardingFlow({
 
               <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6">
                 {buckets.map((b, idx) => (
-                  <div key={b.id} className="card-3d-tilt" style={anim("fadeSlideUp", 0.15 + idx * 0.12)}>
+                  <div key={b.id} className="card-3d-tilt overflow-hidden rounded-3xl" style={anim("fadeSlideUp", 0.15 + idx * 0.12)}>
                     <div
                       onClick={() => handleBucketSelect(b.id)}
                       onMouseMove={handleCardMouseMove}
                       onMouseLeave={handleCardMouseLeave}
-                      className={`card-3d-tilt-inner avatar-card avatar-card-3d relative border-2 rounded-3xl p-5 md:p-8 text-center flex flex-col items-center overflow-hidden ${
+                      className={`card-3d-tilt-inner avatar-card avatar-card-3d relative border-2 rounded-3xl p-5 md:p-8 text-center flex flex-col items-center ${
                         selectedBucket === b.id
                           ? "is-selected border-brand-orange"
                           : "border-[var(--c-border)]"
