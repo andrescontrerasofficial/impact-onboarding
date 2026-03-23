@@ -729,12 +729,12 @@ export default function OnboardingFlow({
       card.style.setProperty("--rotateY", "0deg");
     };
 
-    // ── TEST VARIANT: card layout with 3D tilt effects ──
+    // ── TEST VARIANT: compact on mobile, 3D card grid on desktop ──
     if (avatarVariant === "test") {
       return (
-        <div className="min-h-screen px-4 md:px-8 py-8">
+        <div className="min-h-screen px-4 md:px-8 py-8 flex flex-col">
           <div
-            className={`max-w-4xl mx-auto transition-all duration-500 ${
+            className={`max-w-2xl md:max-w-4xl mx-auto w-full transition-all duration-500 flex-1 flex flex-col ${
               animateIn
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-6"
@@ -754,8 +754,49 @@ export default function OnboardingFlow({
               </p>
             </div>
 
-            {/* Card grid with sweeping ambient glow behind it */}
-            <div className="relative mb-8 md:mb-10">
+            {/* ── MOBILE: compact multiple-choice (same as control) ── */}
+            <div className="md:hidden relative mb-6 max-w-xl mx-auto w-full">
+              <div
+                className="absolute pointer-events-none sweep-glow"
+                style={{
+                  inset: "-60px",
+                  background: "radial-gradient(ellipse 70% 80% at 50% 50%, rgba(196, 0, 6, 0.22) 0%, transparent 65%)",
+                }}
+              />
+              <div className="relative flex flex-col gap-3">
+                {buckets.map((b, idx) => (
+                  <div
+                    key={b.id}
+                    onClick={() => handleBucketSelect(b.id)}
+                    className={`compact-option relative flex items-center gap-4 px-4 py-3.5 rounded-xl border-2 cursor-pointer ${
+                      selectedBucket === b.id
+                        ? "is-selected border-brand-orange bg-brand-orange/[0.08]"
+                        : "border-[var(--c-border)] bg-[var(--c-bg)]"
+                    }`}
+                    style={anim("fadeSlideUp", 0.12 + idx * 0.08)}
+                  >
+                    <div className={`w-5 h-5 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-all duration-200 ${
+                      selectedBucket === b.id
+                        ? "border-brand-orange bg-brand-orange"
+                        : "border-[var(--c-border-strong)]"
+                    }`}>
+                      {selectedBucket === b.id && (
+                        <div className="w-2 h-2 rounded-full bg-white" />
+                      )}
+                    </div>
+                    <img src={b.image} alt={b.title} className="compact-option-img w-10 h-10 object-contain flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-[var(--c-text)] font-bold text-base">{b.title}</h3>
+                      <span className="text-brand-orange text-xs font-semibold">{b.subtitle}</span>
+                      <p className="text-[var(--c-muted)] text-xs leading-snug mt-0.5">{b.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── DESKTOP: 3D tilt card grid ── */}
+            <div className="hidden md:block relative mb-8 md:mb-10">
               {/* Sweeping orange ambient glow */}
               <div
                 className="absolute pointer-events-none sweep-glow"
@@ -765,14 +806,14 @@ export default function OnboardingFlow({
                 }}
               />
 
-              <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="relative grid grid-cols-3 gap-6">
                 {buckets.map((b, idx) => (
                   <div key={b.id} className="card-3d-tilt" style={anim("fadeSlideUp", 0.15 + idx * 0.12)}>
                     <div
                       onClick={() => handleBucketSelect(b.id)}
                       onMouseMove={handleCardMouseMove}
                       onMouseLeave={handleCardMouseLeave}
-                      className={`card-3d-tilt-inner avatar-card avatar-card-3d relative border-2 rounded-3xl p-5 md:p-8 text-center flex flex-col items-center overflow-hidden ${
+                      className={`card-3d-tilt-inner avatar-card avatar-card-3d relative border-2 rounded-3xl p-8 text-center flex flex-col items-center overflow-hidden ${
                         selectedBucket === b.id
                           ? "is-selected border-brand-orange"
                           : "border-[var(--c-border)]"
@@ -783,42 +824,18 @@ export default function OnboardingFlow({
                           : "var(--c-bg)",
                       }}
                     >
-                      {/* Shine overlay */}
                       <div className="card-shine" />
-                      {/* Mouse-tracking glow */}
                       <div className="card-glow-inner" />
-
-                      {/* Image */}
-                      <div className="relative mb-4 md:mb-6 mt-1 md:mt-2 z-[1]">
-                        <img src={b.image} alt={b.title} className="avatar-img relative w-20 h-20 md:w-28 md:h-28 object-contain" />
+                      <div className="relative mb-6 mt-2 z-[1]">
+                        <img src={b.image} alt={b.title} className="avatar-img relative w-28 h-28 object-contain" />
                       </div>
-
-                      {/* Title */}
-                      <h3 className="relative z-[1] text-[var(--c-text)] font-extrabold text-xl md:text-[1.65rem] mb-2.5">
-                        {b.title}
-                      </h3>
-
-                      {/* Subtitle */}
-                      <p className="relative z-[1] text-brand-orange text-[13px] md:text-[15px] font-semibold mb-3 md:mb-4">
-                        {b.subtitle}
-                      </p>
-
-                      {/* Description */}
-                      <p className="relative z-[1] text-[var(--c-muted)] text-xs md:text-sm leading-relaxed flex-1">
-                        {b.description}
-                      </p>
-
-                      {/* Selected checkmark */}
+                      <h3 className="relative z-[1] text-[var(--c-text)] font-extrabold text-[1.65rem] mb-2.5">{b.title}</h3>
+                      <p className="relative z-[1] text-brand-orange text-[15px] font-semibold mb-4">{b.subtitle}</p>
+                      <p className="relative z-[1] text-[var(--c-muted)] text-sm leading-relaxed flex-1">{b.description}</p>
                       {selectedBucket === b.id && (
-                        <div className="relative z-[1] mt-3 md:mt-5 w-7 h-7 rounded-full bg-brand-orange flex items-center justify-center" style={{ boxShadow: "0 0 16px rgba(250, 70, 22, 0.5)" }}>
+                        <div className="relative z-[1] mt-5 w-7 h-7 rounded-full bg-brand-orange flex items-center justify-center" style={{ boxShadow: "0 0 16px rgba(250, 70, 22, 0.5)" }}>
                           <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
-                            <path
-                              d="M2 6L5 9L10 3"
-                              stroke="white"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
+                            <path d="M2 6L5 9L10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         </div>
                       )}
@@ -826,7 +843,7 @@ export default function OnboardingFlow({
                   </div>
                 ))}
               </div>
-            </div>{/* end relative mb-10 wrapper */}
+            </div>{/* end desktop card grid */}
 
             <div style={anim("fadeSlideUp", 0.4)} className="text-center mt-2 md:mt-4">
               <button
