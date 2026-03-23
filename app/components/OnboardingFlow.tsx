@@ -1208,7 +1208,7 @@ export default function OnboardingFlow({
                     <div
                       onMouseMove={isLocked ? handleLockedCardMouseMove : handleCardMouseMove}
                       onMouseLeave={handleCardMouseLeave}
-                      className={`card-3d-tilt-inner relative border-2 rounded-3xl p-6 overflow-hidden ${
+                      className={`card-3d-tilt-inner relative border-2 rounded-xl p-6 overflow-hidden ${
                         isCompleted
                           ? "bg-[var(--c-card)] border-emerald-500/30"
                           : isLocked
