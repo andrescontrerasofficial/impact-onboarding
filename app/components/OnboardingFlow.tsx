@@ -767,7 +767,7 @@ export default function OnboardingFlow({
 
               <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6">
                 {buckets.map((b, idx) => (
-                  <div key={b.id} className="card-3d-tilt">
+                  <div key={b.id} className="card-3d-tilt" style={anim("fadeSlideUp", 0.15 + idx * 0.12)}>
                     <div
                       onClick={() => handleBucketSelect(b.id)}
                       onMouseMove={handleCardMouseMove}
@@ -778,7 +778,6 @@ export default function OnboardingFlow({
                           : "border-[var(--c-border)]"
                       }`}
                       style={{
-                        ...anim("fadeSlideUp", 0.15 + idx * 0.12),
                         background: selectedBucket === b.id
                           ? "var(--c-avatar-selected-bg)"
                           : "var(--c-bg)",
