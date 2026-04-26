@@ -183,10 +183,10 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "Be the person who treats sales like more than a hobby. Access:\n➡ 8 coaching calls per week\n➡ FULL psychology in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nThere is no better use of 3 days than going all in on this. 0 risk, cancel anytime, dont spend $1.",
-      cta: "Start Free Trial →",
+        "Be the person who treats sales like more than a hobby. Here's a sneak peek of a few things in VIP:\n➡ 3 coaching calls per week\n➡ FULL psychology in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nCheck it out - 0 risk, cancel anytime, don't spend $1.",
+      cta: "See What It Includes →",
       icon: "03",
-      url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
+      url: "https://impactteam.us/trial",
     },
   ],
   career_switcher: [
@@ -211,10 +211,10 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "Be the person who treats sales like more than a hobby. Access:\n➡ 8 coaching calls per week\n➡ FULL psychology in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nThere is no better use of 3 days than going all in on this. 0 risk, cancel anytime, dont spend $1.",
-      cta: "Start Free Trial →",
+        "Be the person who treats sales like more than a hobby. Here's a sneak peek of a few things in VIP:\n➡ 3 coaching calls per week\n➡ FULL psychology in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nCheck it out - 0 risk, cancel anytime, don't spend $1.",
+      cta: "See What It Includes →",
       icon: "03",
-      url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
+      url: "https://impactteam.us/trial",
     },
   ],
   already_in_sales: [
@@ -239,10 +239,10 @@ const nextStepsMap: Record<
     {
       title: "Try VIP Free for 3 Days",
       description:
-        "Be the person who treats sales like more than a hobby. Access:\n➡ 8 coaching calls per week\n➡ FULL psychology in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nThere is no better use of 3 days than going all in on this. 0 risk, cancel anytime, dont spend $1.",
-      cta: "Start Free Trial →",
+        "Be the person who treats sales like more than a hobby. Here's a sneak peek of a few things in VIP:\n➡ 3 coaching calls per week\n➡ FULL psychology in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nCheck it out - 0 risk, cancel anytime, don't spend $1.",
+      cta: "See What It Includes →",
       icon: "03",
-      url: "https://whop.com/checkout/plan_K5ZFOQY5O7ZuP",
+      url: "https://impactteam.us/trial",
     },
   ],
 };
