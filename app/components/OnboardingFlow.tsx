@@ -259,6 +259,7 @@ export default function OnboardingFlow({
   const [isLoading, setIsLoading] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
   const [avatarVariant, setAvatarVariant] = useState<"control" | "test">("control");
+  const [nextStepsVariant, setNextStepsVariant] = useState<"control" | "test">("control");
   const sdkRef = useRef<ReturnType<typeof createSdk> | null>(null);
 
   const navigate = useCallback((url: string) => {
@@ -349,6 +350,43 @@ export default function OnboardingFlow({
       const variant = posthog.getFeatureFlag("avatar-cards-3d-variant");
       if (variant !== undefined) {
         console.log("[A/B test] avatar-cards-3d-variant exposure tracked:", variant);
+      }
+    };
+    trackExposure();
+    posthog.onFeatureFlags(trackExposure);
+  }, []);
+
+  // ─── PostHog: A/B test — next steps 2 vs 3 layout ────────────────
+  useEffect(() => {
+    const saved = safeGetItem("impact_next_steps_variant");
+    if (saved === "test" || saved === "control") {
+      setNextStepsVariant(saved);
+      return;
+    }
+
+    let hasFired = false;
+    const checkFlag = () => {
+      if (hasFired) return;
+      const variant = posthog.getFeatureFlag("next-steps-2-step-variant");
+      if (variant === undefined) return;
+      hasFired = true;
+      const v = variant === "test" ? "test" : "control";
+      setNextStepsVariant(v);
+      safeSetItem("impact_next_steps_variant", v);
+    };
+    checkFlag();
+    posthog.onFeatureFlags(checkFlag);
+  }, []);
+
+  // ─── PostHog: Register experiment exposure (only for new users) ──
+  useEffect(() => {
+    const saved = safeGetItem("impact_next_steps_variant");
+    if (saved === "test" || saved === "control") return;
+
+    const trackExposure = () => {
+      const variant = posthog.getFeatureFlag("next-steps-2-step-variant");
+      if (variant !== undefined) {
+        console.log("[A/B test] next-steps-2-step-variant exposure tracked:", variant);
       }
     };
     trackExposure();
@@ -1109,7 +1147,11 @@ export default function OnboardingFlow({
   // ─── PAGE 4: Personalized Next Steps ────────────────────────
 
   const NextStepsPage = () => {
-    const steps = nextStepsMap[selectedBucket || "new_to_workforce"];
+    const baseSteps = nextStepsMap[selectedBucket || "new_to_workforce"];
+    const steps = (nextStepsVariant === "test"
+      ? baseSteps.filter((s) => s.title !== "Watch the First Module")
+      : baseSteps
+    ).map((s, idx) => ({ ...s, icon: String(idx + 1).padStart(2, "0") }));
     const bucketLabels: Record<string, string> = {
       new_to_workforce: "brand new to the game",
       career_switcher: "switching into sales",
@@ -1195,14 +1237,14 @@ export default function OnboardingFlow({
                   ? "text-brand-orange mission-reward-shimmer"
                   : "text-white/40"
               }`}>
-                {completedSteps.size >= steps.length ? "Reward unlocked!" : "Complete all 3 for a reward"}
+                {completedSteps.size >= steps.length ? "Reward unlocked!" : `Complete all ${steps.length} for a reward`}
               </span>
             </div>
           </div>
 
           <div style={anim("fadeSlideDown", 0.1)} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--c-heading)] mb-3">
-              Your next <span className="text-brand-orange">3 missions...</span>
+              Your next <span className="text-brand-orange">{steps.length} missions...</span>
             </h2>
             <p className="text-[var(--c-subheader)] text-lg">
               Here are your next missions since you&apos;re{" "}
