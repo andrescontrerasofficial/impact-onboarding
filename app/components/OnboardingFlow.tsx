@@ -158,9 +158,26 @@ const features = [
 // 2 steps, same for every avatar — only the description copy changes.
 // `key` is a stable id for analytics: titles change between A/B variants, keys don't.
 
+// Implementation-call booking links (test variant only). Which one a user gets is
+// decided by the bucket they picked on page 1 — complete beginners book a different
+// call than people who already have work/sales experience.
+const BOOKING_LINK_EXPERIENCED = "https://link.wifidesigned.com/widget/booking/SltNaIgVKshqbQn0uYvY";
+const BOOKING_LINK_NEW = "https://link.wifidesigned.com/widget/booking/RiwZRIh5MTHPF3hfPO9U";
+
 const nextStepsMap: Record<
   string,
-  { key: string; title: string; description: string; mobileDescription?: string; cta: string; icon: string; url: string }[]
+  {
+    key: string;
+    title: string;
+    description: string;
+    mobileDescription?: string;
+    cta: string;
+    icon: string;
+    url: string;
+    // Set only on the test-variant call card, so the two booking links can be
+    // told apart in analytics without parsing URLs.
+    bookingLink?: "experienced" | "new";
+  }[]
 > = {
   new_to_workforce: [
     {
@@ -1140,9 +1157,14 @@ export default function OnboardingFlow({
   // ─── PAGE 4: Personalized Next Steps ────────────────────────
 
   const NextStepsPage = () => {
+    const bucket = selectedBucket || "new_to_workforce";
+    // Anyone who has held a job — switching in or already selling — books the
+    // experienced call. Only complete beginners get the other link.
+    const isExperienced = bucket === "career_switcher" || bucket === "already_in_sales";
+
     // A/B test: the test arm re-frames the VIP trial card as a free coaching call.
     // Matched on `key`, not title, so future copy edits don't silently break it.
-    const steps = nextStepsMap[selectedBucket || "new_to_workforce"]
+    const steps = nextStepsMap[bucket]
       .map((s, idx) => ({ ...s, icon: String(idx + 1).padStart(2, "0") }))
       .map((s) =>
         nextStepsCopyVariant === "test" && s.key === "vip_trial"
@@ -1153,6 +1175,8 @@ export default function OnboardingFlow({
                 "As part of our mission to make sales education accessible to ALL - we are now hosting free coaching calls to help you use the Impact resources. Leave with:\n\n➡ A personalized plan to hit your next income goal fast\n➡ Have a $20k to $100k /mo closer analyze your sales skills\n➡ Learn psychological strategies to sell more (even if you're not in sales yet)\n\nLimited availability. We open up slots when we can.",
               mobileDescription: undefined,
               cta: "Check Availability & Book",
+              url: isExperienced ? BOOKING_LINK_EXPERIENCED : BOOKING_LINK_NEW,
+              bookingLink: isExperienced ? ("experienced" as const) : ("new" as const),
             }
           : s
       );
@@ -1182,6 +1206,8 @@ export default function OnboardingFlow({
         step_title: steps[i].title,
         bucket: selectedBucket,
         variant: nextStepsCopyVariant,
+        // Only set on the test-variant call card — which of the two booking links they got.
+        booking_link: steps[i].bookingLink,
         all_completed: newCompleted.size >= steps.length,
       });
       if (newCompleted.size >= steps.length) fireConfetti();
@@ -1255,7 +1281,7 @@ export default function OnboardingFlow({
             <p className="text-[var(--c-subheader)] text-lg">
               Here are your next missions since you&apos;re{" "}
               <span className="text-brand-orange">
-                {bucketLabels[selectedBucket || "new_to_workforce"]}
+                {bucketLabels[bucket]}
               </span>.
             </p>
           </div>
