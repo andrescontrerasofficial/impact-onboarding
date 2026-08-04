@@ -1150,7 +1150,7 @@ export default function OnboardingFlow({
               ...s,
               title: "Book Your Implementation Call",
               description:
-                "As part of our mission to make sales education accessible to ALL - we are now hosting free coaching calls to help you use the Impact resources. Leave with:\n➡ A personalized plan to hit your next income goal fast\n➡ Have a $20k to $100k /mo closer analyze your sales skills\n➡ Learn psychological strategies to sell more (even if you're not in sales yet)\n\nLimited availability. We open up slots when we can.",
+                "As part of our mission to make sales education accessible to ALL - we are now hosting free coaching calls to help you use the Impact resources. Leave with:\n\n➡ A personalized plan to hit your next income goal fast\n➡ Have a $20k to $100k /mo closer analyze your sales skills\n➡ Learn psychological strategies to sell more (even if you're not in sales yet)\n\nLimited availability. We open up slots when we can.",
               mobileDescription: undefined,
               cta: "Check Availability & Book",
             }
