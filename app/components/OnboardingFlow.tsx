@@ -155,14 +155,16 @@ const features = [
 ];
 
 // ─── Next Steps Data ─────────────────────────────────────────────────
-// 3 steps, same for every avatar — only the description copy changes.
+// 2 steps, same for every avatar — only the description copy changes.
+// `key` is a stable id for analytics: titles change between A/B variants, keys don't.
 
 const nextStepsMap: Record<
   string,
-  { title: string; description: string; mobileDescription?: string; cta: string; icon: string; url: string }[]
+  { key: string; title: string; description: string; mobileDescription?: string; cta: string; icon: string; url: string }[]
 > = {
   new_to_workforce: [
     {
+      key: "discord",
       title: "Join the Community",
       description:
         "Extremely important. Perfect practice = perfect results. Here you can find reps doing the $10k and $100k commission months to practice with. Join below.",
@@ -171,26 +173,18 @@ const nextStepsMap: Record<
       url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
     },
     {
-      title: "Watch the First Module",
-      description:
-        "You don't know what you don't know yet - and that's okay. This module breaks down how high-ticket sales actually works and exactly what separates reps who make $5k/mo from ones making $30k.",
-      mobileDescription:
-        "Go through your first module. In these trainings you will be mastering the sales script & questions. A great script is like a sword for a fighter.",
-      cta: "Start Watching →",
-      icon: "02",
-      url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
-    },
-    {
+      key: "vip_trial",
       title: "Try VIP Free for 3 Days",
       description:
         "Be the person who treats sales like more than a hobby. Here's a sneak peek of a few things in VIP:\n➡ 3 coaching calls per week\n➡ FULL psychology in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nCheck it out - 0 risk, cancel anytime, don't spend $1.",
       cta: "See What It Includes →",
-      icon: "03",
+      icon: "02",
       url: "https://impactteam.us/trial",
     },
   ],
   career_switcher: [
     {
+      key: "discord",
       title: "Join the Community",
       description:
         "Extremely important. Perfect practice = perfect results. Here you can find reps doing the $10k and $100k commission months to practice with. Join below.",
@@ -199,26 +193,18 @@ const nextStepsMap: Record<
       url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
     },
     {
-      title: "Watch the First Module",
-      description:
-        "You're lucky getting into sales you don't have the bad habits built up. The reason most sales reps work for years never making real $ - is they never built the foundation. A great script is like a sword for a fighter.",
-      mobileDescription:
-        "Go through your first module. In these trainings you will be mastering the sales script & questions. A great script is like a sword for a fighter.",
-      cta: "Start Watching →",
-      icon: "02",
-      url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
-    },
-    {
+      key: "vip_trial",
       title: "Try VIP Free for 3 Days",
       description:
         "Be the person who treats sales like more than a hobby. Here's a sneak peek of a few things in VIP:\n➡ 3 coaching calls per week\n➡ FULL psychology in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nCheck it out - 0 risk, cancel anytime, don't spend $1.",
       cta: "See What It Includes →",
-      icon: "03",
+      icon: "02",
       url: "https://impactteam.us/trial",
     },
   ],
   already_in_sales: [
     {
+      key: "discord",
       title: "Join the Community",
       description:
         "Extremely important. Perfect practice = perfect results. Here you can find reps doing the $10k and $100k commission months to practice with. Join below.",
@@ -227,21 +213,12 @@ const nextStepsMap: Record<
       url: "https://whop.com/joined/impact-team-vip/discord-ZgU3abUthNyYD4/app/",
     },
     {
-      title: "Watch the First Module",
-      description:
-        "You've already taken sales calls. Yet the reason most sales reps work for years never making real $ - is they never built the foundation. A great script is like a sword for a fighter.",
-      mobileDescription:
-        "Go through your first module. In these trainings you will be mastering the sales script & questions. A great script is like a sword for a fighter.",
-      cta: "Start Watching →",
-      icon: "02",
-      url: "https://whop.com/joined/impact-team-vip/impact-sales-course-wcqbjJXuoKEPWo/app/courses/cors_1NtY86gsAfkVYQNyAXEkXR/lessons/lesn_sk8SpvBD3szEw/",
-    },
-    {
+      key: "vip_trial",
       title: "Try VIP Free for 3 Days",
       description:
         "Be the person who treats sales like more than a hobby. Here's a sneak peek of a few things in VIP:\n➡ 3 coaching calls per week\n➡ FULL psychology in sales course\n➡ Sales call recordings library\n➡ Premium offer placement\n\nCheck it out - 0 risk, cancel anytime, don't spend $1.",
       cta: "See What It Includes →",
-      icon: "03",
+      icon: "02",
       url: "https://impactteam.us/trial",
     },
   ],
@@ -259,7 +236,7 @@ export default function OnboardingFlow({
   const [isLoading, setIsLoading] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
   const [avatarVariant, setAvatarVariant] = useState<"control" | "test">("control");
-  const [nextStepsVariant, setNextStepsVariant] = useState<"control" | "test">("control");
+  const [nextStepsCopyVariant, setNextStepsCopyVariant] = useState<"control" | "test">("control");
   const sdkRef = useRef<ReturnType<typeof createSdk> | null>(null);
 
   const navigate = useCallback((url: string) => {
@@ -281,7 +258,14 @@ export default function OnboardingFlow({
     const steps = safeGetItem("impact_steps");
     if (page) setCurrentPage(Math.min(parseInt(page), 4));
     if (bucket) setSelectedBucket(bucket as Bucket);
-    if (steps) setCompletedSteps(new Set(JSON.parse(steps) as number[]));
+    // Drop out-of-range indices left over from the retired 3-step layout — a stale
+    // index 2 would leave step 01 permanently locked and unclickable.
+    if (steps) {
+      const stepCount = nextStepsMap.new_to_workforce.length;
+      setCompletedSteps(
+        new Set((JSON.parse(steps) as number[]).filter((i) => i < stepCount))
+      );
+    }
   }, []);
 
   useEffect(() => {
@@ -311,7 +295,10 @@ export default function OnboardingFlow({
     posthog.capture("onboarding_page_view", {
       page: currentPage,
       page_name: pageNames[currentPage] || "unknown",
+      variant: nextStepsCopyVariant,
     });
+  // Intentionally keyed on currentPage only — adding nextStepsCopyVariant would re-fire
+  // the pageview when the flag resolves, double-counting the funnel denominator.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
@@ -356,23 +343,27 @@ export default function OnboardingFlow({
     posthog.onFeatureFlags(trackExposure);
   }, []);
 
-  // ─── PostHog: A/B test — next steps 2 vs 3 layout ────────────────
+  // ─── PostHog: A/B test — next steps step 2 copy (implementation call) ────
   useEffect(() => {
-    const saved = safeGetItem("impact_next_steps_variant");
+    const saved = safeGetItem("impact_next_steps_copy_variant");
     if (saved === "test" || saved === "control") {
-      setNextStepsVariant(saved);
+      setNextStepsCopyVariant(saved);
       return;
     }
 
     let hasFired = false;
     const checkFlag = () => {
       if (hasFired) return;
-      const variant = posthog.getFeatureFlag("next-steps-2-step-variant");
+      const variant = posthog.getFeatureFlag("next-steps-call-copy-variant");
       if (variant === undefined) return;
+      // A disabled flag (or a user outside the rollout) resolves to `false`, not
+      // `undefined`. Persisting that would pin the user to control forever — including
+      // everyone who visits between deploy and launch. Only persist real assignments.
+      if (typeof variant !== "string") return;
       hasFired = true;
       const v = variant === "test" ? "test" : "control";
-      setNextStepsVariant(v);
-      safeSetItem("impact_next_steps_variant", v);
+      setNextStepsCopyVariant(v);
+      safeSetItem("impact_next_steps_copy_variant", v);
     };
     checkFlag();
     posthog.onFeatureFlags(checkFlag);
@@ -380,13 +371,13 @@ export default function OnboardingFlow({
 
   // ─── PostHog: Register experiment exposure (only for new users) ──
   useEffect(() => {
-    const saved = safeGetItem("impact_next_steps_variant");
+    const saved = safeGetItem("impact_next_steps_copy_variant");
     if (saved === "test" || saved === "control") return;
 
     const trackExposure = () => {
-      const variant = posthog.getFeatureFlag("next-steps-2-step-variant");
+      const variant = posthog.getFeatureFlag("next-steps-call-copy-variant");
       if (variant !== undefined) {
-        console.log("[A/B test] next-steps-2-step-variant exposure tracked:", variant);
+        console.log("[A/B test] next-steps-call-copy-variant exposure tracked:", variant);
       }
     };
     trackExposure();
@@ -397,17 +388,19 @@ export default function OnboardingFlow({
   useEffect(() => {
     const handler = (e: MessageEvent) => {
       if (e.data?.type !== "force-variant") return;
-      const v = e.data.variant;
+      const v = e.data.variant === "test" ? "test" : "control";
+      // Which experiment to force. Defaults to the avatar test for backwards compatibility.
+      const flag = e.data.flag ?? "avatar";
       // Clear saved state so we behave like a brand-new user
       safeSetItem("impact_page", "1");
       safeSetItem("impact_bucket", "");
       safeSetItem("impact_steps", "[]");
-      if (v === "test") {
-        safeSetItem("impact_avatar_variant_3", "test");
-        setAvatarVariant("test");
+      if (flag === "next-steps-copy") {
+        safeSetItem("impact_next_steps_copy_variant", v);
+        setNextStepsCopyVariant(v);
       } else {
-        safeSetItem("impact_avatar_variant_3", "control");
-        setAvatarVariant("control");
+        safeSetItem("impact_avatar_variant_3", v);
+        setAvatarVariant(v);
       }
       setCurrentPage(1);
       setSelectedBucket(null);
@@ -1147,11 +1140,22 @@ export default function OnboardingFlow({
   // ─── PAGE 4: Personalized Next Steps ────────────────────────
 
   const NextStepsPage = () => {
-    const baseSteps = nextStepsMap[selectedBucket || "new_to_workforce"];
-    const steps = (nextStepsVariant === "test"
-      ? baseSteps.filter((s) => s.title !== "Watch the First Module")
-      : baseSteps
-    ).map((s, idx) => ({ ...s, icon: String(idx + 1).padStart(2, "0") }));
+    // A/B test: the test arm re-frames the VIP trial card as a free coaching call.
+    // Matched on `key`, not title, so future copy edits don't silently break it.
+    const steps = nextStepsMap[selectedBucket || "new_to_workforce"]
+      .map((s, idx) => ({ ...s, icon: String(idx + 1).padStart(2, "0") }))
+      .map((s) =>
+        nextStepsCopyVariant === "test" && s.key === "vip_trial"
+          ? {
+              ...s,
+              title: "Book Your Implementation Call",
+              description:
+                "As part of our mission to make sales education accessible to ALL - we are now hosting free coaching calls to help you use the Impact resources.",
+              mobileDescription: undefined,
+              cta: "Claim My Free Call →",
+            }
+          : s
+      );
     const bucketLabels: Record<string, string> = {
       new_to_workforce: "brand new to the game",
       career_switcher: "switching into sales",
@@ -1174,8 +1178,10 @@ export default function OnboardingFlow({
       setCompletedSteps(newCompleted);
       posthog.capture("step_completed", {
         step_index: i,
+        step_key: steps[i].key,
         step_title: steps[i].title,
         bucket: selectedBucket,
+        variant: nextStepsCopyVariant,
         all_completed: newCompleted.size >= steps.length,
       });
       if (newCompleted.size >= steps.length) fireConfetti();
