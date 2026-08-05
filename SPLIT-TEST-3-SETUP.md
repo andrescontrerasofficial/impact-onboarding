@@ -76,15 +76,24 @@ Test-arm booking links, chosen by the page-1 avatar bucket:
 3. **Primary metric** — Funnel, `Step 2 click rate (of page-4 viewers)`
    - Step 1: `onboarding_page_view` where `page_name` = `next_steps`
    - Step 2: `step_completed` where `step_key` = `vip_trial`
-   - Conversion window: 1 day
+   - Conversion window: 7 days. This is per-person time from step 1 to step 2,
+     not the analysis period. The click is in-session so almost all conversions
+     happen in seconds; 7 days is headroom for return visits. Whatever you pick
+     applies to both arms, so it cannot bias the comparison — it only shifts the
+     absolute percentage.
    - Order: Sequential (**not** strict order)
    - Denominator is page-4 viewers, because a funnel only counts people who
      complete step 1. Both booking links count together here — that's the point.
 
-4. **Secondary metrics** — same step 1 in both
-   - Step 2: `step_completed` where `step_key` = `discord` — catches
-     cannibalisation of card 01.
+4. **Secondary metric** — same step 1
    - Step 2: `step_completed` where `all_completed` = `true` — full completion rate.
+
+   Optional, deliberately left out of the initial setup: step 2 =
+   `step_completed` where `step_key` = `discord`. Card 02 is visible (dimmed)
+   while locked, and card 01 must be clicked before card 02 unlocks, so a more
+   compelling card 02 could raise Discord clicks. If the primary result is
+   surprising, add this metric then — PostHog computes it retroactively over the
+   whole experiment period, so nothing is lost by skipping it now.
 
 5. **Save as draft. Do not launch.**
 
@@ -100,9 +109,16 @@ Use a standalone insight:
 - Insights → New → **Trends**
 - Event: `step_completed`
 - Filter: `step_key` = `vip_trial`
-- Filter: `$feature/next-steps-call-copy-variant` = `test`
-- Breakdown by → Event property → `booking_link`
+- Filter: `variant` = `test` (an **Event property**, not a feature flag)
+- Breakdown by → **Event property** → `booking_link` — not "Event", which groups
+  by event name and tells you nothing
 - View as table or pie
+
+Use the plain `variant` property rather than
+`$feature/next-steps-call-copy-variant`. The `$feature/...` property is only
+stamped on events while the flag is live, so it does not exist at all before
+launch and cannot be selected. `variant` also records what the user was actually
+shown, which is the truer attribution.
 
 Baseline for comparison: same breakdown on `onboarding_page_view`
 (`page_name` = `next_steps`) broken down by `bucket`. If experienced users are a
